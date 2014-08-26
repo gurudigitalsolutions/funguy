@@ -74,8 +74,6 @@
     <Compile Include="Map.cs" />
     <Compile Include="TexLib.cs" />
     <Compile Include="Player.cs" />
-    <None Include="Resources\PNGs\TileSets\default\lava1.png" />
-    <None Include="Resources\PNGs\TileSets\default\rocks1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
@@ -86,11 +84,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Resources\PNGs\Characters\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PNGs\TileSets\default\textures.txt" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\Tux.png" />
     <EmbeddedResource Include="Resources\PNGs\TileSets\default\grass1.png" />
     <EmbeddedResource Include="Resources\PNGs\TileSets\default\water1.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\lava1.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\rocks1.png" />
+    <EmbeddedResource Include="Resources\PNGs\Characters\Tux.png" />
+    <EmbeddedResource Include="Resources\PNGs\Characters\editorsquare.png" />
+    <EmbeddedResource Include="Resources\PNGs\Characters\textures.txt" />
   </ItemGroup>
 </Project>

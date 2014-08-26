@@ -9,6 +9,7 @@ using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
 using FunGuy;
+using System.Collections.Generic;
 
 namespace StarterKit
 {
@@ -17,6 +18,11 @@ namespace StarterKit
 		public FunGuy.Map TheMap;
 		public FunGuy.Player ThePlayer;
 		public int TimeStamp;
+
+		public static int GameModeGame = 0;
+		public static int GameModeEditor = 1;
+
+		public int GameMode = GameModeGame;
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
 		public Game ()
@@ -44,11 +50,15 @@ namespace StarterKit
 
 			TheMap = new Map ("Default", "default", 64, 64);
 
-			for (int y = 0; y < TheMap.Width; y++) {
-				if (y > 20 && 40 > y) {
-					TheMap.Coordinates [y, 28] = -1;
+			for (int x = 0; x < TheMap.Width; x++) {
+				if (x > 20 && 40 > x) {
+					TheMap.Coordinates [x, 28] = -1;
+				} else if (x > 0 && 10 > x) {
+					TheMap.Coordinates [x, 1] = -2;
+				} else if (x > 65 && 64 > x) {
+					TheMap.Coordinates [x, 62] = -2;
 				} else {
-					TheMap.Coordinates [y, 28] = 0;
+					TheMap.Coordinates [x, 28] = 0;
 				}
 			}
 		}
@@ -81,10 +91,22 @@ namespace StarterKit
 			if (Keyboard [Key.Escape])
 				Exit ();
 
+			if (Keyboard [Key.Space]
+				&& ThePlayer.CanMove ()) {
+
+				if (GameMode == GameModeGame) {
+					GameMode = GameModeEditor;
+				} else {
+					if (TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] > -1) {
+						GameMode = GameModeGame;
+					}
+				}
+			}
+
 			if (Keyboard [Key.Up]) {
 				if (ThePlayer.WorldY + 1 < TheMap.Height
 					&& ThePlayer.CanMove ()
-					&& TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY + 1] > -1) {
+					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY + 1] > -1)) {
 					ThePlayer.WorldY++;
 				}
 			}
@@ -92,7 +114,7 @@ namespace StarterKit
 			if (Keyboard [Key.Down]) {
 				if (ThePlayer.WorldY > 0
 					&& ThePlayer.CanMove ()
-					&& TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY - 1] > -1) {
+					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY - 1] > -1)) {
 					ThePlayer.WorldY--;
 				}
 			}
@@ -100,7 +122,7 @@ namespace StarterKit
 			if (Keyboard [Key.Left]) {
 				if (ThePlayer.WorldX > 0
 					&& ThePlayer.CanMove ()
-					&& TheMap.Coordinates [ThePlayer.WorldX - 1, ThePlayer.WorldY] > -1) {
+					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX - 1, ThePlayer.WorldY] > -1)) {
 					ThePlayer.WorldX--;
 				}
 			}
@@ -108,8 +130,64 @@ namespace StarterKit
 			if (Keyboard [Key.Right]) {
 				if (ThePlayer.WorldX + 1 < TheMap.Width
 					&& ThePlayer.CanMove ()
-					&& TheMap.Coordinates [ThePlayer.WorldX + 1, ThePlayer.WorldY] > -1) {
+					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX + 1, ThePlayer.WorldY] > -1)) {
 					ThePlayer.WorldX++;
+				}
+			}
+
+			if (GameMode == GameModeEditor
+				&& Keyboard [Key.Tab] && !Keyboard [Key.ShiftLeft]
+				&& ThePlayer.CanMove ()) {
+
+
+				int firstnum = -31415;
+				bool snagnext = false;
+				bool gotit = false;
+
+				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs) {
+					if (firstnum == -31415) {
+						firstnum = kvp.Key;
+					}
+					if (snagnext) {
+						TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = kvp.Key;
+						gotit = true;
+						snagnext = false;
+					} else if (kvp.Key == TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY]) {
+						snagnext = true;
+					}
+				}
+
+				if (!gotit) {
+					TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = firstnum;
+				}
+			}
+
+			if (GameMode == GameModeEditor
+				&& Keyboard [Key.Tab] && (Keyboard [Key.ShiftLeft] || Keyboard [Key.LShift])
+				&& ThePlayer.CanMove ()) {
+
+
+				int lastnum = -31415;
+				int prevnum = 0;
+				bool snagnext = false;
+				bool gotit = false;
+				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs) {
+
+					lastnum = kvp.Key;
+					if (snagnext) {
+						TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = prevnum;
+						gotit = true;
+						snagnext = false;
+					} else if (kvp.Key == TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY]) {
+						//prevnum = kvp.Key;
+						snagnext = true;
+					}
+					prevnum = lastnum;
+
+				}
+
+				if (!gotit) {
+					TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = lastnum;
 				}
 			}
 		}
@@ -152,13 +230,13 @@ namespace StarterKit
 					GL.Normal3 (-1.0f, 0.0f, 0.0f);
 
 
-					GL.TexCoord2 (0.0f, 0.0f);
-					GL.Vertex3 ((float)x, (float)y, 4.0f);
-					GL.TexCoord2 (1.0f, 0.0f);
-					GL.Vertex3 ((float)x + 1, (float)y, 4.0f);
-					GL.TexCoord2 (1.0f, 1.0f);
-					GL.Vertex3 ((float)x + 1, (float)y + 1, 4.0f);
 					GL.TexCoord2 (0.0f, 1.0f);
+					GL.Vertex3 ((float)x, (float)y, 4.0f);
+					GL.TexCoord2 (1.0f, 1.0f);
+					GL.Vertex3 ((float)x + 1, (float)y, 4.0f);
+					GL.TexCoord2 (1.0f, 0.0f);
+					GL.Vertex3 ((float)x + 1, (float)y + 1, 4.0f);
+					GL.TexCoord2 (0.0f, 0.0f);
 					GL.Vertex3 ((float)x, (float)y + 1, 4.0f);
 
 					GL.End ();
@@ -166,20 +244,42 @@ namespace StarterKit
 
 			}
 
-			GL.BindTexture (TextureTarget.Texture2D, TheMap.TextureSetIDs [420]);
 
-			GL.Begin (BeginMode.Quads);
-			GL.Normal3 (-1.0f, 0.0f, 0.0f);
+			//
+			//	Draw the character
+			//
+
+			if (GameMode == GameModeGame) {
+				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [1]);
+				GL.Begin (BeginMode.Quads);
+				GL.Normal3 (-1.0f, 0.0f, 0.0f);
 
 
-			GL.TexCoord2 (0.0f, 1.0f);
-			GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
-			GL.TexCoord2 (1.0f, 1.0f);
-			GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY - 0.1f, 4.05f);
-			GL.TexCoord2 (1.0f, 0.0f);
-			GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 0.9f, 5.05f);
-			GL.TexCoord2 (0.0f, 0.0f);
-			GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 5.05f);
+				GL.TexCoord2 (0.0f, 1.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2 (1.0f, 1.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY - 0.1f, 4.05f);
+				GL.TexCoord2 (1.0f, 0.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 0.9f, 5.05f);
+				GL.TexCoord2 (0.0f, 0.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 5.05f);
+
+			} else {
+				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [0]);
+				GL.Begin (BeginMode.Quads);
+				GL.Normal3 (-1.0f, 0.0f, 0.0f);
+
+
+				GL.TexCoord2 (0.0f, 1.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2 (1.0f, 1.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2 (1.0f, 0.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 1f, 4.05f);
+				GL.TexCoord2 (0.0f, 0.0f);
+				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 4.05f);
+			}
+
 
 			GL.End ();
 
