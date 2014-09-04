@@ -19,6 +19,8 @@ namespace StarterKit
 		public FunGuy.Player ThePlayer;
 		public int TimeStamp;
 
+		public int EffectStep = 0;
+
 		public static int GameModeGame = 0;
 		public static int GameModeEditor = 1;
 
@@ -48,7 +50,8 @@ namespace StarterKit
 			ThePlayer.WorldX = 32;
 			ThePlayer.WorldY = 32;
 
-			TheMap = new Map ("Default", "default", 64, 64);
+			TheMap = Map.Load("/tmp/funguymap.map");
+			/*TheMap = new Map ("Default", "default", 64, 64);
 
 			for (int x = 0; x < TheMap.Width; x++) {
 				if (x > 20 && 40 > x) {
@@ -60,7 +63,7 @@ namespace StarterKit
 				} else {
 					TheMap.Coordinates [x, 28] = 0;
 				}
-			}
+			}*/
 		}
 
 		/// <summary>
@@ -101,6 +104,12 @@ namespace StarterKit
 						GameMode = GameModeGame;
 					}
 				}
+			}
+
+			if(Keyboard[Key.S] && ThePlayer.CanMove())
+			{
+				TheMap.Save();
+				Console.WriteLine("Map saved");
 			}
 
 			if (Keyboard [Key.Up]) {
@@ -222,6 +231,9 @@ namespace StarterKit
 //			GL.End ();
 
 
+
+
+
 			for (int x = 0; x < TheMap.Width; x++) {
 				for (int y = 0; y < TheMap.Height; y++) {
 					GL.BindTexture (TextureTarget.Texture2D, TheMap.TextureSetIDs [TheMap.Coordinates [x, y]]);
@@ -244,13 +256,14 @@ namespace StarterKit
 
 			}
 
-
 			//
 			//	Draw the character
 			//
 
 			if (GameMode == GameModeGame) {
 				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [1]);
+				//GL.BindTexture(TextureTarget.Texture2D, TheMap.Textures["alpha"]);
+				//GL.BindTexture(TextureTarget.Texture2D, TheMap.YellowFadeTextures[EffectStep]);
 				GL.Begin (BeginMode.Quads);
 				GL.Normal3 (-1.0f, 0.0f, 0.0f);
 
@@ -266,6 +279,8 @@ namespace StarterKit
 
 			} else {
 				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [0]);
+				//GL.BindTexture(TextureTarget.Texture2D, TheMap.Textures["alpha"]);
+				//GL.BindTexture(TextureTarget.Texture2D, TheMap.YellowFadeTextures[EffectStep]);
 				GL.Begin (BeginMode.Quads);
 				GL.Normal3 (-1.0f, 0.0f, 0.0f);
 
@@ -282,6 +297,9 @@ namespace StarterKit
 
 
 			GL.End ();
+
+			EffectStep++;
+			if(EffectStep >= 64) { EffectStep = 0; }
 
 //			GL.BindTexture (TextureTarget.Texture2D, TheMap.Textures ["grass"]);
 //

@@ -2,15 +2,15 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Source/QuickStart/Game.cs">
     <Files>
-      <File FileName="Source/QuickStart/Game.cs" Line="95" Column="14" />
-      <File FileName="Source/QuickStart/Map.cs" Line="36" Column="10" />
+      <File FileName="Source/QuickStart/Game.cs" Line="1" Column="1" />
+      <File FileName="Source/QuickStart/Map.cs" Line="24" Column="86" />
       <File FileName="Source/QuickStart/Resources/PNGs/TileSets/default/textures.txt" Line="3" Column="1" />
       <File FileName="Source/QuickStart/TexLib.cs" Line="43" Column="5" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="FunGuy" expanded="True">
+          <Node name="FunGuy" expanded="True" selected="True">
             <Node name="Resources" expanded="True">
               <Node name="PNGs" expanded="True">
                 <Node name="TileSets" expanded="True">
@@ -18,7 +18,6 @@
                 </Node>
               </Node>
             </Node>
-            <Node name="Game.cs" selected="True" />
           </Node>
         </State>
       </Pad>
