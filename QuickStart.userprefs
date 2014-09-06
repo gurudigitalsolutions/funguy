@@ -2,17 +2,20 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Source/QuickStart/Game.cs">
     <Files>
-      <File FileName="Source/QuickStart/Game.cs" Line="1" Column="1" />
-      <File FileName="Source/QuickStart/Map.cs" Line="24" Column="86" />
-      <File FileName="Source/QuickStart/Resources/PNGs/TileSets/default/textures.txt" Line="3" Column="1" />
-      <File FileName="Source/QuickStart/TexLib.cs" Line="43" Column="5" />
+      <File FileName="Source/QuickStart/Game.cs" Line="175" Column="6" />
+      <File FileName="Source/QuickStart/Map.cs" Line="20" Column="1" />
+      <File FileName="Source/QuickStart/Resources/PNGs/TileSets/default/textures.txt" Line="5" Column="1" />
+      <File FileName="Source/QuickStart/TexLib.cs" Line="63" Column="4" />
+      <File FileName="Source/QuickStart/Player.cs" Line="35" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="FunGuy" expanded="True" selected="True">
+          <Node name="FunGuy" expanded="True">
+            <Node name="References" selected="True" />
             <Node name="Resources" expanded="True">
               <Node name="PNGs" expanded="True">
+                <Node name="Characters" expanded="True" />
                 <Node name="TileSets" expanded="True">
                   <Node name="default" expanded="True" />
                 </Node>

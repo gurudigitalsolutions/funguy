@@ -19,15 +19,13 @@ namespace StarterKit
 		public FunGuy.Player ThePlayer;
 		public int TimeStamp;
 
-		public int EffectStep = 0;
-
 		public static int GameModeGame = 0;
 		public static int GameModeEditor = 1;
 
 		public int GameMode = GameModeGame;
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
-		public Game ()
+		public Game()
             : base(800, 600, GraphicsMode.Default, "OpenTK Quick Start Sample")
 		{
 			VSync = VSyncMode.On;
@@ -35,35 +33,39 @@ namespace StarterKit
 
 		/// <summary>Load resources here.</summary>
 		/// <param name="e">Not used.</param>
-		protected override void OnLoad (EventArgs e)
+		protected override void OnLoad(EventArgs e)
 		{
-			base.OnLoad (e);
+			base.OnLoad(e);
 
-			GL.ClearColor (0.1f, 0.2f, 0.5f, 0.0f);
-			GL.Enable (EnableCap.DepthTest);
+			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
+			GL.Enable(EnableCap.DepthTest);
 
-			TexLib.InitTexturing ();
+			TexLib.InitTexturing();
 
 			TimeStamp = Environment.TickCount;
 
-			ThePlayer = new Player ();
+			ThePlayer = new Player();
 			ThePlayer.WorldX = 32;
 			ThePlayer.WorldY = 32;
 
-			TheMap = Map.Load("/tmp/funguymap.map");
-			/*TheMap = new Map ("Default", "default", 64, 64);
+			TheMap = new Map("Default", "default", 64, 64);
 
-			for (int x = 0; x < TheMap.Width; x++) {
-				if (x > 20 && 40 > x) {
-					TheMap.Coordinates [x, 28] = -1;
-				} else if (x > 0 && 10 > x) {
-					TheMap.Coordinates [x, 1] = -2;
-				} else if (x > 65 && 64 > x) {
-					TheMap.Coordinates [x, 62] = -2;
-				} else {
-					TheMap.Coordinates [x, 28] = 0;
+			for (int x = 0; x < TheMap.Width; x++)
+			{
+				if (x > 20 && 40 > x)
+				{
+					TheMap.Coordinates[x, 28] = -1;
+				} else if (x > 0 && 10 > x)
+				{
+					TheMap.Coordinates[x, 1] = -2;
+				} else if (x > 65 && 64 > x)
+				{
+					TheMap.Coordinates[x, 62] = -2;
+				} else
+				{
+					TheMap.Coordinates[x, 28] = 0;
 				}
-			}*/
+			}
 		}
 
 		/// <summary>
@@ -72,122 +74,140 @@ namespace StarterKit
 		/// along when the aspect ratio of your window).
 		/// </summary>
 		/// <param name="e">Not used.</param>
-		protected override void OnResize (EventArgs e)
+		protected override void OnResize(EventArgs e)
 		{
-			base.OnResize (e);
+			base.OnResize(e);
 
-			GL.Viewport (ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
+			GL.Viewport(ClientRectangle.X, ClientRectangle.Y, ClientRectangle.Width, ClientRectangle.Height);
 
-			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView ((float)Math.PI / 4, Width / (float)Height, 1.0f, 64.0f);
-			GL.MatrixMode (MatrixMode.Projection);
-			GL.LoadMatrix (ref projection);
+			Matrix4 projection = Matrix4.CreatePerspectiveFieldOfView((float)Math.PI / 4, Width / (float)Height, 1.0f, 64.0f);
+			GL.MatrixMode(MatrixMode.Projection);
+			GL.LoadMatrix(ref projection);
 		}
 
 		/// <summary>
 		/// Called when it is time to setup the next frame. Add you game logic here.
 		/// </summary>
 		/// <param name="e">Contains timing information for framerate independent logic.</param>
-		protected override void OnUpdateFrame (FrameEventArgs e)
+		protected override void OnUpdateFrame(FrameEventArgs e)
 		{
-			base.OnUpdateFrame (e);
+			base.OnUpdateFrame(e);
 
-			if (Keyboard [Key.Escape])
-				Exit ();
+			if (Keyboard[Key.Escape])
+			{
+				Exit();
+			}
 
-			if (Keyboard [Key.Space]
-				&& ThePlayer.CanMove ()) {
+			if (Keyboard[Key.Space]
+				&& ThePlayer.CanMove())
+			{
 
-				if (GameMode == GameModeGame) {
+				if (GameMode == GameModeGame)
+				{
 					GameMode = GameModeEditor;
-				} else {
-					if (TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] > -1) {
+				} else
+				{
+					if (TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY] > -1)
+					{
 						GameMode = GameModeGame;
 					}
 				}
 			}
 
-			if(Keyboard[Key.S] && ThePlayer.CanMove())
+			if (Keyboard[Key.Up])
 			{
-				TheMap.Save();
-				Console.WriteLine("Map saved");
-			}
-
-			if (Keyboard [Key.Up]) {
 				if (ThePlayer.WorldY + 1 < TheMap.Height
-					&& ThePlayer.CanMove ()
-					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY + 1] > -1)) {
+					&& ThePlayer.CanMove()
+					&& (GameMode == GameModeEditor || TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY + 1] > -1))
+				{
 					ThePlayer.WorldY++;
 				}
 			}
 
-			if (Keyboard [Key.Down]) {
+			if (Keyboard[Key.Down])
+			{
 				if (ThePlayer.WorldY > 0
-					&& ThePlayer.CanMove ()
-					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY - 1] > -1)) {
+					&& ThePlayer.CanMove()
+					&& (GameMode == GameModeEditor || TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY - 1] > -1))
+				{
 					ThePlayer.WorldY--;
 				}
 			}
 
-			if (Keyboard [Key.Left]) {
+			if (Keyboard[Key.Left])
+			{
 				if (ThePlayer.WorldX > 0
-					&& ThePlayer.CanMove ()
-					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX - 1, ThePlayer.WorldY] > -1)) {
+					&& ThePlayer.CanMove()
+					&& (GameMode == GameModeEditor || TheMap.Coordinates[ThePlayer.WorldX - 1, ThePlayer.WorldY] > -1))
+				{
 					ThePlayer.WorldX--;
 				}
 			}
 
-			if (Keyboard [Key.Right]) {
+			if (Keyboard[Key.Right])
+			{
 				if (ThePlayer.WorldX + 1 < TheMap.Width
-					&& ThePlayer.CanMove ()
-					&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.WorldX + 1, ThePlayer.WorldY] > -1)) {
+					&& ThePlayer.CanMove()
+					&& (GameMode == GameModeEditor || TheMap.Coordinates[ThePlayer.WorldX + 1, ThePlayer.WorldY] > -1))
+				{
 					ThePlayer.WorldX++;
 				}
 			}
 
 			if (GameMode == GameModeEditor
-				&& Keyboard [Key.Tab] && !Keyboard [Key.ShiftLeft]
-				&& ThePlayer.CanMove ()) {
+				&& Keyboard[Key.Tab] && !Keyboard[Key.ShiftLeft]
+				&& ThePlayer.CanMove())
+			{
 
 
 				int firstnum = -31415;
 				bool snagnext = false;
 				bool gotit = false;
 
-				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs) {
-					if (firstnum == -31415) {
+				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs)
+				{
+					if (firstnum == -31415)
+					{
 						firstnum = kvp.Key;
 					}
-					if (snagnext) {
-						TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = kvp.Key;
+					if (snagnext)
+					{
+						TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY] = kvp.Key;
 						gotit = true;
 						snagnext = false;
-					} else if (kvp.Key == TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY]) {
+					} else if (kvp.Key == TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY])
+					{
 						snagnext = true;
 					}
 				}
 
-				if (!gotit) {
-					TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = firstnum;
+				if (!gotit)
+				{
+					TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY] = firstnum;
 				}
 			}
 
 			if (GameMode == GameModeEditor
-				&& Keyboard [Key.Tab] && (Keyboard [Key.ShiftLeft] || Keyboard [Key.LShift])
-				&& ThePlayer.CanMove ()) {
+				&& Keyboard[Key.Tab] && (Keyboard[Key.ShiftLeft] || Keyboard[Key.LShift])
+				&& ThePlayer.CanMove())
+			{
 
 
 				int lastnum = -31415;
 				int prevnum = 0;
 				bool snagnext = false;
 				bool gotit = false;
-				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs) {
+				foreach (System.Collections.Generic.KeyValuePair<int, int> kvp in TheMap.TextureSetIDs)
+				{
 
 					lastnum = kvp.Key;
-					if (snagnext) {
-						TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = prevnum;
+					if (snagnext)
+					{
+						TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY] = prevnum;
 						gotit = true;
 						snagnext = false;
-					} else if (kvp.Key == TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY]) {
+					} else if (kvp.Key == TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY])
+					{
 						//prevnum = kvp.Key;
 						snagnext = true;
 					}
@@ -195,8 +215,9 @@ namespace StarterKit
 
 				}
 
-				if (!gotit) {
-					TheMap.Coordinates [ThePlayer.WorldX, ThePlayer.WorldY] = lastnum;
+				if (!gotit)
+				{
+					TheMap.Coordinates[ThePlayer.WorldX, ThePlayer.WorldY] = lastnum;
 				}
 			}
 		}
@@ -205,19 +226,19 @@ namespace StarterKit
 		/// Called when it is time to render the next frame. Add your rendering code here.
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
-		protected override void OnRenderFrame (FrameEventArgs e)
+		protected override void OnRenderFrame(FrameEventArgs e)
 		{
-			base.OnRenderFrame (e);
+			base.OnRenderFrame(e);
 
-			GL.Clear (ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			//Matrix4 modelview = Matrix4.LookAt (Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-			Matrix4 modelview = Matrix4.LookAt (new Vector3 ((float)ThePlayer.WorldX + 0.5f, (float)ThePlayer.WorldY - 5.5f, (float)16),  // Camera
-			                                   new Vector3 ((float)ThePlayer.WorldX + 0.5f, (float)ThePlayer.WorldY + 0.5f, (float)4),	// Look At
+			Matrix4 modelview = Matrix4.LookAt(new Vector3((float)ThePlayer.WorldX + 0.5f, (float)ThePlayer.WorldY - 5.5f, (float)16),  // Camera
+			                                   new Vector3((float)ThePlayer.WorldX + 0.5f, (float)ThePlayer.WorldY + 0.5f, (float)4),	// Look At
 			                                   Vector3.UnitY);
 
-			GL.MatrixMode (MatrixMode.Modelview);
-			GL.LoadMatrix (ref modelview);
+			GL.MatrixMode(MatrixMode.Modelview);
+			GL.LoadMatrix(ref modelview);
 
 //			GL.Begin (BeginMode.Triangles);
 //
@@ -231,75 +252,71 @@ namespace StarterKit
 //			GL.End ();
 
 
+			for (int x = 0; x < TheMap.Width; x++)
+			{
+				for (int y = 0; y < TheMap.Height; y++)
+				{
+					GL.BindTexture(TextureTarget.Texture2D, TheMap.TextureSetIDs[TheMap.Coordinates[x, y]]);
+//					Console.WriteLine (TheMap.TextureSetIDs [TheMap.Coordinates [x, y]]);
+
+					GL.Begin(BeginMode.Quads);
+					GL.Normal3(-1.0f, 0.0f, 0.0f);
 
 
+					GL.TexCoord2(0.0f, 1.0f);
+					GL.Vertex3((float)x, (float)y, 4.0f);
+					GL.TexCoord2(1.0f, 1.0f);
+					GL.Vertex3((float)x + 1, (float)y, 4.0f);
+					GL.TexCoord2(1.0f, 0.0f);
+					GL.Vertex3((float)x + 1, (float)y + 1, 4.0f);
+					GL.TexCoord2(0.0f, 0.0f);
+					GL.Vertex3((float)x, (float)y + 1, 4.0f);
 
-			for (int x = 0; x < TheMap.Width; x++) {
-				for (int y = 0; y < TheMap.Height; y++) {
-					GL.BindTexture (TextureTarget.Texture2D, TheMap.TextureSetIDs [TheMap.Coordinates [x, y]]);
-
-					GL.Begin (BeginMode.Quads);
-					GL.Normal3 (-1.0f, 0.0f, 0.0f);
-
-
-					GL.TexCoord2 (0.0f, 1.0f);
-					GL.Vertex3 ((float)x, (float)y, 4.0f);
-					GL.TexCoord2 (1.0f, 1.0f);
-					GL.Vertex3 ((float)x + 1, (float)y, 4.0f);
-					GL.TexCoord2 (1.0f, 0.0f);
-					GL.Vertex3 ((float)x + 1, (float)y + 1, 4.0f);
-					GL.TexCoord2 (0.0f, 0.0f);
-					GL.Vertex3 ((float)x, (float)y + 1, 4.0f);
-
-					GL.End ();
+					GL.End();
 				}
 
 			}
+
 
 			//
 			//	Draw the character
 			//
 
-			if (GameMode == GameModeGame) {
-				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [1]);
-				//GL.BindTexture(TextureTarget.Texture2D, TheMap.Textures["alpha"]);
-				//GL.BindTexture(TextureTarget.Texture2D, TheMap.YellowFadeTextures[EffectStep]);
-				GL.Begin (BeginMode.Quads);
-				GL.Normal3 (-1.0f, 0.0f, 0.0f);
+			if (GameMode == GameModeGame)
+			{
+				GL.BindTexture(TextureTarget.Texture2D, ThePlayer.TextureSetIDs[1]);
+				GL.Begin(BeginMode.Quads);
+				GL.Normal3(-1.0f, 0.0f, 0.0f);
 
 
-				GL.TexCoord2 (0.0f, 1.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
-				GL.TexCoord2 (1.0f, 1.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY - 0.1f, 4.05f);
-				GL.TexCoord2 (1.0f, 0.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 0.9f, 5.05f);
-				GL.TexCoord2 (0.0f, 0.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 5.05f);
+				GL.TexCoord2(0.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2(1.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY - 0.1f, 4.05f);
+				GL.TexCoord2(1.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 0.9f, 5.05f);
+				GL.TexCoord2(0.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 5.05f);
 
-			} else {
-				GL.BindTexture (TextureTarget.Texture2D, ThePlayer.TextureSetIDs [0]);
-				//GL.BindTexture(TextureTarget.Texture2D, TheMap.Textures["alpha"]);
-				//GL.BindTexture(TextureTarget.Texture2D, TheMap.YellowFadeTextures[EffectStep]);
-				GL.Begin (BeginMode.Quads);
-				GL.Normal3 (-1.0f, 0.0f, 0.0f);
+			} else
+			{
+				GL.BindTexture(TextureTarget.Texture2D, ThePlayer.TextureSetIDs[0]);
+				GL.Begin(BeginMode.Quads);
+				GL.Normal3(-1.0f, 0.0f, 0.0f);
 
 
-				GL.TexCoord2 (0.0f, 1.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
-				GL.TexCoord2 (1.0f, 1.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY, 4.05f);
-				GL.TexCoord2 (1.0f, 0.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 1f, 4.05f);
-				GL.TexCoord2 (0.0f, 0.0f);
-				GL.Vertex3 ((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 4.05f);
+				GL.TexCoord2(0.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.WorldX, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2(1.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY, 4.05f);
+				GL.TexCoord2(1.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.WorldX + 1, (float)ThePlayer.WorldY + 1f, 4.05f);
+				GL.TexCoord2(0.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.WorldX, (float)ThePlayer.WorldY + 1, 4.05f);
 			}
 
 
-			GL.End ();
-
-			EffectStep++;
-			if(EffectStep >= 64) { EffectStep = 0; }
+			GL.End();
 
 //			GL.BindTexture (TextureTarget.Texture2D, TheMap.Textures ["grass"]);
 //
@@ -320,20 +337,22 @@ namespace StarterKit
 
 
 
-			SwapBuffers ();
+			SwapBuffers();
 		}
 
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
-		[STAThread]
-		static void Main ()
+//		[STAThread]
+		static void Main()
 		{
+			Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly());
 			// The 'using' idiom guarantees proper resource cleanup.
 			// We request 30 UpdateFrame events per second, and unlimited
 			// RenderFrame events (as fast as the computer can handle).
-			using (Game game = new Game()) {
-				game.Run (30.0);
+			using (Game game = new Game())
+			{
+				game.Run(30.0);
 			}
 		}
 

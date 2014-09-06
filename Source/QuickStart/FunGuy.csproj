@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -9,7 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>QuickStart</AssemblyName>
+    <AssemblyName>FunGuy</AssemblyName>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -22,6 +22,7 @@
     </StartArguments>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <BaseDirectory>..\..</BaseDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <BaseAddress>285212672</BaseAddress>
@@ -33,11 +34,12 @@
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\QuickStart\Debug\</OutputPath>
+    <OutputPath>..\..\Bin</OutputPath>
     <RegisterForComInterop>False</RegisterForComInterop>
     <RemoveIntegerChecks>False</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <BaseAddress>285212672</BaseAddress>
@@ -48,11 +50,12 @@
     </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Binaries\QuickStart\Release\</OutputPath>
+    <OutputPath>..\..\Bin</OutputPath>
     <RegisterForComInterop>False</RegisterForComInterop>
     <RemoveIntegerChecks>False</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -64,16 +67,15 @@
   <ItemGroup>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Game.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <None Include="..\..\Binaries\OpenTK\Release\OpenTK.dll" />
     <None Include="..\..\Binaries\OpenTK\Release\OpenTK.dll.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <Compile Include="Map.cs" />
-    <Compile Include="TexLib.cs" />
     <Compile Include="Player.cs" />
+    <Compile Include="TexLib.cs" />
+    <Compile Include="Texture.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Map.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
@@ -83,18 +85,38 @@
     </PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\PNGs\Characters\" />
+    <EmbeddedResource Include="..\..\Resources\PNGs\TileSets\default\grass1.png">
+      <LogicalName>grass1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\TileSets\default\water1.png">
+      <LogicalName>water1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\TileSets\default\lava1.png">
+      <LogicalName>lava1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\TileSets\default\rocks1.png">
+      <LogicalName>rocks1.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\Characters\Tux.png">
+      <LogicalName>Tux.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\Characters\editorsquare.png">
+      <LogicalName>editorsquare.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\Characters\Characters.txt">
+      <LogicalName>Characters.txt</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="..\..\Resources\PNGs\TileSets\default\Default.txt">
+      <LogicalName>Default.txt</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\textures.txt" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\grass1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\water1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\lava1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\rocks1.png" />
-    <EmbeddedResource Include="Resources\PNGs\Characters\Tux.png" />
-    <EmbeddedResource Include="Resources\PNGs\Characters\editorsquare.png" />
-    <EmbeddedResource Include="Resources\PNGs\Characters\textures.txt" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\dirt1.png" />
-  </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileName" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

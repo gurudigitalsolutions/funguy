@@ -1,0 +1,17 @@
+# Textures file for characters
+# Format: [value] [Name]
+# [value] how the texture relates to the map
+# [name] name of the png file
+# [index] 
+#	0 = default/front view
+#	1 = back view
+#	2 = left view
+#   3 = right view
+# use value of 1 for the default value of texture and value 0 for the editor texture
+0 Tux 0
+0 Tux_Back 1
+-1 editorsquare 0
+-2 arrow_down 0
+-2 arrow_up 1
+-2 arrow_left 2
+-2 arrow_right 3

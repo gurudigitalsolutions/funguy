@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
@@ -9,7 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>QuickStart</AssemblyName>
+    <AssemblyName>FunGuy</AssemblyName>
     <DefaultClientScript>JScript</DefaultClientScript>
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
@@ -17,7 +17,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>
     </AppDesignerFolder>
-    <RootNamespace>QuickStart</RootNamespace>
+    <RootNamespace>FunGuy</RootNamespace>
     <StartArguments>
     </StartArguments>
     <FileUpgradeFlags>
@@ -33,11 +33,12 @@
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\QuickStart\Debug\</OutputPath>
+    <OutputPath>Bin\Debug</OutputPath>
     <RegisterForComInterop>False</RegisterForComInterop>
     <RemoveIntegerChecks>False</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <BaseAddress>285212672</BaseAddress>
@@ -48,36 +49,22 @@
     </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\Binaries\QuickStart\Release\</OutputPath>
+    <OutputPath>Bin\Release</OutputPath>
     <RegisterForComInterop>False</RegisterForComInterop>
     <RemoveIntegerChecks>False</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="OpenTK.Compatibility">
-      <HintPath>Binaries\OpenTK\Release\OpenTK.Compatibility.dll</HintPath>
-    </Reference>
     <Reference Include="OpenTK">
-      <HintPath>Binaries\OpenTK\Release\OpenTK.dll</HintPath>
+      <HintPath>Resources\Binaries\OpenTK\Release\OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="OpenTK.GLControl">
-      <HintPath>Binaries\OpenTK\Release\OpenTK.GLControl.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Game.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <None Include="..\..\Binaries\OpenTK\Release\OpenTK.dll" />
-    <None Include="..\..\Binaries\OpenTK\Release\OpenTK.dll.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <Compile Include="Map.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
@@ -86,15 +73,93 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="None" ResourceNamePolicy="FileName" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
   <ItemGroup>
-    <Folder Include="Resources\" />
-    <Folder Include="Resources\PNGs\" />
-    <Folder Include="Resources\PNGs\TileSets\" />
+    <Compile Include="Source\Map.cs" />
+    <Compile Include="Source\Player.cs" />
+    <Compile Include="Source\TexLib.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Source\MapFile.cs" />
+    <Compile Include="Source\MyTexture.cs" />
+    <Compile Include="Source\MyCharacter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\grass.png">
-      <LogicalName>QuickStart.Resources.PNGs.TileSets.default.grass.png</LogicalName>
+    <Folder Include="Resources\" />
+    <Folder Include="Source\" />
+    <Folder Include="Resources\Binaries\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PNGs\Characters\Tux.png" />
+    <EmbeddedResource Include="Resources\PNGs\Characters\editorsquare.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\grass1.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\lava1.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\rocks1.png" />
+    <EmbeddedResource Include="Resources\PNGs\TileSets\default\water1.png" />
+    <EmbeddedResource Include="Resources\maps.txt">
+      <LogicalName>FunGuy.Resources.Maps.maps.txt</LogicalName>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PNGs\TileSets\default\textures.txt" />
+    <EmbeddedResource Include="Resources\PNGs\Characters\Tux_Back.png">
+      <LogicalName>					int index = Int32.Parse(valueNameIndex [2]);</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PNGs\Characters\arrow_right.png">
+      <LogicalName>FunGuy.Resources.PNGs.Characters.arrow.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PNGs\Characters\arrow_up.png">
+      <LogicalName>arrow_up.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PNGs\Characters\arrow_down.png">
+      <LogicalName>arrow_down.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PNGs\Characters\arrow_left.png">
+      <LogicalName>arrow_left.png</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PNGs\Characters\textures.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Binaries\OpenTK\Release\Build.exe" />
+    <None Include="Resources\Binaries\OpenTK\Release\Examples.exe" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.Compatibility.dll" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.Compatibility.dll.config" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.Compatibility.xml" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.GLControl.dll" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.GLControl.xml" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.dll" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.dll.config" />
+    <None Include="Resources\Binaries\OpenTK\Release\OpenTK.xml" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Poem.txt" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Audio\the_ring_that_fell.wav" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\CubeMap_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\CubeMap_VS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\JuliaSet_SM2_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\JuliaSet_SM3_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\JuliaSet_VS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Parallax_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Parallax_VS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Picking_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Picking_VS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Simple_FS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Shaders\Simple_VS.glsl" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\JuliaColorTable.bmp" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\Swizzled Textures License.txt" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\earth-cubemap.dds" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\logo-dark.jpg" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\logo.jpg" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\metal.jpg" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\swizzled-rock-diffuse-height.dds" />
+    <None Include="Resources\Binaries\OpenTK\Release\Data\Textures\swizzled-rock-normal-gloss.dds" />
+    <None Include="Resources\Binaries\QuickStart\Debug\OpenTK.dll" />
+    <None Include="Resources\Binaries\QuickStart\Debug\OpenTK.dll.config" />
+    <None Include="Resources\Binaries\QuickStart\Debug\QuickStart.exe" />
+    <None Include="Resources\Binaries\QuickStart\Debug\QuickStart.exe.mdb" />
+    <None Include="Resources\Binaries\QuickStart\Debug\Binaries\OpenTK\Release\OpenTK.dll.config" />
   </ItemGroup>
 </Project>
