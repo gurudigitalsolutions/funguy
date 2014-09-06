@@ -44,12 +44,11 @@ namespace FunGuy
 
 		private bool LoadTileSet()
 		{
-			string resourcePath = "FunGuy.Resources.PNGs.Characters.textures.txt";
-			Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath));
+			string resourcePath = "Resources/PNGs/Characters";
+			Console.WriteLine("resource path exists: " + File.Exists(resourcePath));
 			try
 			{
-				Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath).ToString());
-				StreamReader sr = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath));
+				StreamReader sr = new StreamReader(resourcePath + "/textures.txt");
 				string fileContents = sr.ReadToEnd();
 
 				foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
@@ -62,8 +61,8 @@ namespace FunGuy
 					string textureName = valueNameIndex [1];
 					int mapValue = Int32.Parse(valueNameIndex [0]);
 					int index = Int32.Parse(valueNameIndex [2]);
-					string resourceID = string.Format("{0}.{1}.png", resourcePath, textureName);
-					int texLibID = TexLib.CreateTextureFromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceID));
+					string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
+					int texLibID = TexLib.CreateTextureFromFile(resourceID);
 					float height = 1.0F;
 					if (mapValue < 0)
 					{

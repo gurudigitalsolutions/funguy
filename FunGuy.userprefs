@@ -3,11 +3,10 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Source/Player.cs">
     <Files>
       <File FileName="Game.cs" Line="320" Column="1" />
-      <File FileName="Source/Player.cs" Line="47" Column="68" />
+      <File FileName="Source/Player.cs" Line="65" Column="49" />
       <File FileName="Source/MyTexture.cs" Line="40" Column="4" />
       <File FileName="Source/MyCharacter.cs" Line="31" Column="15" />
       <File FileName="Source/Map.cs" Line="74" Column="20" />
-      <File FileName="Resources/PNGs/Characters/textures.txt" Line="18" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
