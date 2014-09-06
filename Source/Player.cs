@@ -48,7 +48,7 @@ namespace FunGuy
 			Console.WriteLine("resource path exists: " + File.Exists(resourcePath));
 			try
 			{
-				StreamReader sr = new StreamReader(resourcePath + "/textures.txt");
+				StreamReader sr = new StreamReader(resourcePath + "/characters.txt");
 				string fileContents = sr.ReadToEnd();
 
 				foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))

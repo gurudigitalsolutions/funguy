@@ -3,7 +3,7 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="Source/Player.cs">
     <Files>
       <File FileName="Game.cs" Line="320" Column="1" />
-      <File FileName="Source/Player.cs" Line="65" Column="49" />
+      <File FileName="Source/Player.cs" Line="83" Column="5" />
       <File FileName="Source/MyTexture.cs" Line="40" Column="4" />
       <File FileName="Source/MyCharacter.cs" Line="31" Column="15" />
       <File FileName="Source/Map.cs" Line="74" Column="20" />
@@ -15,15 +15,12 @@
             <Node name="References" expanded="True" />
             <Node name="Resources" expanded="True">
               <Node name="PNGs" expanded="True">
-                <Node name="Characters" expanded="True" />
                 <Node name="TileSets" expanded="True">
                   <Node name="default" expanded="True" />
                 </Node>
               </Node>
             </Node>
-            <Node name="Source" expanded="True">
-              <Node name="Player.cs" selected="True" />
-            </Node>
+            <Node name="Source" expanded="True" />
           </Node>
         </State>
       </Pad>
