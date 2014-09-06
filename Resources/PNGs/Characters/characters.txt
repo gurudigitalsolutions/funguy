@@ -10,6 +10,8 @@
 # use value of 1 for the default value of texture and value 0 for the editor texture
 0 Tux 0
 0 Tux_Back 1
+0 Tux_left 2
+0 Tux_right 3
 -1 editorsquare 0
 -2 arrow_down 0
 -2 arrow_up 1

@@ -94,15 +94,24 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
+    <Folder Include="Resources\PNGs\Characters\" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\grass1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\lava1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\rocks1.png" />
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\water1.png" />
-    <EmbeddedResource Include="Resources\maps.txt">
-      <LogicalName>FunGuy.Resources.Maps.maps.txt</LogicalName>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\PNGs\TileSets\default\textures.txt" />
+    <None Include="Resources\PNGs\TileSets\default\grass1.png" />
+    <None Include="Resources\PNGs\TileSets\default\lava1.png" />
+    <None Include="Resources\PNGs\TileSets\default\rocks1.png" />
+    <None Include="Resources\PNGs\TileSets\default\water1.png" />
+    <None Include="Resources\PNGs\TileSets\default\textures.txt" />
+    <None Include="Resources\maps.txt" />
+    <None Include="Resources\PNGs\Characters\Tux.png" />
+    <None Include="Resources\PNGs\Characters\Tux_Back.png" />
+    <None Include="Resources\PNGs\Characters\Tux_left.png" />
+    <None Include="Resources\PNGs\Characters\Tux_right.png" />
+    <None Include="Resources\PNGs\Characters\arrow_down.png" />
+    <None Include="Resources\PNGs\Characters\arrow_left.png" />
+    <None Include="Resources\PNGs\Characters\arrow_right.png" />
+    <None Include="Resources\PNGs\Characters\arrow_up.png" />
+    <None Include="Resources\PNGs\Characters\characters.txt" />
+    <None Include="Resources\PNGs\Characters\editorsquare.png" />
   </ItemGroup>
 </Project>

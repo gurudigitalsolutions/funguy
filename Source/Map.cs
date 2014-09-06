@@ -186,14 +186,13 @@ namespace FunGuy
 		/// </returns>
 		private bool LoadTileSet()
 		{
-			string resourcePath = string.Format("FunGuy.Resources.PNGs.TileSets.{0}", TileSet);
+			string resourcePath = string.Format("Resources/PNGs/TileSets/{0}", TileSet);
 			int editID = 1;
 			StreamReader sr;
 
 			try
 			{
-				Console.WriteLine(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath + ".textures.txt").ToString());
-				sr = new StreamReader(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath + ".textures.txt"));
+				sr = new StreamReader(resourcePath + "/textures.txt");
 				string fileContents = sr.ReadToEnd();
 
 				foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
@@ -205,8 +204,8 @@ namespace FunGuy
 					string[] numName = line.Trim().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
 					string textureName = numName [1];
 					int mapValue = Int32.Parse(numName [0]);
-					string resourceID = string.Format("{0}.{1}.png", resourcePath, textureName);
-					int texLibID = TexLib.CreateTextureFromStream(System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourceID));
+					string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
+					int texLibID = TexLib.CreateTextureFromFile(resourceID);
 					MyTexture texture = new MyTexture(textureName, mapValue, texLibID, editID);
 					Textures.Add(texture);
 					editID++;
@@ -231,13 +230,12 @@ namespace FunGuy
 		private bool LoadPlayerPosition()
 		{
 			// Resource path from TileSet
-			string resourcePath = "FunGuy.Resources.maps.txt";
+			string resourcePath = "Resources";
 			StreamReader sr;
 
 			try
 			{
-				Stream stream = System.Reflection.Assembly.GetExecutingAssembly().GetManifestResourceStream(resourcePath);
-				sr = new StreamReader(stream);
+				sr = new StreamReader(resourcePath + "/maps.txt");
 
 				// reads stream
 				string fileContents = sr.ReadToEnd();
