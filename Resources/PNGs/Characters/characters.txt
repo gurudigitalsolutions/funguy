@@ -1,5 +1,5 @@
 # Textures file for characters
-# Format: [value] [Name]
+# Format: [value] [Name] [index]
 # [value] how the texture relates to the map
 # [name] name of the png file
 # [index] 
@@ -7,7 +7,7 @@
 #	1 = back view
 #	2 = left view
 #   3 = right view
-# use value of 1 for the default value of texture and value 0 for the editor texture
+# use 0 for the default character texture and anything negative for editor textures
 0 Tux 0
 0 Tux_Back 1
 0 Tux_left 2

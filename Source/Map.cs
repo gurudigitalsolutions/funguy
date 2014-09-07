@@ -1,8 +1,10 @@
 using System;
-
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
+
 
 using OpenTK;
 using OpenTK.Graphics;
@@ -10,7 +12,8 @@ using OpenTK.Graphics.OpenGL;
 
 namespace FunGuy
 {
-	public class Map
+	[Serializable()]
+	public class Map:ISerializable
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FunGuy.Map"/> class.
@@ -42,6 +45,22 @@ namespace FunGuy
 			Console.WriteLine("Loading Map File: {0}", Load());
 		}
 
+		public Map()
+		{
+			new Map("", "default", 64, 64);
+		}
+
+		public Map(SerializationInfo info, StreamingContext ctxt)
+		{
+			Name = (string)info.GetValue("Name", typeof(string));
+			TileSet = (string)info.GetValue("TileSet", typeof(string));
+			Width = (int)info.GetValue("Width", typeof(int));
+			Height = (int)info.GetValue("Height", typeof(int));
+			Coordinates = (int[,])info.GetValue("Coordinates", typeof(int[,]));
+			StartX = (int)info.GetValue("StartX", typeof(int));
+			StartY = (int)info.GetValue("StartY", typeof(int));
+		}
+
 		/// <summary>
 		/// The name.
 		/// </summary>
@@ -65,7 +84,7 @@ namespace FunGuy
 		/// <summary>
 		/// The textures.
 		/// </summary>
-		public List<MyTexture> Textures;
+		public List<MyTexture> Textures = new List<MyTexture>();
 		/// <summary>
 		/// The player x.
 		/// </summary>
@@ -74,6 +93,9 @@ namespace FunGuy
 		/// The player y.
 		/// </summary>
 		public int StartY;
+
+		public int WorldX;
+		public int WorldY;
 		/// <summary>
 		/// Gets the map file.
 		/// </summary>
@@ -84,7 +106,7 @@ namespace FunGuy
 		{
 			get
 			{
-				return string.Format("{0}/{1}.bin", LocalConfigPath, Name);
+				return string.Format("{0}/{1}_{2}.map", LocalConfigPath, WorldX, WorldY);
 			}
 		}
 		/// <summary>
@@ -101,6 +123,28 @@ namespace FunGuy
 			}
 		}
 
+
+		public static Map Loader(string mapFile)
+		{
+			Console.WriteLine("Loading map {0}", mapFile);
+			if (!File.Exists(mapFile))
+			{
+				return null;
+			}
+
+			Map returnMap;
+			FileStream fs = File.Open(mapFile, FileMode.Open);
+			BinaryFormatter bform = new BinaryFormatter();
+			BinaryReader reader = new BinaryReader(fs);
+			reader.BaseStream.Position = 0;
+			returnMap = (Map)bform.Deserialize(fs);
+
+			returnMap.Textures = new List<MyTexture>();
+
+			returnMap.LoadPlayerPosition();
+			returnMap.LoadTileSet();
+			return returnMap;
+		}
 
 		/// <summary>
 		/// Load this instance.
@@ -150,19 +194,17 @@ namespace FunGuy
 		/// </summary>
 		public bool Save()
 		{
-			if (!FindMapFile())
-			{
-				return false;
-			}
-
-			Coordinates [StartX, StartY] = 0;
+//			if (!FindMapFile())
+//			{
+//				return false;
+//			}
 
 			FileStream fs;
 			try
 			{
 				BinaryFormatter bf = new BinaryFormatter();
 				fs = new FileStream(MapFile, FileMode.Create, FileAccess.Write);
-				bf.Serialize(fs, Coordinates);
+				bf.Serialize(fs, this);
 				Console.WriteLine("Saved coordinate to file: {0}", MapFile);
 				return true;
 			}
@@ -176,6 +218,17 @@ namespace FunGuy
 			{
 				fs.Close();
 			}
+		}
+
+		public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+		{
+			info.AddValue("Name", Name);
+			info.AddValue("TileSet", TileSet);
+			info.AddValue("Width", Width);
+			info.AddValue("Height", Height);
+			info.AddValue("Coordinates", Coordinates);
+			info.AddValue("StartX", StartX);
+			info.AddValue("StartY", StartY);
 		}
 
 		/// <summary>

@@ -16,6 +16,7 @@ namespace StarterKit
 	class Game : GameWindow
 	{
 		public Map TheMap;
+		public Map[,] OuterMaps = new Map[3, 3];
 		public Player ThePlayer;
 		public int TimeStamp;
 
@@ -26,6 +27,12 @@ namespace StarterKit
 
 		public int CurrCharValue = 0;
 		public int CurrCharIndex = 0;
+
+		public int WorldMapWidth = 5;
+		public int WorldMapHeight = 5;
+		public int WorldMapY = 2;
+		public int WorldMapX = 2;
+
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
 		public Game()
@@ -54,7 +61,31 @@ namespace StarterKit
 
 			TimeStamp = Environment.TickCount;
 
-			TheMap = new Map("Map1", "default", 64, 64);
+			//TheMap = new Map("Map1", "default", 64, 64);
+			TheMap = Map.Loader(string.Format("/home/chad/.config/FunGuy/Maps/{0}_{1}.map", WorldMapX, WorldMapY));
+			TheMap.WorldX = WorldMapX;
+			TheMap.WorldY = WorldMapY;
+
+			int cx = 0;
+			for (int ex = WorldMapX - 1; ex < WorldMapX + 2; ex++)
+			{
+				if (ex < 0)
+				{ 
+					continue;
+				}
+				int cy = 0;
+				for (int ey = WorldMapY - 1; ey < WorldMapY + 2; ey++)
+				{
+					if (ey < 0)
+					{
+						continue;
+					}
+					OuterMaps [cx, cy] = Map.Loader(string.Format("/home/chad/.config/FunGuy/Maps/{0}_{1}.map", ex, ey));
+					OuterMaps [cx, cy].WorldX = ex;
+					OuterMaps [cx, cy].WorldY = ey;
+				}
+
+			}
 
 			ThePlayer = new Player();
 			ThePlayer.PosX = TheMap.StartX;
@@ -250,7 +281,38 @@ namespace StarterKit
 //
 //			GL.End ();
 
+			for (int wmx = 0; wmx < 3; wmx++)
+			{
+				for (int wmy = 0; wmy < 3; wmy++)
+				{
+					if (wmx > -1 && wmx < WorldMapWidth && wmy > -1 && wmy < WorldMapHeight && (wmx != 1 && wmy != 1))
+					{
+						for (int x = 0; x < OuterMaps[wmx,wmy].Width; x++)
+						{
+							for (int y = 0; y < OuterMaps[wmx,wmy].Height; y++)
+							{
+								GL.BindTexture(TextureTarget.Texture2D, OuterMaps [wmx, wmy].Textures.Find(v => v.Value == OuterMaps [wmx, wmy].Coordinates [x, y]).TexLibID);
 
+								GL.Begin(BeginMode.Quads);
+								GL.Normal3(-1.0f, 0.0f, 0.0f);
+
+
+								GL.TexCoord2(0.0f, 1.0f);
+								GL.Vertex3((float)x * (wmx + 1), (float)y * (wmy + 1), 4.0f);
+								GL.TexCoord2(1.0f, 1.0f);
+								GL.Vertex3((float)x * (wmx + 1) + 1, (float)y * (wmy + 1), 4.0f);
+								GL.TexCoord2(1.0f, 0.0f);
+								GL.Vertex3((float)x * (wmx + 1) + 1, (float)y * (wmy + 1) + 1, 4.0f);
+								GL.TexCoord2(0.0f, 0.0f);
+								GL.Vertex3((float)x * (wmx + 1), (float)y * (wmy + 1) + 1, 4.0f);
+
+								GL.End();
+							}
+						}
+					}
+				}
+
+			} 
 			for (int x = 0; x < TheMap.Width; x++)
 			{
 				for (int y = 0; y < TheMap.Height; y++)
@@ -262,13 +324,13 @@ namespace StarterKit
 
 
 					GL.TexCoord2(0.0f, 1.0f);
-					GL.Vertex3((float)x, (float)y, 4.0f);
+					GL.Vertex3((float)x * 2, (float)y * 2, 4.0f);
 					GL.TexCoord2(1.0f, 1.0f);
-					GL.Vertex3((float)x + 1, (float)y, 4.0f);
+					GL.Vertex3((float)x * 2 + 1, (float)y * 2, 4.0f);
 					GL.TexCoord2(1.0f, 0.0f);
-					GL.Vertex3((float)x + 1, (float)y + 1, 4.0f);
+					GL.Vertex3((float)x * 2 + 1, (float)y * 2 + 1, 4.0f);
 					GL.TexCoord2(0.0f, 0.0f);
-					GL.Vertex3((float)x, (float)y + 1, 4.0f);
+					GL.Vertex3((float)x * 2, (float)y * 2 + 1, 4.0f);
 
 					GL.End();
 				}
