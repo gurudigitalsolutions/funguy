@@ -287,26 +287,33 @@ namespace StarterKit
 				{
 					if (wmx > -1 && wmx < WorldMapWidth && wmy > -1 && wmy < WorldMapHeight && (wmx != 1 && wmy != 1))
 					{
-						for (int x = 0; x < OuterMaps[wmx,wmy].Width; x++)
+						if (OuterMaps [wmx, wmy] == null)
 						{
-							for (int y = 0; y < OuterMaps[wmx,wmy].Height; y++)
+							Console.WriteLine("Goddammit");
+						}
+						else
+						{
+							for (int x = 0; x < OuterMaps[wmx,wmy].Width; x++)
 							{
-								GL.BindTexture(TextureTarget.Texture2D, OuterMaps [wmx, wmy].Textures.Find(v => v.Value == OuterMaps [wmx, wmy].Coordinates [x, y]).TexLibID);
+								for (int y = 0; y < OuterMaps[wmx,wmy].Height; y++)
+								{
+									GL.BindTexture(TextureTarget.Texture2D, OuterMaps [wmx, wmy].Textures.Find(v => v.Value == OuterMaps [wmx, wmy].Coordinates [x, y]).TexLibID);
 
-								GL.Begin(BeginMode.Quads);
-								GL.Normal3(-1.0f, 0.0f, 0.0f);
+									GL.Begin(BeginMode.Quads);
+									GL.Normal3(-1.0f, 0.0f, 0.0f);
 
 
-								GL.TexCoord2(0.0f, 1.0f);
-								GL.Vertex3((float)x * (wmx + 1), (float)y * (wmy + 1), 4.0f);
-								GL.TexCoord2(1.0f, 1.0f);
-								GL.Vertex3((float)x * (wmx + 1) + 1, (float)y * (wmy + 1), 4.0f);
-								GL.TexCoord2(1.0f, 0.0f);
-								GL.Vertex3((float)x * (wmx + 1) + 1, (float)y * (wmy + 1) + 1, 4.0f);
-								GL.TexCoord2(0.0f, 0.0f);
-								GL.Vertex3((float)x * (wmx + 1), (float)y * (wmy + 1) + 1, 4.0f);
+									GL.TexCoord2(0.0f, 1.0f);
+									GL.Vertex3((float)x + (wmx * 64), (float)y + (wmy * 64), 4.0f);
+									GL.TexCoord2(1.0f, 1.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1, (float)y + (wmy * 64), 4.0f);
+									GL.TexCoord2(1.0f, 0.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1, (float)y + (wmy * 64) + 1, 4.0f);
+									GL.TexCoord2(0.0f, 0.0f);
+									GL.Vertex3((float)x + (wmx * 64), (float)y + (wmy * 64) + 1, 4.0f);
 
-								GL.End();
+									GL.End();
+								}
 							}
 						}
 					}
@@ -324,13 +331,13 @@ namespace StarterKit
 
 
 					GL.TexCoord2(0.0f, 1.0f);
-					GL.Vertex3((float)x * 2, (float)y * 2, 4.0f);
+					GL.Vertex3((float)x + 64, (float)y + 64, 4.0f);
 					GL.TexCoord2(1.0f, 1.0f);
-					GL.Vertex3((float)x * 2 + 1, (float)y * 2, 4.0f);
+					GL.Vertex3((float)x + 64 + 1, (float)y + 64, 4.0f);
 					GL.TexCoord2(1.0f, 0.0f);
-					GL.Vertex3((float)x * 2 + 1, (float)y * 2 + 1, 4.0f);
+					GL.Vertex3((float)x + 64 + 1, (float)y + 64 + 1, 4.0f);
 					GL.TexCoord2(0.0f, 0.0f);
-					GL.Vertex3((float)x * 2, (float)y * 2 + 1, 4.0f);
+					GL.Vertex3((float)x + 64, (float)y + 64 + 1, 4.0f);
 
 					GL.End();
 				}
