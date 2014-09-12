@@ -119,7 +119,8 @@ namespace FunGuy
 		{
 			get
 			{
-				return string.Format("{0}/{1}/{2}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy", "Maps");
+				//return string.Format("{0}/{1}/{2}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy", "Maps");
+				return string.Format("{0}/{1}", StarterKit.Game.configPath, "Maps");
 			}
 		}
 
@@ -239,7 +240,7 @@ namespace FunGuy
 		/// </returns>
 		private bool LoadTileSet()
 		{
-			string resourcePath = string.Format("Resources/PNGs/TileSets/{0}", TileSet);
+			string resourcePath = string.Format("{1}/PNGs/TileSets/{0}", TileSet, StarterKit.Game.configPath);
 			int editID = 1;
 			StreamReader sr;
 
@@ -283,7 +284,7 @@ namespace FunGuy
 		private bool LoadPlayerPosition()
 		{
 			// Resource path from TileSet
-			string resourcePath = "Resources";
+			string resourcePath = StarterKit.Game.configPath;
 			StreamReader sr;
 
 			try

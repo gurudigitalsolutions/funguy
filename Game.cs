@@ -33,6 +33,7 @@ namespace StarterKit
 		public int WorldMapY = 2;
 		public int WorldMapX = 2;
 
+		public static string configPath = string.Format("{0}/{1}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy");
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
 		public Game()
@@ -52,7 +53,8 @@ namespace StarterKit
 
 			TexLib.InitTexturing();
 
-			string configPath = string.Format("{0}/{1}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy");
+			configPath = "/home/guru/Code/funguy/Resources";
+
 			if (!System.IO.Directory.Exists(configPath))
 			{
 				Console.WriteLine("Created configuration path: {0}", configPath);
@@ -62,7 +64,10 @@ namespace StarterKit
 			TimeStamp = Environment.TickCount;
 
 			//TheMap = new Map("Map1", "default", 64, 64);
-			TheMap = Map.Loader(string.Format("/home/chad/.config/FunGuy/Maps/{0}_{1}.map", WorldMapX, WorldMapY));
+			//TheMap.WorldX = 2;
+			//TheMap.WorldY = 2;
+			//TheMap.Save();
+			TheMap = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", WorldMapX, WorldMapY, configPath));
 			TheMap.WorldX = WorldMapX;
 			TheMap.WorldY = WorldMapY;
 
@@ -80,11 +85,13 @@ namespace StarterKit
 					{
 						continue;
 					}
-					OuterMaps [cx, cy] = Map.Loader(string.Format("/home/chad/.config/FunGuy/Maps/{0}_{1}.map", ex, ey));
+					OuterMaps [cx, cy] = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", ex, ey, configPath));
 					OuterMaps [cx, cy].WorldX = ex;
 					OuterMaps [cx, cy].WorldY = ey;
-				}
 
+					cy++;
+				}
+				cx++;
 			}
 
 			ThePlayer = new Player();
@@ -285,11 +292,11 @@ namespace StarterKit
 			{
 				for (int wmy = 0; wmy < 3; wmy++)
 				{
-					if (wmx > -1 && wmx < WorldMapWidth && wmy > -1 && wmy < WorldMapHeight && (wmx != 1 && wmy != 1))
+					if (wmx > -1 && wmx < WorldMapWidth && wmy > -1 && wmy < WorldMapHeight && (wmx != 1 || wmy != 1))
 					{
 						if (OuterMaps [wmx, wmy] == null)
 						{
-							Console.WriteLine("Goddammit");
+							Console.WriteLine("Outer Map {0} {1} null", wmx, wmy);
 						}
 						else
 						{
@@ -304,13 +311,13 @@ namespace StarterKit
 
 
 									GL.TexCoord2(0.0f, 1.0f);
-									GL.Vertex3((float)x + (wmx * 64), (float)y + (wmy * 64), 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) - 64, (float)y + (wmy * 64) - 64, 4.0f);
 									GL.TexCoord2(1.0f, 1.0f);
-									GL.Vertex3((float)x + (wmx * 64) + 1, (float)y + (wmy * 64), 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1 - 64, (float)y + (wmy * 64) -64, 4.0f);
 									GL.TexCoord2(1.0f, 0.0f);
-									GL.Vertex3((float)x + (wmx * 64) + 1, (float)y + (wmy * 64) + 1, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1 - 64, (float)y + (wmy * 64) + 1 - 64, 4.0f);
 									GL.TexCoord2(0.0f, 0.0f);
-									GL.Vertex3((float)x + (wmx * 64), (float)y + (wmy * 64) + 1, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) - 64, (float)y + (wmy * 64) + 1 - 64, 4.0f);
 
 									GL.End();
 								}
@@ -331,13 +338,13 @@ namespace StarterKit
 
 
 					GL.TexCoord2(0.0f, 1.0f);
-					GL.Vertex3((float)x + 64, (float)y + 64, 4.0f);
+					GL.Vertex3((float)x, (float)y, 4.0f);
 					GL.TexCoord2(1.0f, 1.0f);
-					GL.Vertex3((float)x + 64 + 1, (float)y + 64, 4.0f);
+					GL.Vertex3((float)x + 1, (float)y, 4.0f);
 					GL.TexCoord2(1.0f, 0.0f);
-					GL.Vertex3((float)x + 64 + 1, (float)y + 64 + 1, 4.0f);
+					GL.Vertex3((float)x  + 1, (float)y + 1, 4.0f);
 					GL.TexCoord2(0.0f, 0.0f);
-					GL.Vertex3((float)x + 64, (float)y + 64 + 1, 4.0f);
+					GL.Vertex3((float)x, (float)y + 1, 4.0f);
 
 					GL.End();
 				}

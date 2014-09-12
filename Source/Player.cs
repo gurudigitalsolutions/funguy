@@ -44,7 +44,7 @@ namespace FunGuy
 
 		private bool LoadTileSet()
 		{
-			string resourcePath = "Resources/PNGs/Characters";
+			string resourcePath = string.Format("{0}/PNGs/Characters", StarterKit.Game.configPath);
 			Console.WriteLine("resource path exists: " + File.Exists(resourcePath));
 			try
 			{
