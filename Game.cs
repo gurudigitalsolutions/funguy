@@ -33,6 +33,8 @@ namespace StarterKit
 		public int WorldMapY = 2;
 		public int WorldMapX = 2;
 
+		public int MapEdgeTexture = 0;
+
 		public static string configPath = string.Format("{0}/{1}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy");
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
@@ -52,6 +54,11 @@ namespace StarterKit
 			GL.Enable(EnableCap.DepthTest);
 
 			TexLib.InitTexturing();
+
+			MapEdgeTexture = TexLib.CreateRGBATexture(32, 32, new byte[]{92, 255, 0, 0,
+																		92, 255, 0, 0,
+																		92, 255, 0, 255,
+				92, 255, 0, 255});
 
 			configPath = "/home/guru/Code/funguy/Resources";
 
@@ -167,6 +174,34 @@ namespace StarterKit
 					{
 						ThePlayer.PosY--;
 					}
+					else if(ThePlayer.PosY == 0
+					        && (GameMode == GameModeEditor || OuterMaps[1, 2].Coordinates[ThePlayer.PosX, OuterMaps[1, 2].Height - 1] > -1))
+					{
+						for(int x = 0; x < 3; x++)
+						{
+							for(int y = 1; y < 3; y++)
+							{
+								OuterMaps[x, y - 1] = OuterMaps[x, y];
+							}
+						}
+						//OuterMaps[0, 1] = TheMap;
+
+						int cx = WorldMapX -1;
+						for(int x = 0; x < 3; x++)
+						{
+							OuterMaps[x, 2] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY + 2));
+							if(OuterMaps[x, 2] != null)
+							{
+								OuterMaps[x, 2].WorldX = cx + x;
+								OuterMaps[x, 2].WorldY = WorldMapY + 2;
+							}
+						}
+
+						TheMap = OuterMaps[1, 1];
+						WorldMapY++;
+						ThePlayer.PosY = TheMap.Height - 1;
+
+					}
 				}
 
 				if (Keyboard [Key.Up])
@@ -182,6 +217,32 @@ namespace StarterKit
 							}
 						}
 						ThePlayer.PosY++;
+					}
+					else if(ThePlayer.PosY + 1 == TheMap.Height
+					        && (GameMode == GameModeEditor || OuterMaps[1, 0].Coordinates[ThePlayer.PosX, 0] > -1))
+					{
+						for(int x = 0; x < 3; x++)
+						{
+							for(int y = 1; y > -1; y--)
+							{
+								OuterMaps[x, y + 1] = OuterMaps[x, y];
+							}
+						}
+
+						int cx = WorldMapX - 1;
+						for(int x = 0; x < 3; x++)
+						{
+							OuterMaps[x, 0] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY - 2));
+							if(OuterMaps[x, 0] != null)
+							{
+								OuterMaps[x, 0].WorldX = cx + x;
+								OuterMaps[x, 0].WorldY = WorldMapY - 2;
+							}
+						}
+
+						TheMap = OuterMaps[1, 1];
+						WorldMapY--;
+						ThePlayer.PosY = 0;
 					}
 				}
 
@@ -199,6 +260,32 @@ namespace StarterKit
 						}
 						ThePlayer.PosX--;
 					}
+					else if(ThePlayer.PosX == 0
+					        && (GameMode == GameModeEditor || OuterMaps[0, 1].Coordinates[OuterMaps[0, 1].Width - 1, ThePlayer.PosY] > -1))
+					{
+						for(int y = 0; y < 3; y++)
+						{
+							for(int x = 1; x > -1; x--)
+							{
+								OuterMaps[x + 1, y] = OuterMaps[x, y];
+							}
+						}
+
+						int cy = WorldMapY - 1;
+						for(int y = 0; y < 3; y++)
+						{
+							OuterMaps[0, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX - 2, cy + y));
+							if(OuterMaps[0, y] != null)
+							{
+								OuterMaps[0, y].WorldX = WorldMapX - 2;
+								OuterMaps[0, y].WorldY = cy + y;
+							}
+						}
+
+						TheMap = OuterMaps[1, 1];
+						WorldMapX--;
+						ThePlayer.PosX = TheMap.Width - 1;
+					}
 
 				}
 
@@ -215,6 +302,32 @@ namespace StarterKit
 							}
 						}
 						ThePlayer.PosX++;
+					}
+					else if(ThePlayer.PosX + 1 == TheMap.Width
+					        && (GameMode == GameModeEditor || OuterMaps[2, 1].Coordinates[0, ThePlayer.PosY] > -1))
+					{
+						for(int y = 0; y < 3; y++)
+						{
+							for(int x = 0; x < 2; x++)
+							{
+								OuterMaps[x, y] = OuterMaps[x + 1, y];
+							}
+						}
+
+						int cy = WorldMapY - 1;
+						for(int y = 0; y < 3; y++)
+						{
+							OuterMaps[2, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX + 2, cy + y));
+							if(OuterMaps[2, y] != null)
+							{
+								OuterMaps[2, y].WorldX = WorldMapX + 2;
+								OuterMaps[2, y].WorldY = cy + y;
+							}
+						}
+
+						TheMap = OuterMaps[1, 1];
+						WorldMapX++;
+						ThePlayer.PosX = 0;
 					}
 				}
 
@@ -296,7 +409,7 @@ namespace StarterKit
 					{
 						if (OuterMaps [wmx, wmy] == null)
 						{
-							Console.WriteLine("Outer Map {0} {1} null", wmx, wmy);
+							//Console.WriteLine("Outer Map {0} {1} null", wmx, wmy);
 						}
 						else
 						{
@@ -304,6 +417,13 @@ namespace StarterKit
 							{
 								for (int y = 0; y < OuterMaps[wmx,wmy].Height; y++)
 								{
+									int plusplusy = 0;
+									if(wmy == 0) { plusplusy = 64; }
+									if(wmy == 1) { plusplusy = 0; }
+									if(wmy == 2) { plusplusy = -64; }
+
+									int plusplusx = -64;
+
 									GL.BindTexture(TextureTarget.Texture2D, OuterMaps [wmx, wmy].Textures.Find(v => v.Value == OuterMaps [wmx, wmy].Coordinates [x, y]).TexLibID);
 
 									GL.Begin(BeginMode.Quads);
@@ -311,13 +431,13 @@ namespace StarterKit
 
 
 									GL.TexCoord2(0.0f, 1.0f);
-									GL.Vertex3((float)x + (wmx * 64) - 64, (float)y + (wmy * 64) - 64, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + plusplusx, (float)y + 64 - (wmy * 64), 4.0f);
 									GL.TexCoord2(1.0f, 1.0f);
-									GL.Vertex3((float)x + (wmx * 64) + 1 - 64, (float)y + (wmy * 64) -64, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1 + plusplusx, (float)y + 64 - (wmy * 64) , 4.0f);
 									GL.TexCoord2(1.0f, 0.0f);
-									GL.Vertex3((float)x + (wmx * 64) + 1 - 64, (float)y + (wmy * 64) + 1 - 64, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1 + plusplusx, (float)y + 64 - (wmy * 64) + 1, 4.0f);
 									GL.TexCoord2(0.0f, 0.0f);
-									GL.Vertex3((float)x + (wmx * 64) - 64, (float)y + (wmy * 64) + 1 - 64, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) +plusplusx, (float)y + 64 - (wmy * 64) + 1, 4.0f);
 
 									GL.End();
 								}
@@ -349,6 +469,32 @@ namespace StarterKit
 					GL.End();
 				}
 
+			}
+
+			if(GameMode == GameModeEditor)
+			{
+				GL.BindTexture(TextureTarget.Texture2D, MapEdgeTexture);
+
+				for(int y = -64; y < 128; y++)
+				{
+					GL.Begin(BeginMode.Quads);
+					GL.Normal3(-1.0f, 0.0f, 0.0f);
+
+					GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-0.1f, (float)y, 4.1f);
+					GL.TexCoord2(1.0f, 1.1f); GL.Vertex3(0.1f, (float)y, 4.1f);
+					GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(0.1f, (float)(y + 1), 4.1f);
+					GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-0.1, (float)(y + 1), 4.1f);
+					GL.End();
+
+					GL.Begin(BeginMode.Quads);
+					GL.Normal3(-1.0f, 0.0f, 0.0f);
+
+					GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(63.6f, -64f, 4.3f);
+					GL.TexCoord2(1.0f, 1.1f); GL.Vertex3(64.4f, -64f, 4.3f);
+					GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(64.4f, 128f, 4.3f);
+					GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(63.6f, 128f, 4.3f);
+					GL.End();
+				}
 			}
 
 			if (GameMode == GameModeGame)

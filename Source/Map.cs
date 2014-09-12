@@ -130,6 +130,7 @@ namespace FunGuy
 			Console.WriteLine("Loading map {0}", mapFile);
 			if (!File.Exists(mapFile))
 			{
+				Console.WriteLine("Map file {0} does not exist!", mapFile);
 				return null;
 			}
 
