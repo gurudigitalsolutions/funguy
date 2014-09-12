@@ -197,6 +197,7 @@ namespace StarterKit
 							}
 						}
 
+						OuterMaps[1, 0] = TheMap;
 						TheMap = OuterMaps[1, 1];
 						WorldMapY++;
 						ThePlayer.PosY = TheMap.Height - 1;
@@ -240,6 +241,7 @@ namespace StarterKit
 							}
 						}
 
+						OuterMaps[1, 2] = TheMap;
 						TheMap = OuterMaps[1, 1];
 						WorldMapY--;
 						ThePlayer.PosY = 0;
@@ -282,6 +284,7 @@ namespace StarterKit
 							}
 						}
 
+						OuterMaps[2, 1] = TheMap;
 						TheMap = OuterMaps[1, 1];
 						WorldMapX--;
 						ThePlayer.PosX = TheMap.Width - 1;
@@ -325,6 +328,7 @@ namespace StarterKit
 							}
 						}
 
+						OuterMaps[0, 1] = TheMap;
 						TheMap = OuterMaps[1, 1];
 						WorldMapX++;
 						ThePlayer.PosX = 0;
