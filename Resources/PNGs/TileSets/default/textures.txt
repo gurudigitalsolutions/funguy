@@ -12,4 +12,5 @@
 -2 rocks1
 -3 lava1
 -4 pine1
-
+-5 thatch1
+-6 woodpanel1
