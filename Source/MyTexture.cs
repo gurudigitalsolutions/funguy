@@ -25,7 +25,7 @@ namespace FunGuy
 			Value = texValue;
 			TexLibID = texLibID;
 			Index = index;
-			Console.WriteLine("Name: {0} Value: {1} TexLibID: {2} Index: {3}", texName, texValue, texLibID, index);
+			//Console.WriteLine("Name: {0} Value: {1} TexLibID: {2} Index: {3}", texName, texValue, texLibID, index);
 		}
 		public MyTexture(string texName, int texValue, int texLibID)
 		{
@@ -33,7 +33,7 @@ namespace FunGuy
 			Value = texValue;
 			TexLibID = texLibID;
 			Index = 0;
-			Console.WriteLine("Name: {0} Value: {1} TexLibID: {2}", texName, texValue, texLibID);
+			//Console.WriteLine("Name: {0} Value: {1} TexLibID: {2}", texName, texValue, texLibID);
 		}
 		public MyTexture()
 		{

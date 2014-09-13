@@ -22,6 +22,7 @@
     </StartArguments>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
+    <newfilesearch>OnLoadAutoInsert</newfilesearch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <BaseAddress>285212672</BaseAddress>
@@ -90,11 +91,16 @@
     <Compile Include="Source\MapFile.cs" />
     <Compile Include="Source\MyTexture.cs" />
     <Compile Include="Source\MyCharacter.cs" />
+    <Compile Include="Source\KeyboardInput.cs" />
+    <Compile Include="Source\Things\Thing.cs" />
+    <Compile Include="Source\Things\DefaultHouse.cs" />
+    <Compile Include="Source\FGarbage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
     <Folder Include="Resources\PNGs\Characters\" />
+    <Folder Include="Source\Things\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\PNGs\TileSets\default\grass1.png" />
@@ -113,5 +119,106 @@
     <None Include="Resources\PNGs\Characters\arrow_up.png" />
     <None Include="Resources\PNGs\Characters\characters.txt" />
     <None Include="Resources\PNGs\Characters\editorsquare.png" />
+    <None Include="FunGuy.userprefs" />
+    <None Include="QuickStart.userprefs" />
+    <None Include="Bin\Debug\OpenTK.dll.config" />
+    <None Include="Bin\Debug\Resources\maps.txt" />
+    <None Include="Bin\Debug\Resources\Maps\0_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_4.map" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_Back.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_left.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_right.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_down.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_left.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_right.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_up.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\characters.txt" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\editorsquare.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\grass1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\grass2.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\lava1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\rockroad1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\rocks1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\textures.txt" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\water1.png" />
+    <None Include="Binaries\OpenTK\Release\OpenTK.Compatibility.dll.config" />
+    <None Include="Binaries\OpenTK\Release\OpenTK.Compatibility.xml" />
+    <None Include="Binaries\OpenTK\Release\OpenTK.GLControl.xml" />
+    <None Include="Binaries\OpenTK\Release\OpenTK.dll.config" />
+    <None Include="Binaries\OpenTK\Release\OpenTK.xml" />
+    <None Include="Binaries\OpenTK\Release\Data\Poem.txt" />
+    <None Include="Binaries\OpenTK\Release\Data\Audio\the_ring_that_fell.wav" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\CubeMap_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\CubeMap_VS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\JuliaSet_SM2_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\JuliaSet_SM3_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\JuliaSet_VS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Parallax_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Parallax_VS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Picking_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Picking_VS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Simple_FS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Shaders\Simple_VS.glsl" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\JuliaColorTable.bmp" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\Swizzled Textures License.txt" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\earth-cubemap.dds" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\logo-dark.jpg" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\logo.jpg" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\metal.jpg" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\swizzled-rock-diffuse-height.dds" />
+    <None Include="Binaries\OpenTK\Release\Data\Textures\swizzled-rock-normal-gloss.dds" />
+    <None Include="Binaries\QuickStart\Debug\OpenTK.dll.config" />
+    <None Include="Binaries\QuickStart\Debug\Binaries\OpenTK\Release\OpenTK.dll.config" />
+    <None Include="Resources\Maps\0_0.map" />
+    <None Include="Resources\Maps\0_1.map" />
+    <None Include="Resources\Maps\0_2.map" />
+    <None Include="Resources\Maps\0_3.map" />
+    <None Include="Resources\Maps\0_4.map" />
+    <None Include="Resources\Maps\1_0.map" />
+    <None Include="Resources\Maps\1_1.map" />
+    <None Include="Resources\Maps\1_2.map" />
+    <None Include="Resources\Maps\1_3.map" />
+    <None Include="Resources\Maps\1_4.map" />
+    <None Include="Resources\Maps\2_0.map" />
+    <None Include="Resources\Maps\2_1.map" />
+    <None Include="Resources\Maps\2_2.map" />
+    <None Include="Resources\Maps\2_3.map" />
+    <None Include="Resources\Maps\2_4.map" />
+    <None Include="Resources\Maps\3_0.map" />
+    <None Include="Resources\Maps\3_1.map" />
+    <None Include="Resources\Maps\3_2.map" />
+    <None Include="Resources\Maps\3_3.map" />
+    <None Include="Resources\Maps\3_4.map" />
+    <None Include="Resources\Maps\4_0.map" />
+    <None Include="Resources\Maps\4_1.map" />
+    <None Include="Resources\Maps\4_2.map" />
+    <None Include="Resources\Maps\4_3.map" />
+    <None Include="Resources\Maps\4_4.map" />
+    <None Include="Resources\PNGs\TileSets\default\grass2.png" />
+    <None Include="Resources\PNGs\TileSets\default\rockroad1.png" />
   </ItemGroup>
 </Project>

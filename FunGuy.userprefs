@@ -1,29 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/MyTexture.cs">
     <Files>
-      <File FileName="Game.cs" Line="63" Column="41" />
+      <File FileName="Game.cs" Line="179" Column="40" />
       <File FileName="Source/Player.cs" Line="47" Column="90" />
-      <File FileName="Source/Map.cs" Line="267" Column="6" />
-      <File FileName="Source/MyTexture.cs" Line="40" Column="4" />
+      <File FileName="Source/Map.cs" Line="168" Column="1" />
+      <File FileName="Source/MyTexture.cs" Line="30" Column="47" />
       <File FileName="Source/MyCharacter.cs" Line="31" Column="15" />
       <File FileName="Resources/PNGs/Characters/characters.txt" Line="17" Column="14" />
+      <File FileName="Source/TexLib.cs" Line="15" Column="3" />
+      <File FileName="Source/Things/Thing.cs" Line="9" Column="29" />
+      <File FileName="Source/Things/DefaultHouse.cs" Line="182" Column="30" />
+      <File FileName="Source/FGarbage.cs" Line="13" Column="108" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="FunGuy" expanded="True">
             <Node name="References" expanded="True" />
-            <Node name="Resources" expanded="True">
-              <Node name="PNGs" expanded="True">
-                <Node name="Characters" expanded="True" />
-                <Node name="TileSets" expanded="True">
-                  <Node name="default" expanded="True" />
-                </Node>
-              </Node>
+            <Node name="Resources" expanded="True" selected="True" />
+            <Node name="Source" expanded="True">
+              <Node name="Things" expanded="True" />
             </Node>
-            <Node name="Source" expanded="True" />
-            <Node name="Game.cs" selected="True" />
           </Node>
         </State>
       </Pad>

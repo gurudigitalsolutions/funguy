@@ -49,7 +49,8 @@ namespace StarterKit
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
-
+			//FGarbage.ConvertMaps();
+			//Environment.Exit(0);
 			GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
 			GL.Enable(EnableCap.DepthTest);
 
@@ -58,9 +59,10 @@ namespace StarterKit
 			MapEdgeTexture = TexLib.CreateRGBATexture(32, 32, new byte[]{92, 255, 0, 0,
 																		92, 255, 0, 0,
 																		92, 255, 0, 255,
-				92, 255, 0, 255});
+				92, 255, 0, 255}
+			);
 
-			configPath = "/home/guru/Code/funguy/Resources";
+			configPath = "/share/code/c#/FunGuy/Resources";
 
 			if (!System.IO.Directory.Exists(configPath))
 			{
@@ -70,6 +72,7 @@ namespace StarterKit
 
 			TimeStamp = Environment.TickCount;
 
+
 			//TheMap = new Map("Map1", "default", 64, 64);
 			//TheMap.WorldX = 2;
 			//TheMap.WorldY = 2;
@@ -77,6 +80,21 @@ namespace StarterKit
 			TheMap = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", WorldMapX, WorldMapY, configPath));
 			TheMap.WorldX = WorldMapX;
 			TheMap.WorldY = WorldMapY;
+
+//			Thing something = new DefaultHouse(
+//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
+//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
+//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
+//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
+//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
+//				TheMap.Textures.Find(x => x.Name == "rockroad1").TexLibID);
+//			something.Depth = 2;
+//			something.Height = 2;
+//			something.Width = 2;
+//			something.X = 25;
+//			something.Y = 25;
+//
+//			TheMap.Things.Add(something);
 
 			int cx = 0;
 			for (int ex = WorldMapX - 1; ex < WorldMapX + 2; ex++)
@@ -148,6 +166,20 @@ namespace StarterKit
 			if (ThePlayer.CanMove())
 			{
 
+				if (Keyboard [Key.F11])
+				{
+					if (WindowState != WindowState.Fullscreen)
+					{
+						WindowBorder = WindowBorder.Hidden;
+						WindowState = WindowState.Fullscreen;
+					}
+					else
+					{
+						WindowBorder = WindowBorder.Resizable;
+						WindowState = WindowState.Normal;
+					}
+				}
+
 				if (Keyboard [Key.Space])
 				{
 
@@ -162,7 +194,9 @@ namespace StarterKit
 						}
 					}
 				}
-				
+
+
+
 				if (Keyboard [Key.Down])
 				{
 					foreach (MyCharacter item in ThePlayer.Characters.FindAll(c=> c.Value == CurrCharValue))
@@ -174,31 +208,35 @@ namespace StarterKit
 					{
 						ThePlayer.PosY--;
 					}
-					else if(ThePlayer.PosY == 0
-					        && (GameMode == GameModeEditor || OuterMaps[1, 2].Coordinates[ThePlayer.PosX, OuterMaps[1, 2].Height - 1] > -1))
+					else if (ThePlayer.PosY == 0
+						&& (GameMode == GameModeEditor || OuterMaps [1, 2].Coordinates [ThePlayer.PosX, OuterMaps [1, 2].Height - 1] > -1))
 					{
-						for(int x = 0; x < 3; x++)
+						OuterMaps [0, 0].UnloadTextures();
+						OuterMaps [1, 0].UnloadTextures();
+						OuterMaps [2, 0].UnloadTextures();
+
+						for (int x = 0; x < 3; x++)
 						{
-							for(int y = 1; y < 3; y++)
+							for (int y = 1; y < 3; y++)
 							{
-								OuterMaps[x, y - 1] = OuterMaps[x, y];
+								OuterMaps [x, y - 1] = OuterMaps [x, y];
 							}
 						}
 						//OuterMaps[0, 1] = TheMap;
 
-						int cx = WorldMapX -1;
-						for(int x = 0; x < 3; x++)
+						int cx = WorldMapX - 1;
+						for (int x = 0; x < 3; x++)
 						{
-							OuterMaps[x, 2] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY + 2));
-							if(OuterMaps[x, 2] != null)
+							OuterMaps [x, 2] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY + 2));
+							if (OuterMaps [x, 2] != null)
 							{
-								OuterMaps[x, 2].WorldX = cx + x;
-								OuterMaps[x, 2].WorldY = WorldMapY + 2;
+								OuterMaps [x, 2].WorldX = cx + x;
+								OuterMaps [x, 2].WorldY = WorldMapY + 2;
 							}
 						}
 
-						OuterMaps[1, 0] = TheMap;
-						TheMap = OuterMaps[1, 1];
+						OuterMaps [1, 0] = TheMap;
+						TheMap = OuterMaps [1, 1];
 						WorldMapY++;
 						ThePlayer.PosY = TheMap.Height - 1;
 
@@ -219,30 +257,30 @@ namespace StarterKit
 						}
 						ThePlayer.PosY++;
 					}
-					else if(ThePlayer.PosY + 1 == TheMap.Height
-					        && (GameMode == GameModeEditor || OuterMaps[1, 0].Coordinates[ThePlayer.PosX, 0] > -1))
+					else if (ThePlayer.PosY + 1 == TheMap.Height
+						&& (GameMode == GameModeEditor || OuterMaps [1, 0].Coordinates [ThePlayer.PosX, 0] > -1))
 					{
-						for(int x = 0; x < 3; x++)
+						for (int x = 0; x < 3; x++)
 						{
-							for(int y = 1; y > -1; y--)
+							for (int y = 1; y > -1; y--)
 							{
-								OuterMaps[x, y + 1] = OuterMaps[x, y];
+								OuterMaps [x, y + 1] = OuterMaps [x, y];
 							}
 						}
 
 						int cx = WorldMapX - 1;
-						for(int x = 0; x < 3; x++)
+						for (int x = 0; x < 3; x++)
 						{
-							OuterMaps[x, 0] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY - 2));
-							if(OuterMaps[x, 0] != null)
+							OuterMaps [x, 0] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY - 2));
+							if (OuterMaps [x, 0] != null)
 							{
-								OuterMaps[x, 0].WorldX = cx + x;
-								OuterMaps[x, 0].WorldY = WorldMapY - 2;
+								OuterMaps [x, 0].WorldX = cx + x;
+								OuterMaps [x, 0].WorldY = WorldMapY - 2;
 							}
 						}
 
-						OuterMaps[1, 2] = TheMap;
-						TheMap = OuterMaps[1, 1];
+						OuterMaps [1, 2] = TheMap;
+						TheMap = OuterMaps [1, 1];
 						WorldMapY--;
 						ThePlayer.PosY = 0;
 					}
@@ -262,30 +300,30 @@ namespace StarterKit
 						}
 						ThePlayer.PosX--;
 					}
-					else if(ThePlayer.PosX == 0
-					        && (GameMode == GameModeEditor || OuterMaps[0, 1].Coordinates[OuterMaps[0, 1].Width - 1, ThePlayer.PosY] > -1))
+					else if (ThePlayer.PosX == 0
+						&& (GameMode == GameModeEditor || OuterMaps [0, 1].Coordinates [OuterMaps [0, 1].Width - 1, ThePlayer.PosY] > -1))
 					{
-						for(int y = 0; y < 3; y++)
+						for (int y = 0; y < 3; y++)
 						{
-							for(int x = 1; x > -1; x--)
+							for (int x = 1; x > -1; x--)
 							{
-								OuterMaps[x + 1, y] = OuterMaps[x, y];
+								OuterMaps [x + 1, y] = OuterMaps [x, y];
 							}
 						}
 
 						int cy = WorldMapY - 1;
-						for(int y = 0; y < 3; y++)
+						for (int y = 0; y < 3; y++)
 						{
-							OuterMaps[0, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX - 2, cy + y));
-							if(OuterMaps[0, y] != null)
+							OuterMaps [0, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX - 2, cy + y));
+							if (OuterMaps [0, y] != null)
 							{
-								OuterMaps[0, y].WorldX = WorldMapX - 2;
-								OuterMaps[0, y].WorldY = cy + y;
+								OuterMaps [0, y].WorldX = WorldMapX - 2;
+								OuterMaps [0, y].WorldY = cy + y;
 							}
 						}
 
-						OuterMaps[2, 1] = TheMap;
-						TheMap = OuterMaps[1, 1];
+						OuterMaps [2, 1] = TheMap;
+						TheMap = OuterMaps [1, 1];
 						WorldMapX--;
 						ThePlayer.PosX = TheMap.Width - 1;
 					}
@@ -306,30 +344,30 @@ namespace StarterKit
 						}
 						ThePlayer.PosX++;
 					}
-					else if(ThePlayer.PosX + 1 == TheMap.Width
-					        && (GameMode == GameModeEditor || OuterMaps[2, 1].Coordinates[0, ThePlayer.PosY] > -1))
+					else if (ThePlayer.PosX + 1 == TheMap.Width
+						&& (GameMode == GameModeEditor || OuterMaps [2, 1].Coordinates [0, ThePlayer.PosY] > -1))
 					{
-						for(int y = 0; y < 3; y++)
+						for (int y = 0; y < 3; y++)
 						{
-							for(int x = 0; x < 2; x++)
+							for (int x = 0; x < 2; x++)
 							{
-								OuterMaps[x, y] = OuterMaps[x + 1, y];
+								OuterMaps [x, y] = OuterMaps [x + 1, y];
 							}
 						}
 
 						int cy = WorldMapY - 1;
-						for(int y = 0; y < 3; y++)
+						for (int y = 0; y < 3; y++)
 						{
-							OuterMaps[2, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX + 2, cy + y));
-							if(OuterMaps[2, y] != null)
+							OuterMaps [2, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX + 2, cy + y));
+							if (OuterMaps [2, y] != null)
 							{
-								OuterMaps[2, y].WorldX = WorldMapX + 2;
-								OuterMaps[2, y].WorldY = cy + y;
+								OuterMaps [2, y].WorldX = WorldMapX + 2;
+								OuterMaps [2, y].WorldY = cy + y;
 							}
 						}
 
-						OuterMaps[0, 1] = TheMap;
-						TheMap = OuterMaps[1, 1];
+						OuterMaps [0, 1] = TheMap;
+						TheMap = OuterMaps [1, 1];
 						WorldMapX++;
 						ThePlayer.PosX = 0;
 					}
@@ -422,9 +460,18 @@ namespace StarterKit
 								for (int y = 0; y < OuterMaps[wmx,wmy].Height; y++)
 								{
 									int plusplusy = 0;
-									if(wmy == 0) { plusplusy = 64; }
-									if(wmy == 1) { plusplusy = 0; }
-									if(wmy == 2) { plusplusy = -64; }
+									if (wmy == 0)
+									{
+										plusplusy = 64;
+									}
+									if (wmy == 1)
+									{
+										plusplusy = 0;
+									}
+									if (wmy == 2)
+									{
+										plusplusy = -64;
+									}
 
 									int plusplusx = -64;
 
@@ -437,11 +484,11 @@ namespace StarterKit
 									GL.TexCoord2(0.0f, 1.0f);
 									GL.Vertex3((float)x + (wmx * 64) + plusplusx, (float)y + 64 - (wmy * 64), 4.0f);
 									GL.TexCoord2(1.0f, 1.0f);
-									GL.Vertex3((float)x + (wmx * 64) + 1 + plusplusx, (float)y + 64 - (wmy * 64) , 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + 1 + plusplusx, (float)y + 64 - (wmy * 64), 4.0f);
 									GL.TexCoord2(1.0f, 0.0f);
 									GL.Vertex3((float)x + (wmx * 64) + 1 + plusplusx, (float)y + 64 - (wmy * 64) + 1, 4.0f);
 									GL.TexCoord2(0.0f, 0.0f);
-									GL.Vertex3((float)x + (wmx * 64) +plusplusx, (float)y + 64 - (wmy * 64) + 1, 4.0f);
+									GL.Vertex3((float)x + (wmx * 64) + plusplusx, (float)y + 64 - (wmy * 64) + 1, 4.0f);
 
 									GL.End();
 								}
@@ -466,7 +513,7 @@ namespace StarterKit
 					GL.TexCoord2(1.0f, 1.0f);
 					GL.Vertex3((float)x + 1, (float)y, 4.0f);
 					GL.TexCoord2(1.0f, 0.0f);
-					GL.Vertex3((float)x  + 1, (float)y + 1, 4.0f);
+					GL.Vertex3((float)x + 1, (float)y + 1, 4.0f);
 					GL.TexCoord2(0.0f, 0.0f);
 					GL.Vertex3((float)x, (float)y + 1, 4.0f);
 
@@ -475,28 +522,38 @@ namespace StarterKit
 
 			}
 
-			if(GameMode == GameModeEditor)
+			TheMap.RenderThings();
+
+			if (GameMode == GameModeEditor)
 			{
 				GL.BindTexture(TextureTarget.Texture2D, MapEdgeTexture);
 
-				for(int y = -64; y < 128; y++)
+				for (int y = -64; y < 128; y++)
 				{
 					GL.Begin(BeginMode.Quads);
 					GL.Normal3(-1.0f, 0.0f, 0.0f);
 
-					GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(-0.1f, (float)y, 4.1f);
-					GL.TexCoord2(1.0f, 1.1f); GL.Vertex3(0.1f, (float)y, 4.1f);
-					GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(0.1f, (float)(y + 1), 4.1f);
-					GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(-0.1, (float)(y + 1), 4.1f);
+					GL.TexCoord2(0.0f, 1.0f);
+					GL.Vertex3(-0.1f, (float)y, 4.1f);
+					GL.TexCoord2(1.0f, 1.1f);
+					GL.Vertex3(0.1f, (float)y, 4.1f);
+					GL.TexCoord2(1.0f, 0.0f);
+					GL.Vertex3(0.1f, (float)(y + 1), 4.1f);
+					GL.TexCoord2(0.0f, 0.0f);
+					GL.Vertex3(-0.1, (float)(y + 1), 4.1f);
 					GL.End();
 
 					GL.Begin(BeginMode.Quads);
 					GL.Normal3(-1.0f, 0.0f, 0.0f);
 
-					GL.TexCoord2(0.0f, 1.0f); GL.Vertex3(63.6f, -64f, 4.3f);
-					GL.TexCoord2(1.0f, 1.1f); GL.Vertex3(64.4f, -64f, 4.3f);
-					GL.TexCoord2(1.0f, 0.0f); GL.Vertex3(64.4f, 128f, 4.3f);
-					GL.TexCoord2(0.0f, 0.0f); GL.Vertex3(63.6f, 128f, 4.3f);
+					GL.TexCoord2(0.0f, 1.0f);
+					GL.Vertex3(63.6f, -64f, 4.3f);
+					GL.TexCoord2(1.0f, 1.1f);
+					GL.Vertex3(64.4f, -64f, 4.3f);
+					GL.TexCoord2(1.0f, 0.0f);
+					GL.Vertex3(64.4f, 128f, 4.3f);
+					GL.TexCoord2(0.0f, 0.0f);
+					GL.Vertex3(63.6f, 128f, 4.3f);
 					GL.End();
 				}
 			}

@@ -42,7 +42,7 @@ namespace FunGuy
 
 			LoadTileSet();
 			LoadPlayerPosition();
-			Console.WriteLine("Loading Map File: {0}", Load());
+//			Console.WriteLine("Loading Map File: {0}", Load());
 		}
 
 		public Map()
@@ -50,6 +50,19 @@ namespace FunGuy
 			new Map("", "default", 64, 64);
 		}
 
+		public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
+		{
+			info.AddValue("Name", Name);
+			info.AddValue("TileSet", TileSet);
+			info.AddValue("Width", Width);
+			info.AddValue("Height", Height);
+			info.AddValue("Coordinates", Coordinates);
+			info.AddValue("StartX", StartX);
+			info.AddValue("StartY", StartY);
+			info.AddValue("Things", Things);
+
+		}
+		
 		public Map(SerializationInfo info, StreamingContext ctxt)
 		{
 			Name = (string)info.GetValue("Name", typeof(string));
@@ -59,6 +72,15 @@ namespace FunGuy
 			Coordinates = (int[,])info.GetValue("Coordinates", typeof(int[,]));
 			StartX = (int)info.GetValue("StartX", typeof(int));
 			StartY = (int)info.GetValue("StartY", typeof(int));
+
+			try
+			{
+				Things = (List<Thing>)info.GetValue("Things", typeof(List<Thing>));
+			}
+			catch (Exception)
+			{
+				//haha
+			}
 		}
 
 		/// <summary>
@@ -85,6 +107,10 @@ namespace FunGuy
 		/// The textures.
 		/// </summary>
 		public List<MyTexture> Textures = new List<MyTexture>();
+		/// <summary>
+		/// The things.
+		/// </summary>
+		public List<Thing> Things = new List<Thing>();
 		/// <summary>
 		/// The player x.
 		/// </summary>
@@ -127,7 +153,7 @@ namespace FunGuy
 
 		public static Map Loader(string mapFile)
 		{
-			Console.WriteLine("Loading map {0}", mapFile);
+//			Console.WriteLine("Loading map {0}", mapFile);
 			if (!File.Exists(mapFile))
 			{
 				Console.WriteLine("Map file {0} does not exist!", mapFile);
@@ -167,15 +193,7 @@ namespace FunGuy
 				BinaryFormatter bf = new BinaryFormatter();
 				fs = new FileStream(MapFile, FileMode.Open, FileAccess.Read);
 				Coordinates = (int[,])bf.Deserialize(fs);
-				for (int x = 0; x < Width; x++)
-				{
-					for (int y = 0; y < Height; y++)
-					{
-						Console.Write("{0} ", Coordinates [x, y]);
-					}
-					Console.WriteLine();
-				}
-				Console.WriteLine("Loaded coordinates from: {0}", MapFile);
+				//Console.WriteLine("Loaded coordinates from: {0}", MapFile);
 				return true;
 			}
 			catch (Exception ex)
@@ -222,16 +240,6 @@ namespace FunGuy
 			}
 		}
 
-		public void GetObjectData(SerializationInfo info, StreamingContext ctxt)
-		{
-			info.AddValue("Name", Name);
-			info.AddValue("TileSet", TileSet);
-			info.AddValue("Width", Width);
-			info.AddValue("Height", Height);
-			info.AddValue("Coordinates", Coordinates);
-			info.AddValue("StartX", StartX);
-			info.AddValue("StartY", StartY);
-		}
 
 		/// <summary>
 		/// Loads the tile set.
@@ -265,7 +273,8 @@ namespace FunGuy
 					Textures.Add(texture);
 					editID++;
 				}
-				Console.WriteLine("Loaded Tile Set: {0}", TileSet);
+//				Console.WriteLine("Loaded Tile Set: {0}", TileSet);
+
 				return true;
 			}
 			catch (Exception ex)
@@ -305,12 +314,12 @@ namespace FunGuy
 					}
 					// Split map value from name in line
 					string[] nameXY = line.Trim().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-					Console.WriteLine("nameXY[0]: {0}", nameXY [0]);
+//					Console.WriteLine("nameXY[0]: {0}", nameXY [0]);
 					if (nameXY [0] == Name)
 					{
 						StartX = Int32.Parse(nameXY [1]);
 						StartY = Int32.Parse(nameXY [2]);
-						Console.WriteLine("loaded player position for: {0} X: {1} Y: {1}", Name, StartX, StartY);
+//						Console.WriteLine("loaded player position for: {0} X: {1} Y: {1}", Name, StartX, StartY);
 						return true;
 					}
 
@@ -380,6 +389,25 @@ namespace FunGuy
 			return false;
 		}
 
+		public void UnloadTextures()
+		{
+			if (Textures.Count > 0)
+			{
+				foreach (MyTexture etex in Textures)
+				{
+					GL.DeleteTexture(etex.TexLibID);
+				}
+			}
+			Console.WriteLine("Unloaded textures");
+		}
+
+		public void RenderThings()
+		{
+			foreach (Thing ething in Things)
+			{
+				ething.Render();
+			}
+		}
 	}
 }
 
