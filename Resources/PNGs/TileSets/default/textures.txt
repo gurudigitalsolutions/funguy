@@ -11,4 +11,5 @@
 -1 water1
 -2 rocks1
 -3 lava1
+-4 pine1
 
