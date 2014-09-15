@@ -22,11 +22,14 @@ namespace StarterKit
 
 		public static int GameModeGame = 0;
 		public static int GameModeEditor = 1;
+		public static int GameModeThings = 2;
+		public static int GameModeThingEditor = 3;
 
 		public int GameMode = GameModeGame;
 
 		public int CurrCharValue = 0;
-		public int CurrCharIndex = 0;
+		public int CurrCharDirection = 0;
+		public int CurrThingIndex = 0;
 
 		public int WorldMapWidth = 5;
 		public int WorldMapHeight = 5;
@@ -35,7 +38,9 @@ namespace StarterKit
 
 		public int MapEdgeTexture = 0;
 
-		public static string configPath = string.Format("{0}/{1}", Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData), "FunGuy");
+		public static string configPath = "../../Resources";
+
+
 
 		/// <summary>Creates a 800x600 window with the specified title.</summary>
 		public Game()
@@ -44,6 +49,8 @@ namespace StarterKit
 			VSync = VSyncMode.On;
 		}
 
+
+	
 		/// <summary>Load resources here.</summary>
 		/// <param name="e">Not used.</param>
 		protected override void OnLoad(EventArgs e)
@@ -62,39 +69,20 @@ namespace StarterKit
 				92, 255, 0, 255}
 			);
 
-			configPath = "/share/code/c#/FunGuy/Resources";
-
-			if (!System.IO.Directory.Exists(configPath))
-			{
-				Console.WriteLine("Created configuration path: {0}", configPath);
-				System.IO.Directory.CreateDirectory(configPath);
-			}
+#if DEBUG
+			configPath = "../../Resources";
+#else
+			configPath = "../../Resources";
+#endif
 
 			TimeStamp = Environment.TickCount;
 
-
-			//TheMap = new Map("Map1", "default", 64, 64);
-			//TheMap.WorldX = 2;
-			//TheMap.WorldY = 2;
-			//TheMap.Save();
 			TheMap = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", WorldMapX, WorldMapY, configPath));
 			TheMap.WorldX = WorldMapX;
 			TheMap.WorldY = WorldMapY;
 
-//			Thing something = new DefaultHouse(
-//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
-//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
-//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
-//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
-//				TheMap.Textures.Find(x => x.Name == "lava1").TexLibID, 
-//				TheMap.Textures.Find(x => x.Name == "rockroad1").TexLibID);
-//			something.Depth = 2;
-//			something.Height = 2;
-//			something.Width = 2;
-//			something.X = 25;
-//			something.Y = 25;
-//
-//			TheMap.Things.Add(something);
+			InitEditorThings();
+
 
 			int cx = 0;
 			for (int ex = WorldMapX - 1; ex < WorldMapX + 2; ex++)
@@ -124,6 +112,42 @@ namespace StarterKit
 			ThePlayer.PosY = TheMap.StartY;
 		}
 
+
+
+		/// <summary>
+		/// Inits the editor things.
+		/// </summary>
+		protected void InitEditorThings()
+		{
+			Thing pineTree = new PineTree(TheMap.Textures.Find(x => x.Name == "pine1").TexLibID);
+			pineTree.Depth = 2;
+			pineTree.Width = 2;
+			pineTree.Height = 4;
+			pineTree.X = 30;
+			pineTree.Y = 30;
+
+			Thing.AllThings.Add(pineTree);
+//			TheMap.AddThing(pineTree);
+
+			Thing defaultHouse = new DefaultHouse(
+				TheMap.Textures.Find(x => x.Name == "woodpanel1").TexLibID, 
+				TheMap.Textures.Find(x => x.Name == "woodpanel1").TexLibID, 
+				TheMap.Textures.Find(x => x.Name == "woodpanel1").TexLibID, 
+				TheMap.Textures.Find(x => x.Name == "woodpanel1").TexLibID, 
+				TheMap.Textures.Find(x => x.Name == "thatch1").TexLibID, 
+				TheMap.Textures.Find(x => x.Name == "rockroad1").TexLibID);
+			defaultHouse.Depth = 2;
+			defaultHouse.Height = 2;
+			defaultHouse.Width = 2;
+			defaultHouse.X = 25;
+			defaultHouse.Y = 25;
+
+			Thing.AllThings.Add(defaultHouse);
+//			TheMap.AddThing(defaultHouse);
+		}
+
+
+
 		/// <summary>
 		/// Called when your window is resized. Set your viewport here. It is also
 		/// a good place to set up your projection matrix (which probably changes
@@ -141,6 +165,8 @@ namespace StarterKit
 			GL.LoadMatrix(ref projection);
 		}
 
+
+
 		/// <summary>
 		/// Called when it is time to setup the next frame. Add you game logic here.
 		/// </summary>
@@ -151,6 +177,8 @@ namespace StarterKit
 
 			OnKeyPress();
 		}
+
+
 
 		/// <summary>
 		/// Raises the key press event.
@@ -163,23 +191,32 @@ namespace StarterKit
 				Exit();
 			}
 
+			if (Keyboard [Key.F11])
+			{
+				if (WindowState != WindowState.Fullscreen)
+				{
+					WindowBorder = WindowBorder.Hidden;
+					WindowState = WindowState.Fullscreen;
+				}
+					else
+				{
+					WindowBorder = WindowBorder.Resizable;
+					WindowState = WindowState.Normal;
+				}
+			}
+
+			if (Keyboard [Key.P])
+			{
+				Console.WriteLine("Position: X: {0} Y: {1} ", ThePlayer.PosX, ThePlayer.PosY);
+				foreach (Thing et in TheMap.Things)
+				{
+					Console.WriteLine("Thing ID: {0}", et.Index);
+				}
+			}
+
 			if (ThePlayer.CanMove())
 			{
-
-				if (Keyboard [Key.F11])
-				{
-					if (WindowState != WindowState.Fullscreen)
-					{
-						WindowBorder = WindowBorder.Hidden;
-						WindowState = WindowState.Fullscreen;
-					}
-					else
-					{
-						WindowBorder = WindowBorder.Resizable;
-						WindowState = WindowState.Normal;
-					}
-				}
-
+				/// Toggle edit
 				if (Keyboard [Key.Space])
 				{
 
@@ -195,18 +232,97 @@ namespace StarterKit
 					}
 				}
 
+				if (Keyboard [Key.Number0])
+				{
+					//	Toggle thing explorer
+					if (GameMode == GameModeEditor)
+					{
+						Console.WriteLine("Switched to Thing Explorer");
+						GameMode = GameModeThings;
 
 
+					}
+					else if (GameMode == GameModeThings)
+					{
+						Console.WriteLine("Switched to Editor");
+						GameMode = GameModeEditor;
+					}
+				}
+
+				if (GameMode == GameModeThings)
+				{
+					int tind = TheMap.Things.IndexOf(TheMap.Things.Find(x => x.Index == CurrThingIndex));
+
+					if (Keyboard [Key.S] && (!Keyboard [Key.ControlLeft] && !Keyboard [Key.ControlRight]))
+					{
+						TheMap.Things [tind].Height--;
+					}
+					else if (Keyboard [Key.W])
+					{
+						TheMap.Things [tind].Height++;
+					}
+					if (Keyboard [Key.D])
+					{
+						TheMap.Things [tind].Width--;
+					}
+					else if (Keyboard [Key.E])
+					{
+						TheMap.Things [tind].Width++;
+					}
+					if (Keyboard [Key.F])
+					{
+						TheMap.Things [tind].Depth--;
+					}
+					else if (Keyboard [Key.R])
+					{
+						TheMap.Things [tind].Depth++;
+					}
+					else if (Keyboard [Key.ControlLeft] && Keyboard [Key.V])
+					{
+						//	Paste a copy of this thing here
+						Console.WriteLine("Pasting copy of this thing.");
+						int indd = TheMap.Things.Find(x => x.Index == CurrThingIndex).Index;
+
+						object otting = System.Activator.CreateInstance(TheMap.Things [indd].GetType());
+						Thing tting = (Thing)otting;
+
+						tting.X = TheMap.Things [indd].X;
+						tting.Y = TheMap.Things [indd].Y;
+						tting.Depth = TheMap.Things [indd].Depth;
+						tting.Height = TheMap.Things [indd].Height;
+						tting.Width = TheMap.Things [indd].Width;
+						tting.SetTextures(TheMap.Things [indd].TextureList());
+
+						TheMap.AddThing(tting);
+
+						Console.WriteLine("ThingCount: {0}", TheMap.Things.Count);
+						for (int et = 0; et < TheMap.Things.Count; et++)
+						{
+							Console.WriteLine("Thing Index: {0}", TheMap.Things [et].Index);
+						}
+					}
+				}
+
+				/// Down
 				if (Keyboard [Key.Down])
 				{
-					foreach (MyCharacter item in ThePlayer.Characters.FindAll(c=> c.Value == CurrCharValue))
-					{
-						CurrCharIndex = 0;
-					}
+					// Characters direction
+					CurrCharDirection = MyCharacter.Down;
+					//
 					if (ThePlayer.PosY > 0
-						&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY - 1] > -1))
+						&& (GameMode != GameModeThings)
+						&& (GameMode == GameModeEditor || (TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY - 1] > -1) && !TheMap.IsThingAt(ThePlayer.PosX, ThePlayer.PosY - 1)))
 					{
 						ThePlayer.PosY--;
+					}
+					else if (GameMode == GameModeThings)
+					{
+						Thing thing = TheMap.Things.Find(x => x.Index == CurrThingIndex);
+						if (thing.Y > 0)
+						{
+							int ind = TheMap.Things.IndexOf(thing);
+							TheMap.Things [ind].Y--;
+						}
 					}
 					else if (ThePlayer.PosY == 0
 						&& (GameMode == GameModeEditor || OuterMaps [1, 2].Coordinates [ThePlayer.PosX, OuterMaps [1, 2].Height - 1] > -1))
@@ -222,7 +338,7 @@ namespace StarterKit
 								OuterMaps [x, y - 1] = OuterMaps [x, y];
 							}
 						}
-						//OuterMaps[0, 1] = TheMap;
+
 
 						int cx = WorldMapX - 1;
 						for (int x = 0; x < 3; x++)
@@ -245,17 +361,23 @@ namespace StarterKit
 
 				if (Keyboard [Key.Up])
 				{
+					// The characters direction
+					CurrCharDirection = MyCharacter.Up;
+					//
 					if (ThePlayer.PosY + 1 < TheMap.Height
-						&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY + 1] > -1))
+						&& (GameMode != GameModeThings)
+						&& ((GameMode == GameModeEditor || GameMode == GameModeThings) || TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY + 1] > -1) && !TheMap.IsThingAt(ThePlayer.PosX, ThePlayer.PosY + 1))
 					{
-						foreach (MyCharacter item in ThePlayer.Characters.FindAll(c=> c.Value == CurrCharValue))
-						{
-							if (item.Index == 1)
-							{
-								CurrCharIndex = item.Index;
-							}
-						}
 						ThePlayer.PosY++;
+					}
+					else if (GameMode == GameModeThings)
+					{
+						Thing thing = TheMap.Things.Find(x => x.Index == CurrThingIndex);
+						if (thing.Y + thing.Depth < TheMap.Height)
+						{
+							int ind = TheMap.Things.IndexOf(thing);
+							TheMap.Things [ind].Y++;
+						}
 					}
 					else if (ThePlayer.PosY + 1 == TheMap.Height
 						&& (GameMode == GameModeEditor || OuterMaps [1, 0].Coordinates [ThePlayer.PosX, 0] > -1))
@@ -288,17 +410,24 @@ namespace StarterKit
 
 				if (Keyboard [Key.Left])
 				{
+					// Character direction
+					CurrCharDirection = MyCharacter.Left;
+					//
 					if (ThePlayer.PosX > 0
-						&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.PosX - 1, ThePlayer.PosY] > -1))
+						&& (GameMode != GameModeThings)
+						&& ((GameMode == GameModeEditor || GameMode == GameModeThings) || TheMap.Coordinates [ThePlayer.PosX - 1, ThePlayer.PosY] > -1) && !TheMap.IsThingAt(ThePlayer.PosX - 1, ThePlayer.PosY))
 					{
-						foreach (MyCharacter item in ThePlayer.Characters.FindAll(c=> c.Value == CurrCharValue))
-						{
-							if (item.Index == 2)
-							{
-								CurrCharIndex = item.Index;
-							}
-						}
+
 						ThePlayer.PosX--;
+					}
+					else if (GameMode == GameModeThings)
+					{
+						Thing thing = TheMap.Things.Find(x => x.Index == CurrThingIndex);
+						if (thing.X > 0)
+						{
+							int ind = TheMap.Things.IndexOf(thing);
+							TheMap.Things [ind].X--;
+						}
 					}
 					else if (ThePlayer.PosX == 0
 						&& (GameMode == GameModeEditor || OuterMaps [0, 1].Coordinates [OuterMaps [0, 1].Width - 1, ThePlayer.PosY] > -1))
@@ -332,17 +461,23 @@ namespace StarterKit
 
 				if (Keyboard [Key.Right])
 				{
+					// Character direction
+					CurrCharDirection = MyCharacter.Right;
+					//
 					if (ThePlayer.PosX + 1 < TheMap.Width
-						&& (GameMode == GameModeEditor || TheMap.Coordinates [ThePlayer.PosX + 1, ThePlayer.PosY] > -1))
+						&& (GameMode != GameModeThings)
+						&& ((GameMode == GameModeEditor || GameMode == GameModeThings) || TheMap.Coordinates [ThePlayer.PosX + 1, ThePlayer.PosY] > -1) && !TheMap.IsThingAt(ThePlayer.PosX + 1, ThePlayer.PosY))
 					{
-						foreach (MyCharacter item in ThePlayer.Characters.FindAll(c=> c.Value == CurrCharValue))
-						{
-							if (item.Index == 3)
-							{
-								CurrCharIndex = item.Index;
-							}
-						}
 						ThePlayer.PosX++;
+					}
+					else if (GameMode == GameModeThings)
+					{
+						Thing thing = TheMap.Things.Find(x => x.Index == CurrThingIndex);
+						if (thing.X + thing.Width < TheMap.Width)
+						{
+							int ind = TheMap.Things.IndexOf(thing);
+							TheMap.Things [ind].X++;
+						}
 					}
 					else if (ThePlayer.PosX + 1 == TheMap.Width
 						&& (GameMode == GameModeEditor || OuterMaps [2, 1].Coordinates [0, ThePlayer.PosY] > -1))
@@ -374,36 +509,69 @@ namespace StarterKit
 				}
 
 				/* Game Editor Mode */
-				if (GameMode == GameModeEditor)
+				if (GameMode == GameModeEditor || GameMode == GameModeThings)
 				{
 					// Modify current tile
 					if (Keyboard [Key.Period] || Keyboard [Key.Comma])
 					{
-						// Get the current texture index
-						int curr = TheMap.Textures.Find(t => t.Value == TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY]).Index;
-						int next = curr;
-
-						if (Keyboard [Key.Period])
+						if (GameMode == GameModeEditor)
 						{
-							next = curr + 1;
-						}
+							// Get the current texture index
+							int curr = TheMap.Textures.Find(t => t.Value == TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY]).Index;
+							int next = curr;
 
-						if (Keyboard [Key.Comma])
-						{
-							next = curr - 1;
-						}
+							if (Keyboard [Key.Period])
+							{
+								next = curr + 1;
+							}
+							else if (Keyboard [Key.Comma])
+							{
+								next = curr - 1;
+							}
 
-						if (next > TheMap.Textures.Count)
-						{
-							next = 1;
-						}
-						if (next < 1)
-						{
-							next = TheMap.Textures.Count;
-						}
+							if (next > TheMap.Textures.Count)
+							{
+								next = 1;
+							}
+							if (next < 1)
+							{
+								next = TheMap.Textures.Count;
+							}
 
-						Console.WriteLine(next);
-						TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY] = TheMap.Textures.Find(n => n.Index == next).Value;
+							//Console.WriteLine(next);
+							TheMap.Coordinates [ThePlayer.PosX, ThePlayer.PosY] = TheMap.Textures.Find(n => n.Index == next).Value;
+						}
+						else if (GameMode == GameModeThings)
+						{
+							int curr = 0;
+							curr = TheMap.Things.IndexOf(TheMap.Things.Find(x => x.Index == CurrThingIndex));
+
+							int next = curr;
+							if (Keyboard [Key.Period])
+							{
+								next++;
+							}
+							else if (Keyboard [Key.Comma])
+							{
+								next--;
+							}
+
+							//Console.WriteLine("Next thing number {0}", next);
+
+							if (next >= TheMap.Things.Count)
+							{
+								next = 1;
+							}
+							if (next < 1)
+							{
+								next = TheMap.Things.Count;
+							}
+
+							Console.WriteLine("Next thing after math {0}", next);
+
+							CurrThingIndex = TheMap.Things [next - 1].Index;
+							//Console.WriteLine("CurrThingIndex changed to {0} {1} {2}", CurrThingIndex, next, TheMap.Things [next - 1].Index);
+						}
 					}
 
 					if (Keyboard [Key.S]
@@ -415,6 +583,8 @@ namespace StarterKit
 			}
 		}
 
+
+
 		/// Called when it is time to render the next frame. Add your rendering code here.
 		/// </summary>
 		/// <param name="e">Contains timing information.</param>
@@ -425,9 +595,27 @@ namespace StarterKit
 			GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
 			//Matrix4 modelview = Matrix4.LookAt (Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-			Matrix4 modelview = Matrix4.LookAt(new Vector3((float)ThePlayer.PosX + 0.5f, (float)ThePlayer.PosY - 5.5f, (float)16),  // Camera
+
+			Matrix4 modelview;
+			if (GameMode == GameModeThings)
+			{
+				Thing thing = TheMap.Things.Find(x => x.Index == CurrThingIndex);
+				float thingx = (float)thing.X;
+				float thingy = (float)thing.Y;
+				float thingwidth = (float)thing.Width;
+				float thingdepth = (float)thing.Depth;
+
+
+				modelview = Matrix4.LookAt(new Vector3(thingx + (thingwidth / 2), thingy + (thingdepth / 2) - 4.0f, (float)16), // Camera
+				                           new Vector3(thingx + (thingwidth / 2), thingy + (thingdepth / 2), (float)4), //	Look at
+				            Vector3.UnitY);
+			}
+			else
+			{
+				modelview = Matrix4.LookAt(new Vector3((float)ThePlayer.PosX + 0.5f, (float)ThePlayer.PosY - 5.5f, (float)16),  // Camera
 			                                   new Vector3((float)ThePlayer.PosX + 0.5f, (float)ThePlayer.PosY + 0.5f, (float)4),	// Look At
 			                                   Vector3.UnitY);
+			}
 
 			GL.MatrixMode(MatrixMode.Modelview);
 			GL.LoadMatrix(ref modelview);
@@ -522,7 +710,7 @@ namespace StarterKit
 
 			}
 
-			TheMap.RenderThings();
+
 
 			if (GameMode == GameModeEditor)
 			{
@@ -558,6 +746,10 @@ namespace StarterKit
 				}
 			}
 
+	
+			// Load all textures in rear of char
+			TheMap.RenderThings(ThePlayer.PosY, TheMap.Height);
+
 			if (GameMode == GameModeGame)
 			{
 				CurrCharValue = 0;
@@ -565,9 +757,12 @@ namespace StarterKit
 			{
 				CurrCharValue = -2;
 			}
-			ChangeCharacter(CurrCharValue, CurrCharIndex);
 
+			// Draws the char
+			ChangeCharacter(CurrCharValue, CurrCharDirection);
 
+			// Load all textures in front of char
+			TheMap.RenderThings(0, ThePlayer.PosY);
 
 			GL.End();
 
@@ -592,6 +787,10 @@ namespace StarterKit
 
 			SwapBuffers();
 		}
+
+
+
+
 		protected void ChangeCharacter(int value)
 		{
 			ChangeCharacter(value, 0);
@@ -599,24 +798,32 @@ namespace StarterKit
 
 		protected void ChangeCharacter(int value, int index)
 		{
-			MyCharacter myChar = ThePlayer.Characters.Find(c => c.Value == value && c.Index == index);
-			GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
-			GL.Begin(BeginMode.Quads);
-			GL.Normal3(-1.0f, 0.0f, 0.0f);
+
+			if (GameMode != GameModeThings)
+			{
+				MyCharacter myChar = ThePlayer.Characters.Find(c => c.Value == value && c.Index == index);
+				//Console.WriteLine("MyChar: {0}", myChar.TexLibID);
+				GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
+				GL.Begin(BeginMode.Quads);
+				GL.Normal3(-1.0f, 0.0f, 0.0f);
 
 
-			// left top, right top, right bottom, left bottom
-			// left bottom is 0 0
-			GL.TexCoord2(0.0f, 1.0f);
-			GL.Vertex3((float)ThePlayer.PosX, (float)ThePlayer.PosY, 4.05f);
-			GL.TexCoord2(1.0f, 1.0f);
-			GL.Vertex3((float)ThePlayer.PosX + 1, (float)ThePlayer.PosY, 4.05f);
-			GL.TexCoord2(1.0f, 0.0f);
-			GL.Vertex3((float)ThePlayer.PosX + 1, (float)ThePlayer.PosY + 1, 4.05f + myChar.Height);
-			GL.TexCoord2(0.0f, 0.0f);
-			GL.Vertex3((float)ThePlayer.PosX, (float)ThePlayer.PosY + 1, 4.05f + myChar.Height);
-
+				// left top, right top, right bottom, left bottom
+				// left bottom is 0 0
+				GL.TexCoord2(0.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.PosX, (float)ThePlayer.PosY, 4.05f);
+				GL.TexCoord2(1.0f, 1.0f);
+				GL.Vertex3((float)ThePlayer.PosX + 1, (float)ThePlayer.PosY, 4.05f);
+				GL.TexCoord2(1.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.PosX + 1, (float)ThePlayer.PosY + 1, 4.05f + myChar.Height);
+				GL.TexCoord2(0.0f, 0.0f);
+				GL.Vertex3((float)ThePlayer.PosX, (float)ThePlayer.PosY + 1, 4.05f + myChar.Height);
+				GL.End();
+			}
 		}
+
+
+
 
 		/// <summary>
 		/// The main entry point for the application.

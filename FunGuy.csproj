@@ -95,6 +95,7 @@
     <Compile Include="Source\Things\Thing.cs" />
     <Compile Include="Source\Things\DefaultHouse.cs" />
     <Compile Include="Source\FGarbage.cs" />
+    <Compile Include="Source\Things\PineTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -220,5 +221,8 @@
     <None Include="Resources\Maps\4_4.map" />
     <None Include="Resources\PNGs\TileSets\default\grass2.png" />
     <None Include="Resources\PNGs\TileSets\default\rockroad1.png" />
+    <None Include="Resources\PNGs\TileSets\default\pine1.png" />
+    <None Include="Resources\PNGs\TileSets\default\thatch1.png" />
+    <None Include="Resources\PNGs\TileSets\default\woodpanel1.png" />
   </ItemGroup>
 </Project>

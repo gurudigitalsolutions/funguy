@@ -60,6 +60,7 @@ namespace FunGuy
 			info.AddValue("StartX", StartX);
 			info.AddValue("StartY", StartY);
 			info.AddValue("Things", Things);
+			info.AddValue("NextThingID", NextThingID);
 
 		}
 		
@@ -76,10 +77,19 @@ namespace FunGuy
 			try
 			{
 				Things = (List<Thing>)info.GetValue("Things", typeof(List<Thing>));
+				Things.Sort((x, y) => y.Y.CompareTo(x.Y));
 			}
 			catch (Exception)
 			{
 				//haha
+			}
+
+			try
+			{
+				NextThingID = (int)info.GetValue("NextThingID", typeof(int));
+			}catch (Exception)
+			{
+				// ajaj
 			}
 		}
 
@@ -122,6 +132,8 @@ namespace FunGuy
 
 		public int WorldX;
 		public int WorldY;
+
+		public int NextThingID = 0;
 		/// <summary>
 		/// Gets the map file.
 		/// </summary>
@@ -171,6 +183,15 @@ namespace FunGuy
 
 			returnMap.LoadPlayerPosition();
 			returnMap.LoadTileSet();
+
+			if (returnMap.Things != null && returnMap.Things.Count > 0)
+			{
+				for (int et = 0; et < returnMap.Things.Count; et++)
+				{
+					returnMap.Things [et].Index = et;
+					returnMap.NextThingID = et + 1;
+				}
+			}
 			return returnMap;
 		}
 
@@ -401,11 +422,43 @@ namespace FunGuy
 			Console.WriteLine("Unloaded textures");
 		}
 
-		public void RenderThings()
+		public void RenderThings(int miny, int maxy)
 		{
-			foreach (Thing ething in Things)
+
+			foreach (Thing ething in Things.FindAll(x => x.Y >= miny && x.Y < maxy))
 			{
 				ething.Render();
+			}
+		}
+
+		public bool IsThingAt(int x, int y)
+		{
+//			Thing thing = Things.Find(a => (a.X >= x && a.X + a.Width <= x) && (a.Y >= y && a.Y + a.Depth <= y));
+			Thing thing = Things.Find(a => (
+				a.X + a.Width - 1 >= x
+				&& a.X <= x
+				&& a.Y + a.Depth - 1 >= y
+				&& a.Y <= y)
+			);
+			if (thing == null)
+			{
+				return false;
+			}
+
+			return true;
+		}
+
+		public void AddThing(Thing thing)
+		{
+
+			thing.Index = NextThingID;
+			Things.Add(thing);
+
+			NextThingID++;
+
+			for (int et = 0; et < Things.Count; et++)
+			{
+				Things [et].Index = et;
 			}
 		}
 	}

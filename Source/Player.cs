@@ -45,7 +45,7 @@ namespace FunGuy
 		private bool LoadTileSet()
 		{
 			string resourcePath = string.Format("{0}/PNGs/Characters", StarterKit.Game.configPath);
-			Console.WriteLine("resource path exists: " + File.Exists(resourcePath));
+			Console.WriteLine("resource path exists:  :: {0}" + File.Exists(resourcePath), resourcePath);
 			try
 			{
 				StreamReader sr = new StreamReader(resourcePath + "/characters.txt");
