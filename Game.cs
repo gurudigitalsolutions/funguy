@@ -110,6 +110,9 @@ namespace StarterKit
 			ThePlayer = new Player();
 			ThePlayer.PosX = TheMap.StartX;
 			ThePlayer.PosY = TheMap.StartY;
+
+			//Console.WriteLine(" Width: {0}\t Height: {1}", TheMap.Width, TheMap.Height);
+			//Console.ReadKey();
 		}
 
 

@@ -97,12 +97,14 @@
     <Compile Include="Source\FGarbage.cs" />
     <Compile Include="Source\Things\PineTree.cs" />
   </ItemGroup>
+	<!--
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
     <Folder Include="Resources\PNGs\Characters\" />
     <Folder Include="Source\Things\" />
   </ItemGroup>
+	-->
   <ItemGroup>
     <None Include="Resources\PNGs\TileSets\default\grass1.png" />
     <None Include="Resources\PNGs\TileSets\default\lava1.png" />
@@ -123,6 +125,7 @@
     <None Include="FunGuy.userprefs" />
     <None Include="QuickStart.userprefs" />
     <None Include="Bin\Debug\OpenTK.dll.config" />
+		<!--
     <None Include="Bin\Debug\Resources\maps.txt" />
     <None Include="Bin\Debug\Resources\Maps\0_0.map" />
     <None Include="Bin\Debug\Resources\Maps\0_1.map" />
@@ -166,6 +169,7 @@
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\rocks1.png" />
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\textures.txt" />
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\water1.png" />
+		-->
     <None Include="Binaries\OpenTK\Release\OpenTK.Compatibility.dll.config" />
     <None Include="Binaries\OpenTK\Release\OpenTK.Compatibility.xml" />
     <None Include="Binaries\OpenTK\Release\OpenTK.GLControl.xml" />

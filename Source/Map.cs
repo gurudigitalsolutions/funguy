@@ -198,37 +198,33 @@ namespace FunGuy
 		/// <summary>
 		/// Load this instance.
 		/// </summary>
-		public bool Load()
-		{
-			if (!File.Exists(MapFile))
-			{
-				if (!CreateDefaultMap())
-				{
-					return false;
-				}
-			}
+		//public bool Load()
+		//{
+		//	if (!File.Exists(MapFile))
+		//	{
+		//		if (!CreateDefaultMap())
+		//		{
+		//			return false;
+		//		}
+		//	}
 
-			FileStream fs;
-			try
-			{
-				BinaryFormatter bf = new BinaryFormatter();
-				fs = new FileStream(MapFile, FileMode.Open, FileAccess.Read);
-				Coordinates = (int[,])bf.Deserialize(fs);
-				//Console.WriteLine("Loaded coordinates from: {0}", MapFile);
-				return true;
-			}
-			catch (Exception ex)
-			{
-				Console.WriteLine(ex.Message);
-				Console.WriteLine("Unable to load coordinates from: {0}", MapFile);
-				return false;
-			}
-			finally
-			{
-				fs.Close();
-			}
+		//	FileStream fs = new FileStream(MapFile, FileMode.Open, FileAccess.Read);
+		//	try
+		//	{
+		//		BinaryFormatter bf = new BinaryFormatter();
+		//		Coordinates = (int[,])bf.Deserialize(fs);
+		//		//Console.WriteLine("Loaded coordinates from: {0}", MapFile);
+		//		return true;
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		Console.WriteLine(ex.Message);
+		//		Console.WriteLine("Unable to load coordinates from: {0}", MapFile);
+		//		return false;
+		//	}
+		//	finally { fs.Close(); }
 
-		}
+		//}
 
 		/// <summary>
 		/// Save this instance.
@@ -241,10 +237,11 @@ namespace FunGuy
 //			}
 
 			FileStream fs;
+			fs = new FileStream(MapFile, FileMode.Create, FileAccess.Write);
+
 			try
 			{
 				BinaryFormatter bf = new BinaryFormatter();
-				fs = new FileStream(MapFile, FileMode.Create, FileAccess.Write);
 				bf.Serialize(fs, this);
 				Console.WriteLine("Saved coordinate to file: {0}", MapFile);
 				return true;
@@ -253,12 +250,10 @@ namespace FunGuy
 			{
 				Console.WriteLine(ex.Message);
 				Console.WriteLine("Error Serializing to: {0}", MapFile);
+				fs.Close();
 				return false;
 			}
-			finally
-			{
-				fs.Close();
-			}
+			finally { fs.Close(); }
 		}
 
 

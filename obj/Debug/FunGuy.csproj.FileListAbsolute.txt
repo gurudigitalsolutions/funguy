@@ -1,0 +1,7 @@
+C:\Users\gouldch\Code\git\funguy\obj\Debug\FunGuy.csprojResolveAssemblyReference.cache
+C:\Users\gouldch\Code\git\funguy\Bin\Debug\FunGuy.exe
+C:\Users\gouldch\Code\git\funguy\Bin\Debug\FunGuy.pdb
+C:\Users\gouldch\Code\git\funguy\Bin\Debug\OpenTK.dll
+C:\Users\gouldch\Code\git\funguy\Bin\Debug\OpenTK.xml
+C:\Users\gouldch\Code\git\funguy\obj\Debug\FunGuy.exe
+C:\Users\gouldch\Code\git\funguy\obj\Debug\FunGuy.pdb
