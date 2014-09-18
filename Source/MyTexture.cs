@@ -40,38 +40,13 @@ namespace FunGuy
 
 		}
 
-		/// <summary>
-		/// Gets or sets the name.
-		/// </summary>
-		/// <value>
-		/// The name of the Texture.
-		/// </value>
+
 		public string Name;
 
-		/// <summary>
-		/// Gets or sets the value to display on the map.
-		/// </summary>
-		/// <value>
-		/// The map value.
-		/// Negative values indicate character cannot move into this area
-		/// </value>
 		public int Value;
 
-		/// <summary>
-		/// Gets or sets the texture library ID.
-		/// </summary>
-		/// <value>
-		/// The texture library ID.
-		/// int value assigned to bitmap when loading image into the TexLib.
-		/// </value>
 		public int TexLibID;
 
-		/// <summary>
-		/// Gets the ID used for tile edit mode.
-		/// </summary>
-		/// <value>
-		/// The 1 based index for edit mode.
-		/// </value>
 		public int Index;
 	}
 }

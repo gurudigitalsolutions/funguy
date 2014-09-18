@@ -97,7 +97,7 @@
     <Compile Include="Source\FGarbage.cs" />
     <Compile Include="Source\Things\PineTree.cs" />
   </ItemGroup>
-	<!--
+  <!--
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="Source\" />
@@ -125,7 +125,7 @@
     <None Include="FunGuy.userprefs" />
     <None Include="QuickStart.userprefs" />
     <None Include="Bin\Debug\OpenTK.dll.config" />
-		<!--
+    <!--
     <None Include="Bin\Debug\Resources\maps.txt" />
     <None Include="Bin\Debug\Resources\Maps\0_0.map" />
     <None Include="Bin\Debug\Resources\Maps\0_1.map" />
@@ -228,5 +228,54 @@
     <None Include="Resources\PNGs\TileSets\default\pine1.png" />
     <None Include="Resources\PNGs\TileSets\default\thatch1.png" />
     <None Include="Resources\PNGs\TileSets\default\woodpanel1.png" />
+    <None Include="FunGuy.v11.suo" />
+    <None Include="Bin\Debug\FunGuy.vshost.exe.manifest" />
+    <None Include="Bin\Debug\OpenTK.xml" />
+    <None Include="Bin\Debug\Resources\maps.txt" />
+    <None Include="Bin\Debug\Resources\Maps\0_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\0_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\1_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\2_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\3_4.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_0.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_1.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_2.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_3.map" />
+    <None Include="Bin\Debug\Resources\Maps\4_4.map" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_Back.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_left.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\Tux_right.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_down.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_left.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_right.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\arrow_up.png" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\characters.txt" />
+    <None Include="Bin\Debug\Resources\PNGs\Characters\editorsquare.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\grass1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\grass2.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\lava1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\pine1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\rockroad1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\rocks1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\textures.txt" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\thatch1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\water1.png" />
+    <None Include="Bin\Debug\Resources\PNGs\TileSets\default\woodpanel1.png" />
   </ItemGroup>
 </Project>
