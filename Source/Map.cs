@@ -17,6 +17,19 @@ namespace FunGuy
     [Serializable()]
     public class Map:ISerializable
     {
+        
+        public string Name;
+        public string TileSet;
+        public int Width;
+        public int Height;
+        public int[,] Coordinates;
+        public List<Texture> Textures = new List<Texture>();
+        public List<Thing> Things = new List<Thing>();
+        public int StartX;
+        public int StartY;
+        public int WorldX;
+        public int WorldY;
+        public int NextThingID = 0;
 
         public Map(string name, string tileSet, int width, int height)
         {
@@ -26,7 +39,7 @@ namespace FunGuy
             Height = height;
 
             Coordinates = new int[width, height];
-            Textures = new List<MyTexture>();
+            Textures = new List<Texture>();
 
             LoadTileSet();
             LoadPlayerPosition();
@@ -53,7 +66,8 @@ namespace FunGuy
             {
                 Things = (List<Thing>)info.GetValue("Things", typeof(List<Thing>));
                 Things.Sort((x, y) => y.Y.CompareTo(x.Y));
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 ;
             }
@@ -62,7 +76,8 @@ namespace FunGuy
             try
             {
                 NextThingID = (int)info.GetValue("NextThingID", typeof(int));
-            } catch (Exception)
+            }
+            catch (Exception)
             {
                 // ajaj
             }
@@ -83,19 +98,6 @@ namespace FunGuy
 
         }
 
-
-        public string Name;
-        public string TileSet;
-        public int Width;
-        public int Height;
-        public int[,] Coordinates;
-        public List<MyTexture> Textures = new List<MyTexture>();
-        public List<Thing> Things = new List<Thing>();
-        public int StartX;
-        public int StartY;
-        public int WorldX;
-        public int WorldY;
-        public int NextThingID = 0;
 
 
         public string MapFile
@@ -124,45 +126,40 @@ namespace FunGuy
                 return null;
             }
 
-            Map returnMap;
+            Map retValue;
             FileStream fs = File.Open(mapFile, FileMode.Open);
             BinaryFormatter bform = new BinaryFormatter();
             BinaryReader reader = new BinaryReader(fs);
             reader.BaseStream.Position = 0;
-            returnMap = (Map)bform.Deserialize(fs);
+            retValue = (Map)bform.Deserialize(fs);
 
-            returnMap.Textures = new List<MyTexture>();
+            retValue.Textures = new List<Texture>();
 
-            returnMap.LoadPlayerPosition();
-            returnMap.LoadTileSet();
+            retValue.LoadPlayerPosition();
+            retValue.LoadTileSet();
 
-            return returnMap;
+            return retValue;
         }
 
 
         public bool Save()
         {
-//          if (!FindMapFile())
-//          {
-//              return false;
-//          }
-
-            FileStream fs;
-            fs = new FileStream(MapFile, FileMode.Create, FileAccess.Write);
-
+            FileStream fs = new FileStream(MapFile, FileMode.Create, FileAccess.Write);
             try
             {
                 BinaryFormatter bf = new BinaryFormatter();
                 bf.Serialize(fs, this);
                 Console.WriteLine("Saved coordinate to file: {0}", MapFile);
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Error Serializing to: {0}", MapFile);
                 fs.Close();
                 return false;
-            } finally
+            }
+            finally
             {
                 fs.Close();
             }
@@ -177,13 +174,12 @@ namespace FunGuy
         /// </returns>
         private bool LoadTileSet()
         {
-            string resourcePath = string.Format("{1}/PNGs/TileSets/{0}", TileSet, FunGuy.Game.configPath);
-            int editID = 1;
+            string resourcePath = string.Format("{0}/PNGs/TileSets", FunGuy.Game.configPath);
             StreamReader sr;
 
             try
             {
-                sr = new StreamReader(resourcePath + "/textures.txt");
+                sr = new StreamReader(string.Format("{0}/{1}.txt", resourcePath, TileSet));
                 string fileContents = sr.ReadToEnd();
 
                 foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
@@ -197,14 +193,14 @@ namespace FunGuy
                     int mapValue = Int32.Parse(numName [0]);
                     string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
-                    MyTexture texture = new MyTexture(textureName, mapValue, texLibID, editID);
+                    Texture texture = new Texture(textureName, mapValue, texLibID);
                     Textures.Add(texture);
-                    editID++;
                 }
 //              Console.WriteLine("Loaded Tile Set: {0}", TileSet);
 
                 return true;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Unable to Load Tile Set: {0}", TileSet);
@@ -253,7 +249,8 @@ namespace FunGuy
                 }
                 Console.WriteLine("Unable to load player position for: {0}", Name);
                 return false;
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Failed reading file: {0}", resourcePath);
@@ -262,13 +259,13 @@ namespace FunGuy
         }
 
 
-        public static void UnloadTextures(List<MyTexture> textures)
+        public static void UnloadTextures(List<Texture> textures)
         {
             if (textures.Count < 1)
             {
                 return;
             }
-            foreach (MyTexture etex in textures)
+            foreach (Texture etex in textures)
             {
                 GL.DeleteTexture(etex.TexLibID);
             }

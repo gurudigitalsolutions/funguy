@@ -4,49 +4,33 @@ using System.IO;
 
 namespace FunGuy
 {
-
-    public class Player
+    public class Character : FunGuy.Texture
     {
-#if DEBUG 
-        public static int MoveInterval = 100;
-#else 
-		public int MoveInterval = 250;
-#endif
+        public float Height;
+        public const int Down = 0;
+        public const int Up = 1;
+        public const int Left = 2;
+        public const int Right = 3;
 
-        public Player()
+        public Character(string name, int mapValue, int texLibID, int index, float height)
         {
-
+            Name = name;
+            Value = mapValue;
+            TexLibID = texLibID;
+            Index = index;
+            Height = height;
         }
-
-        public static List<Character> Characters
+        public Character(Texture texture, float height)
         {
-            get
-            {
-                if (!_IsCharLoaded){
-                    _Characters = LoadTileSet();
-                    _IsCharLoaded = true;}
-                return _Characters;
-            }
-        }
-        private static List<Character> _Characters;
-        private static bool _IsCharLoaded = false;
-        public static int X;
-        public static int Y;
-        public static int LastMovedTime;
-        public static bool CanMove
-        {
-            get {
-                if (Environment.TickCount - LastMovedTime > MoveInterval)
-            {
-                    LastMovedTime = Environment.TickCount;
-                    return true;
-            }
-                return false;
-            }
+            Name = texture.Name;
+            Value = texture.Value;
+            TexLibID = texture.TexLibID;
+            Height = height;
         }
 
 
-        private static List<Character> LoadTileSet()
+
+        public static List<Character> _LoadCharacters()
         {
             List<Character> retValue = new List<Character>();
             string resourcePath = string.Format("{0}/PNGs/Characters", FunGuy.Game.configPath);
@@ -85,7 +69,6 @@ namespace FunGuy
                 return new List<Character>();
             }
         }
-
     }
 }
 

@@ -1,0 +1,4 @@
+# Texture file settings for pine tree Thing Set
+# Format: [Name]
+#
+pine1

@@ -49,11 +49,12 @@ Global
 		$2.BeforeConstructorDeclarationParentheses = False
 		$2.BeforeDelegateDeclarationParentheses = False
 		$2.NewParentheses = False
+		$2.BlankLinesBeforeUsings = 1
 		$2.BlankLinesAfterUsings = 2
 		$2.BlankLinesBeforeFirstDeclaration = 1
-		$2.BlankLinesBetweenTypes = 3
+		$2.BlankLinesBetweenTypes = 0
 		$2.BlankLinesBetweenEventFields = 1
-		$2.BlankLinesBetweenMembers = 2
+		$2.BlankLinesBetweenMembers = 0
 		$2.inheritsSet = Mono
 		$2.inheritsScope = text/x-csharp
 		$2.scope = text/x-csharp
