@@ -1,3 +1,0 @@
-# Map files to load with starting position
-# Format [Name] [X] [Y]
-Map1 32 32
