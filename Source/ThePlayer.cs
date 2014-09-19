@@ -5,15 +5,15 @@ using System.IO;
 namespace FunGuy
 {
 
-    public class Player
+    public class ThePlayer
     {
-#if DEBUG 
+        #if DEBUG 
         public static int MoveInterval = 100;
 #else 
         public int MoveInterval = 250;
 #endif
 
-        public Player()
+        public ThePlayer()
         {
 
         }
@@ -49,10 +49,9 @@ namespace FunGuy
         private static List<Character> LoadTileSet()
         {
             List<Character> retValue = new List<Character>();
-            string resourcePath = string.Format("{0}/PNGs/Characters", FunGuy.Game.configPath);
             try
             {
-                StreamReader sr = new StreamReader(resourcePath + "/characters.txt");
+                StreamReader sr = new StreamReader(string.Format("{0}/Sets/Characters/characters.txt", FunGuy.Game.configPath));
                 string fileContents = sr.ReadToEnd();
                 foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -64,7 +63,7 @@ namespace FunGuy
                     string textureName = valueNameIndex [1];
                     int mapValue = Int32.Parse(valueNameIndex [0]);
                     int index = Int32.Parse(valueNameIndex [2]);
-                    string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
+                    string resourceID = string.Format("{0}/PNGs/Characters/{1}.png", FunGuy.Game.configPath, textureName);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
                     float height = 1.0F;
                     if (mapValue < 0)
@@ -85,6 +84,6 @@ namespace FunGuy
                 return new List<Character>();
             }
         }
-
     }
 }
+

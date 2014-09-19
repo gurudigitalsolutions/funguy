@@ -1,27 +1,32 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Textures/Character.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Map.cs">
     <Files>
-      <File FileName="Game.cs" Line="813" Column="85" />
-      <File FileName="Source/Map.cs" Line="139" Column="22" />
-      <File FileName="Source/Things/Thing.cs" Line="63" Column="51" />
-      <File FileName="Source/Things/PineTree.cs" Line="23" Column="34" />
-      <File FileName="Source/Things/DefaultHouse.cs" Line="247" Column="9" />
+      <File FileName="Game.cs" Line="302" Column="60" />
+      <File FileName="Source/Map.cs" Line="284" Column="38" />
+      <File FileName="Source/Things/Thing.cs" Line="68" Column="30" />
+      <File FileName="Source/Things/PineTree.cs" Line="58" Column="31" />
+      <File FileName="Source/Things/DefaultHouse.cs" Line="103" Column="31" />
       <File FileName="Source/Textures/Texture.cs" Line="7" Column="18" />
-      <File FileName="Source/Textures/Characters.cs" Line="11" Column="9" />
-      <File FileName="Source/Textures/Character.cs" Line="18" Column="30" />
-      <File FileName="Source/Player.cs" Line="36" Column="35" />
+      <File FileName="Source/Textures/Character.cs" Line="7" Column="22" />
+      <File FileName="Source/ThePlayer.cs" Line="16" Column="19" />
+      <File FileName="Source/Player.cs" Line="90" Column="2" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="FunGuy" expanded="True">
-            <Node name="Resources" expanded="True" />
-            <Node name="Source" expanded="True">
-              <Node name="Textures" expanded="True">
-                <Node name="Character.cs" selected="True" />
+            <Node name="Resources" expanded="True">
+              <Node name="PNGs" expanded="True">
+                <Node name="ThingSets" expanded="True" />
+                <Node name="TileSets" expanded="True" />
               </Node>
+              <Node name="Sets" expanded="True" />
+            </Node>
+            <Node name="Source" expanded="True">
+              <Node name="Textures" expanded="True" />
               <Node name="Things" expanded="True" />
+              <Node name="Map.cs" selected="True" />
             </Node>
           </Node>
         </State>

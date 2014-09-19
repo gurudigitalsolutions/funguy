@@ -60,9 +60,9 @@ namespace FunGuy
 
         private static List<Thing> _LoadDefaultThings()
         {
-            List<Thing> retValue = new List<Thing>();
-            PineTree pineTree = new PineTree();
-            return retValue;
+            List<Thing> retList = new List<Thing>();
+            retList.Add(new PineTree());
+            return retList;
         }
 
         public virtual int[] TextureList()

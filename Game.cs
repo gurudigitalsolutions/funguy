@@ -16,11 +16,11 @@ namespace FunGuy
 
     class Game : GameWindow
     {
-        public Map TheMap
-        {
-            get { return OuterMaps [1, 1]; }
-            set { OuterMaps [1, 1] = value; }
-        }
+        public Map TheMap;
+//        {
+//            get { return OuterMaps [1, 1]; }
+//            set { OuterMaps [1, 1] = value; }
+//        }
 
 
         public Map[,] OuterMaps = new Map[3, 3];
@@ -112,11 +112,7 @@ namespace FunGuy
                 92, 255, 0, 255}
             );
 
-#if DEBUG
-            configPath = "../../Resources";
-#else
-            configPath = "../../Resources";
-#endif
+
 
             TimeStamp = Environment.TickCount;
 
@@ -124,7 +120,6 @@ namespace FunGuy
             TheMap.WorldX = WorldMapX;
             TheMap.WorldY = WorldMapY;
 
-//            InitEditorThings();
 
 
             int cx = 0;

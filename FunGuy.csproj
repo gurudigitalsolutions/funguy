@@ -86,7 +86,6 @@
   </ProjectExtensions>
   <ItemGroup>
     <Compile Include="Source\Map.cs" />
-    <Compile Include="Source\Player.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Source\Things\Thing.cs" />
     <Compile Include="Source\Things\DefaultHouse.cs" />
@@ -96,6 +95,8 @@
     <Compile Include="Source\Textures\Character.cs" />
     <Compile Include="Source\Library\TexLib.cs" />
     <Compile Include="Source\Textures\TextType.cs" />
+    <Compile Include="Source\ThePlayer.cs" />
+    <Compile Include="Source\Player.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -339,6 +340,15 @@
     <None Include="Binaries\QuickStart\Debug\Binaries\OpenTK\Release\OpenTK.dll.config">
       <Visible>False</Visible>
     </None>
+    <None Include="git-push.sh">
+      <Visible>False</Visible>
+    </None>
+    <None Include="Resources\Sets\Characters\characters.txt" />
+    <None Include="Resources\Sets\Characters\editor.txt" />
+    <None Include="Resources\Sets\Characters\player.txt" />
+    <None Include="Resources\Sets\Things\trees.txt" />
+    <None Include="Resources\Sets\Tiles\default.txt" />
+    <None Include="Resources\maps.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\PNGs\ThingSets\" />
