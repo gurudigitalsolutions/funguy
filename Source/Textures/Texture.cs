@@ -51,7 +51,7 @@ namespace FunGuy
             {
                 if (!_IsMapTextsLoaded)
                 {
-                    _DefaultMapTexts = _LoadTiles(TextType.TileSet, "default");
+                    _DefaultMapTexts = _LoadTextures(TextType.TileSet, "default");
                     _IsMapTextsLoaded = true;
                 }
                 return _DefaultMapTexts;
@@ -75,15 +75,12 @@ namespace FunGuy
 
            
 
-        public static List<Texture> _LoadTiles(string TexType, string Name)
+        public static List<Texture> _LoadTiles(string setType, string setName)
         {
             List<Texture> retValue = new List<Texture>();
-            string resourcePath = string.Format("{0}/PNGs/{1}", FunGuy.Game.configPath, TexType);
-            Console.WriteLine(resourcePath);
             try
             {
-                Console.WriteLine("{0}/{1}.txt", resourcePath, Name);
-                StreamReader sr = new StreamReader(string.Format("{0}/{1}.txt", resourcePath, Name));
+                StreamReader sr = new StreamReader(string.Format("{0}/Sets/{1}/{2}.txt", FunGuy.Game.configPath, setType, setName));
                 string fileContents = sr.ReadToEnd();
 
                 foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
@@ -95,30 +92,29 @@ namespace FunGuy
                     string[] numName = line.Trim().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                     string textureName = numName [1];
                     int mapValue = Int32.Parse(numName [0]);
-                    string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
+                    string resourceID = string.Format("{0}/PNGs/{1}/{2}.png", FunGuy.Game.configPath, setType,textureName);
+                    Console.WriteLine("_LoadTiles resourceID {0}", resourceID);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
                     Texture texture = new Texture(textureName, mapValue, texLibID);
                     retValue.Add(texture);
                 }
-                Console.WriteLine("Loaded Tile Set: {0}", Name);
+                Console.WriteLine("Loaded Tile Set: {0}", setName);
                 return retValue;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Unable to Load Tile Set: {0}", Name);
+                Console.WriteLine("Unable to Load Tile Set: {0}", setName);
                 return new List<Texture>();
             }
         }
-        public static List<Texture> _LoadTextures(string TexType, string Name)
+
+        public static List<Texture> _LoadTextures(string setType, string setName)
         {
             List<Texture> retValue = new List<Texture>();
-            string resourcePath = string.Format("{0}/PNGs/{1}", FunGuy.Game.configPath, TexType);
-            Console.WriteLine(resourcePath);
             try
             {
-                Console.WriteLine("{0}/{1}.txt", resourcePath, Name);
-                StreamReader sr = new StreamReader(string.Format("{0}/{1}.txt", resourcePath, Name));
+                StreamReader sr = new StreamReader(string.Format("{0}/Sets/{1}/{2}.txt", FunGuy.Game.configPath, setType, setName));
                 string fileContents = sr.ReadToEnd();
 
                 foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
@@ -127,21 +123,21 @@ namespace FunGuy
                     {
                         continue;
                     }
-                    string resourceID = string.Format("{0}/{1}.png", resourcePath, line);
+                    string resourceID = string.Format("{0}/PNGs/{1}/{2}.png", FunGuy.Game.configPath, setType,line);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
                     Texture texture = new Texture(line, texLibID);
                     retValue.Add(texture);
                 }
-                Console.WriteLine("Loaded Tile Set: {0}", Name);
+                Console.WriteLine("Loaded Tile Set: {0}", setName);
                 return retValue;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                Console.WriteLine("Unable to Load Tile Set: {0}", Name);
+                Console.WriteLine("Unable to Load Tile Set: {0}", setName);
                 return new List<Texture>();
             }
-    }
+        }
     }
 
 }

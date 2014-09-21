@@ -16,6 +16,7 @@ namespace FunGuy
         public int Height = 1;
         public bool IsSolid = true;
         public int Index = 0;
+        public string[] TextureSetsAvailable;
         
         private static bool _IsAllThingsLoaded = false;
         private static List<Thing> _AllThings = new List<Thing>();

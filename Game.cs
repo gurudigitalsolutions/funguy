@@ -146,7 +146,10 @@ namespace FunGuy
             }
             Player.X = TheMap.StartX;
             Player.Y = TheMap.StartY;
-
+            foreach (Texture tex in Texture.DefaultMapTexts)
+            {
+                Console.WriteLine(tex.Name);
+            }
         }
 
 
@@ -797,17 +800,33 @@ namespace FunGuy
                 GL.Begin(BeginMode.Quads);
                 GL.Normal3(-1.0f, 0.0f, 0.0f);
 
+                if(ModeIsGame)
+                {
 
-                // left top, right top, right bottom, left bottom
-                // left bottom is 0 0
-                GL.TexCoord2(0.0f, 1.0f);
-                GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f);
-                GL.TexCoord2(1.0f, 1.0f);
-                GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f);
-                GL.TexCoord2(1.0f, 0.0f);
-                GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
-                GL.TexCoord2(0.0f, 0.0f);
-                GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
+                    // left top, right top, right bottom, left bottom
+                    // left bottom is 0 0
+                    GL.TexCoord2(0.0f, 1.0f);
+                    GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f);
+                    GL.TexCoord2(1.0f, 1.0f);
+                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f);
+                    GL.TexCoord2(1.0f, 0.0f);
+                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
+                    GL.TexCoord2(0.0f, 0.0f);
+                    GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
+                }
+                else
+                {
+                    // left top, right top, right bottom, left bottom
+                    // left bottom is 0 0
+                    GL.TexCoord2(0.0f, 1.0f);
+                    GL.Vertex3((float)Player.X, (float)Player.Y , 4.05f);
+                    GL.TexCoord2(1.0f, 1.0f);
+                    GL.Vertex3((float)Player.X + 1, (float)Player.Y , 4.05f);
+                    GL.TexCoord2(1.0f, 0.0f);
+                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 1f, 4.05f + myChar.Height);
+                    GL.TexCoord2(0.0f, 0.0f);
+                    GL.Vertex3((float)Player.X, (float)Player.Y + 1f, 4.05f + myChar.Height);
+                }
                 GL.End();
             }
         }

@@ -239,20 +239,8 @@
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\thatch1.png" />
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\water1.png" />
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\woodpanel1.png" />
-    <None Include="Resources\PNGs\TileSets\default.txt" />
-    <None Include="Resources\PNGs\TileSets\grass1.png" />
-    <None Include="Resources\PNGs\TileSets\grass2.png" />
-    <None Include="Resources\PNGs\TileSets\lava1.png" />
-    <None Include="Resources\PNGs\TileSets\pine1.png" />
-    <None Include="Resources\PNGs\TileSets\rockroad1.png" />
-    <None Include="Resources\PNGs\TileSets\rocks1.png" />
-    <None Include="Resources\PNGs\TileSets\thatch1.png" />
-    <None Include="Resources\PNGs\TileSets\water1.png" />
-    <None Include="Resources\PNGs\TileSets\woodpanel1.png" />
     <None Include="Resources\PNGs\Characters\editor.txt" />
     <None Include="Resources\PNGs\Characters\player.txt" />
-    <None Include="Resources\PNGs\ThingSets\pine1.png" />
-    <None Include="Resources\PNGs\ThingSets\trees.txt" />
     <None Include="FunGuy.userprefs">
       <Visible>False</Visible>
     </None>
@@ -346,11 +334,6 @@
     <None Include="git-push.sh">
       <Visible>False</Visible>
     </None>
-    <None Include="Resources\Sets\Characters\characters.txt" />
-    <None Include="Resources\Sets\Characters\editor.txt" />
-    <None Include="Resources\Sets\Characters\player.txt" />
-    <None Include="Resources\Sets\Things\trees.txt" />
-    <None Include="Resources\Sets\Tiles\default.txt" />
     <None Include="Resources\maps.txt" />
     <None Include="Resources\PNGs\CharSets\Tux_Back.png" />
     <None Include="Resources\PNGs\CharSets\Tux_Down.png" />
@@ -374,10 +357,27 @@
     <None Include="Resources\PNGs\MapSets\thatch1.png" />
     <None Include="Resources\PNGs\MapSets\water1.png" />
     <None Include="Resources\PNGs\MapSets\woodpanel1.png" />
+    <None Include="Resources\Sets\Characters\characters.txt" />
+    <None Include="Resources\Sets\Characters\editor.txt" />
+    <None Include="Resources\Sets\Characters\player.txt" />
+    <None Include="Resources\Sets\Things\trees.txt" />
+    <None Include="Resources\Sets\Tiles\default.txt" />
+    <None Include="Resources\PNGs\Things\pine1.png" />
+    <None Include="Resources\PNGs\Things\trees.txt" />
+    <None Include="Resources\PNGs\Tiles\default.txt" />
+    <None Include="Resources\PNGs\Tiles\grass1.png" />
+    <None Include="Resources\PNGs\Tiles\grass2.png" />
+    <None Include="Resources\PNGs\Tiles\lava1.png" />
+    <None Include="Resources\PNGs\Tiles\pine1.png" />
+    <None Include="Resources\PNGs\Tiles\rockroad1.png" />
+    <None Include="Resources\PNGs\Tiles\rocks1.png" />
+    <None Include="Resources\PNGs\Tiles\thatch1.png" />
+    <None Include="Resources\PNGs\Tiles\water1.png" />
+    <None Include="Resources\PNGs\Tiles\woodpanel1.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\PNGs\ThingSets\" />
     <Folder Include="Source\Textures\" />
     <Folder Include="Source\Library\" />
+    <Folder Include="Resources\PNGs\Things\" />
   </ItemGroup>
 </Project>
