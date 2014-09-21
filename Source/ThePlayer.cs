@@ -5,7 +5,7 @@ using System.IO;
 namespace FunGuy
 {
 
-    public class ThePlayer
+    public class Player
     {
         #if DEBUG 
         public static int MoveInterval = 100;
@@ -13,7 +13,7 @@ namespace FunGuy
         public int MoveInterval = 250;
 #endif
 
-        public ThePlayer()
+        public Player()
         {
 
         }
@@ -65,7 +65,7 @@ namespace FunGuy
                     int index = Int32.Parse(valueNameIndex [2]);
                     string resourceID = string.Format("{0}/PNGs/Characters/{1}.png", FunGuy.Game.configPath, textureName);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
-                    float height = 1.0F;
+                    float height = 2.0F;
                     if (mapValue < 0)
                     {
                         height = 0.0F;

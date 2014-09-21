@@ -12,7 +12,7 @@ namespace FunGuy
     public class CharSet : TextSet
     {
         public float Height = 1.0f;
-		public int Direction = Character.Direction.Down;
+        public int Direction = Character.Down;// Character.Direction.Down;
         
 
         public CharSet(string name, int value, int texLibID, int direction, float height)

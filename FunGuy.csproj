@@ -96,7 +96,10 @@
     <Compile Include="Source\Library\TexLib.cs" />
     <Compile Include="Source\Textures\TextType.cs" />
     <Compile Include="Source\ThePlayer.cs" />
-    <Compile Include="Source\Player.cs" />
+    <Compile Include="Source\Textures\CharSet.cs" />
+    <Compile Include="Source\Textures\MapSet.cs" />
+    <Compile Include="Source\Textures\TextSet.cs" />
+    <Compile Include="Source\Textures\ThingSet.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -349,6 +352,28 @@
     <None Include="Resources\Sets\Things\trees.txt" />
     <None Include="Resources\Sets\Tiles\default.txt" />
     <None Include="Resources\maps.txt" />
+    <None Include="Resources\PNGs\CharSets\Tux_Back.png" />
+    <None Include="Resources\PNGs\CharSets\Tux_Down.png" />
+    <None Include="Resources\PNGs\CharSets\Tux_left.png" />
+    <None Include="Resources\PNGs\CharSets\Tux_right.png" />
+    <None Include="Resources\PNGs\CharSets\arrow_down.png" />
+    <None Include="Resources\PNGs\CharSets\arrow_left.png" />
+    <None Include="Resources\PNGs\CharSets\arrow_right.png" />
+    <None Include="Resources\PNGs\CharSets\arrow_up.png" />
+    <None Include="Resources\PNGs\CharSets\characters.txt" />
+    <None Include="Resources\PNGs\CharSets\editor.txt" />
+    <None Include="Resources\PNGs\CharSets\editorsquare.png" />
+    <None Include="Resources\PNGs\CharSets\player.txt" />
+    <None Include="Resources\PNGs\MapSets\default.txt" />
+    <None Include="Resources\PNGs\MapSets\grass1.png" />
+    <None Include="Resources\PNGs\MapSets\grass2.png" />
+    <None Include="Resources\PNGs\MapSets\lava1.png" />
+    <None Include="Resources\PNGs\MapSets\pine1.png" />
+    <None Include="Resources\PNGs\MapSets\rockroad1.png" />
+    <None Include="Resources\PNGs\MapSets\rocks1.png" />
+    <None Include="Resources\PNGs\MapSets\thatch1.png" />
+    <None Include="Resources\PNGs\MapSets\water1.png" />
+    <None Include="Resources\PNGs\MapSets\woodpanel1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\PNGs\ThingSets\" />
