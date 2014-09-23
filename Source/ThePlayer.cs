@@ -33,6 +33,7 @@ namespace FunGuy
         public static int X;
         public static int Y;
         public static int LastMovedTime;
+        public static int AnimStep = 0;
         public static bool CanMove
         {
             get {
@@ -65,7 +66,7 @@ namespace FunGuy
                     int index = Int32.Parse(valueNameIndex [2]);
                     string resourceID = string.Format("{0}/PNGs/Characters/{1}.png", FunGuy.Game.configPath, textureName);
                     int texLibID = TexLib.CreateTextureFromFile(resourceID);
-                    float height = 2.0F;
+                    float height = 3.0F;
                     if (mapValue < 0)
                     {
                         height = 0.0F;

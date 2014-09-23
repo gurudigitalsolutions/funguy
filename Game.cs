@@ -146,10 +146,7 @@ namespace FunGuy
             }
             Player.X = TheMap.StartX;
             Player.Y = TheMap.StartY;
-            foreach (Texture tex in Texture.DefaultMapTexts)
-            {
-                Console.WriteLine(tex.Name);
-            }
+           
         }
 
 
@@ -319,7 +316,7 @@ namespace FunGuy
             if (Keyboard [Key.Down])
                 {
                 // Characters direction
-                CharDirection = Character.Down;
+                CharDirection = Character.NextDown(CharDirection);
                 //
                 if (Player.Y > 0 && (!ModeIsThings)
                     && (ModeIsEditor || (TheMap.Coordinates [Player.X, Player.Y - 1] > -1) && !TheMap.IsThingAt(Player.X, Player.Y - 1)))
@@ -374,7 +371,7 @@ namespace FunGuy
             #region MOVE UP
             if (Keyboard [Key.Up])
                 {
-                CharDirection = Character.Up;
+                CharDirection = Character.NextUp(CharDirection);
                 //
                 if (Player.Y + 1 < TheMap.Height
                     && (!ModeIsThings)
@@ -425,7 +422,7 @@ namespace FunGuy
             if (Keyboard [Key.Left])
                 {
                 // Character direction
-                CharDirection = Character.Left;
+                CharDirection = Character.NextLeft(CharDirection);
                 //
                 if (Player.X > 0
                     && (!ModeIsThings)
@@ -478,7 +475,7 @@ namespace FunGuy
             if (Keyboard [Key.Right])
                 {
                 // Character direction
-                CharDirection = Character.Right;
+                CharDirection = Character.NextRight(CharDirection);
                 //
                 if (Player.X + 1 < TheMap.Width
                     && (!ModeIsThings)
@@ -805,14 +802,43 @@ namespace FunGuy
 
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
+                   
+                    float ly = Player.Y;
+                    float ry = Player.Y;
+
+                    if(CharDirection == Character.Down || 
+                       CharDirection == Character.DownTwo ||
+                       CharDirection == Character.DownThree ||
+                       CharDirection == Character.Up ||
+                       CharDirection == Character.UpTwo ||
+                       CharDirection == Character.UpThree)
+                    {
+                        ly = ly + 0.5f;
+                        ry = ry + 0.5f;
+                    }
+                    else if(CharDirection == Character.Left ||
+                            CharDirection == Character.LeftTwo ||
+                            CharDirection == Character.LeftThree)
+                    {
+                        ly = ly + 0.8f;
+                        ry = ry + 0.2f;
+                    }
+                    else if(CharDirection == Character.Right ||
+                            CharDirection == Character.RightTwo ||
+                            CharDirection == Character.RightThree)
+                    {
+                        ly = ly + 0.2f;
+                        ry = ry + 0.8f;
+                    }
+
                     GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f);
+                    GL.Vertex3((float)Player.X, ly, 4.05f);
                     GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f);
+                    GL.Vertex3((float)Player.X + 1, ry, 4.05f);
                     GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Player.X + 1, ry, 4.05f + myChar.Height);
                     GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3((float)Player.X, (float)Player.Y + 0.5f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Player.X, ly, 4.05f + myChar.Height);
                 }
                 else
                 {

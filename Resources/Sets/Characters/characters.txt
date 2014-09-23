@@ -7,11 +7,27 @@
 #	1 = back view
 #	2 = left view
 #   3 = right view
+#	4 = front frame 2
+#	5 = front frame 3
+#	6 = back frame 2
+#	7 = back frame 3
+#	8 = left frame 2
+#	9 = left frame 3
+#	10 = right frame 2
+#	11 = right frame 3
 # use 0 for the default character texture and anything negative for editor textures
-0 Tux 0
-0 Tux_Back 1
-0 Tux_left 2
-0 Tux_right 3
+0 trip_down 0
+0 trip_up 1
+0 trip_down 2
+0 trip_down 3
+0 trip_down_1 4
+0 trip_down_2 5
+0 trip_up_1 6
+0 trip_up_2 7
+0 trip_down_1 8
+0 trip_down_2 9
+0 trip_down_1 10
+0 trip_down_2 11
 -1 editorsquare 0
 -2 arrow_down 0
 -2 arrow_up 1
