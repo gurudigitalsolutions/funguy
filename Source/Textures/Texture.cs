@@ -51,7 +51,7 @@ namespace FunGuy
             {
                 if (!_IsMapTextsLoaded)
                 {
-                    _DefaultMapTexts = _LoadTextures(TextType.TileSet, "default");
+                    _DefaultMapTexts = _LoadTiles(TextType.TileSet, "default");
                     _IsMapTextsLoaded = true;
                 }
                 return _DefaultMapTexts;
@@ -104,6 +104,10 @@ namespace FunGuy
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                if(ex.GetBaseException() != null)
+                {
+                    Console.WriteLine("BaseException: {0}", ex.GetBaseException().Message);
+                }
                 Console.WriteLine("Unable to Load Tile Set: {0}", setName);
                 return new List<Texture>();
             }
