@@ -374,6 +374,22 @@
     <None Include="Resources\PNGs\Tiles\thatch1.png" />
     <None Include="Resources\PNGs\Tiles\water1.png" />
     <None Include="Resources\PNGs\Tiles\woodpanel1.png" />
+    <None Include="Resources\PNGs\Characters\trip_down.png" />
+    <None Include="Resources\PNGs\Characters\trip_down_1.png" />
+    <None Include="Resources\PNGs\Characters\trip_down_2.png" />
+    <None Include="Resources\PNGs\Characters\trip_up.png" />
+    <None Include="Resources\PNGs\Characters\trip_up_1.png" />
+    <None Include="Resources\PNGs\Characters\trip_up_2.png" />
+    <None Include="Resources\PNGs\TileSets\default.txt" />
+    <None Include="Resources\PNGs\TileSets\grass1.png" />
+    <None Include="Resources\PNGs\TileSets\grass2.png" />
+    <None Include="Resources\PNGs\TileSets\lava1.png" />
+    <None Include="Resources\PNGs\TileSets\pine1.png" />
+    <None Include="Resources\PNGs\TileSets\rockroad1.png" />
+    <None Include="Resources\PNGs\TileSets\rocks1.png" />
+    <None Include="Resources\PNGs\TileSets\thatch1.png" />
+    <None Include="Resources\PNGs\TileSets\water1.png" />
+    <None Include="Resources\PNGs\TileSets\woodpanel1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />

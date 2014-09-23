@@ -805,6 +805,8 @@ namespace FunGuy
                    
                     float ly = Player.Y;
                     float ry = Player.Y;
+                    float lx = Player.X;
+                    float rx = (float)(Player.X + 1);
 
                     if(CharDirection == Character.Down || 
                        CharDirection == Character.DownTwo ||
@@ -822,6 +824,9 @@ namespace FunGuy
                     {
                         ly = ly + 0.8f;
                         ry = ry + 0.2f;
+
+                        lx = lx + 0.3f;
+                        rx = rx - 0.3f;
                     }
                     else if(CharDirection == Character.Right ||
                             CharDirection == Character.RightTwo ||
@@ -829,16 +834,19 @@ namespace FunGuy
                     {
                         ly = ly + 0.2f;
                         ry = ry + 0.8f;
+
+                        lx = lx + 0.3f;
+                        rx = rx - 0.3f;
                     }
 
                     GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3((float)Player.X, ly, 4.05f);
+                    GL.Vertex3(lx, ly, 4.05f);
                     GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3((float)Player.X + 1, ry, 4.05f);
+                    GL.Vertex3(rx, ry, 4.05f);
                     GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3((float)Player.X + 1, ry, 4.05f + myChar.Height);
+                    GL.Vertex3(rx, ry, 4.05f + myChar.Height);
                     GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3((float)Player.X, ly, 4.05f + myChar.Height);
+                    GL.Vertex3(lx, ly, 4.05f + myChar.Height);
                 }
                 else
                 {
