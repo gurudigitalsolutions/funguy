@@ -387,6 +387,7 @@
     <None Include="Resources\PNGs\TileSets\thatch1.png" />
     <None Include="Resources\PNGs\TileSets\water1.png" />
     <None Include="Resources\PNGs\TileSets\woodpanel1.png" />
+    <None Include="Resources\PNGs\TileSets\dirt1.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />

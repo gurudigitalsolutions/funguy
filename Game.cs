@@ -321,20 +321,20 @@ namespace FunGuy
                     Player.Y--;
                     }
                 else if (ModeIsThings)
-                    {
+                {
                     Thing thing = TheMap.Things[ThingIndex];
                     if (thing.Y > 0)
                         {
                         int ind = TheMap.Things.IndexOf(thing);
                         TheMap.Things [ind].Y--;
                         }
-                    }
+                }
                 else if (Player.Y == 0
                     && (ModeIsEditor || OuterMaps [1, 2].Coordinates [Player.X, OuterMaps [1, 2].Height - 1] > -1))
-                    {
-                    OuterMaps [0, 0].UnloadTextures();
-                    OuterMaps [1, 0].UnloadTextures();
-                    OuterMaps [2, 0].UnloadTextures();
+                {
+                    if(OuterMaps[0, 0] != null) { OuterMaps [0, 0].UnloadTextures(); }
+                    if(OuterMaps[1, 0] != null) { OuterMaps [1, 0].UnloadTextures(); }
+                    if(OuterMaps[2, 0] != null) { OuterMaps [2, 0].UnloadTextures(); }
 
                     for (int x = 0; x < 3; x++)
                         {

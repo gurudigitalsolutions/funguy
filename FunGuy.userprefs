@@ -1,12 +1,11 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Map.cs">
     <Files>
-      <File FileName="Game.cs" Line="605" Column="113" />
-      <File FileName="Source/Map.cs" Line="33" Column="9" />
+      <File FileName="Game.cs" Line="337" Column="87" />
+      <File FileName="Source/Map.cs" Line="159" Column="1" />
       <File FileName="Source/ThePlayer.cs" Line="36" Column="40" />
       <File FileName="Source/Textures/Texture.cs" Line="51" Column="14" />
-      <File FileName="Resources/Sets/Characters/characters.txt" Line="30" Column="17" />
       <File FileName="Source/Textures/Character.cs" Line="53" Column="26" />
     </Files>
     <Pads>
@@ -22,9 +21,8 @@
             </Node>
             <Node name="Source" expanded="True">
               <Node name="Textures" expanded="True" />
-              <Node name="Things" expanded="True" />
+              <Node name="Map.cs" selected="True" />
             </Node>
-            <Node name="Game.cs" selected="True" />
           </Node>
         </State>
       </Pad>
