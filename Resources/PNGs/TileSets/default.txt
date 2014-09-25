@@ -14,3 +14,4 @@
 -4 pine1
 -5 thatch1
 -6 woodpanel1
+3 dirt1
