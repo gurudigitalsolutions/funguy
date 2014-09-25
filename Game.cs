@@ -211,10 +211,7 @@ namespace FunGuy
             if (Keyboard [Key.P])
             {
                 Console.WriteLine("Position: X: {0} Y: {1} ", Player.X, Player.Y);
-                foreach (Thing et in TheMap.Things)
-                {
-                    Console.WriteLine("Thing ID: {0}", et.Index);
-                }
+
             }
 
             if (!Player.CanMove)
@@ -524,11 +521,12 @@ namespace FunGuy
 
             #region CYCLE ITEMS
             if ((Keyboard [Key.Period] || Keyboard [Key.Comma]))
-                {
+            {
                 int next;
                 if (ModeIsEditor)
-                    {
-                    next = Texture.DefaultMapTexts.FindIndex(i => i.Value == TileIndex);
+                {
+                    //next = Texture.DefaultMapTexts.FindIndex(i => i.Value == TileIndex);
+                    next = TheMap.Textures.FindIndex(i => i.Value == TileIndex);
                     if (Keyboard [Key.Period]) {
                         next++;}
                     else if (Keyboard [Key.Comma]){
@@ -539,8 +537,9 @@ namespace FunGuy
                     else if (TheMap.Textures.Count - 1 < next){
                         next = 1;}
 
-                    TheMap.Coordinates [Player.X, Player.Y] = Texture.DefaultMapTexts [next].Value;
-                    }
+                    //TheMap.Coordinates [Player.X, Player.Y] = Texture.DefaultMapTexts [next].Value;
+                    TheMap.Coordinates[Player.X, Player.Y] = TheMap.Textures[next].Value;
+                }
                 else if (ModeIsThings)
                     {
                     next = ThingIndex;
@@ -556,8 +555,8 @@ namespace FunGuy
                         next = 0;}
 
                     ThingIndex = next;
-                    }
                 }
+            }
             #endregion
 
             #region SAVE
