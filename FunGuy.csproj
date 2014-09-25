@@ -96,9 +96,7 @@
     <Compile Include="Source\Library\TexLib.cs" />
     <Compile Include="Source\Textures\TextType.cs" />
     <Compile Include="Source\ThePlayer.cs" />
-    <Compile Include="Source\Textures\MapSet.cs" />
     <Compile Include="Source\Textures\TextSet.cs" />
-    <Compile Include="Source\Textures\ThingSet.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>

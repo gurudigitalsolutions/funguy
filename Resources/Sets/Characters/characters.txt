@@ -33,3 +33,11 @@
 -2 arrow_up 1
 -2 arrow_left 2
 -2 arrow_right 3
+-2 arrow_down 4
+-2 arrow_down 5
+-2 arrow_up 6
+-2 arrow_up 7
+-2 arrow_left 8
+-2 arrow_left 9
+-2 arrow_right 10
+-2 arrow_right 11
