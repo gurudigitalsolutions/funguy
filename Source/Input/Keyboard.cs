@@ -12,58 +12,58 @@ namespace FunGuy.Input
 
         public Keyboard()
         {
-            //save = Keyboard [Key.S];
         }
 
-        int save;
-        /*
+        public Dictionary<string, int> Mapping = new Dictionary<string, int>();
+
         public override System.Collections.Generic.Dictionary<string, bool> In()
         {
             Dictionary<string, bool> buttons = new Dictionary<string, bool>();
 
-            if (Keyboard [Key.Down]) {
-                buttons.Add("down", true); }
-            else {
-                buttons.Add("down", false); }
+//            if (Mapping ["down"]) {
+//                buttons.Add("down", true); }
+//            else {
+//                buttons.Add("down", false); }
+//
+//            if (Keyboard [Key.Up]){
+//                buttons.Add("up", true);}
+//            else{
+//                buttons.Add("up", false);}
+//
+//
+//            if (Keyboard [Key.Right]){
+//                buttons.Add("right", true);}
+//            else{
+//                buttons.Add("right", false);}
+//
+//            if (Keyboard [Key.Left]){
+//                buttons.Add("left", true);}
+//            else{
+//                buttons.Add("left", false);}
+//
+//            if ((Keyboard [Key.LControl] || Keyboard [Key.RControl]) && (Keyboard [Key.S]))
+//            {
+//                buttons.Add("save", true);}
+//            else{
+//                buttons.Add("save", false);}
+//
+//            if (Keyboard [Key.Comma]){
+//                buttons.Add("less", true);}
+//            else{
+//                buttons.Add("less", false);}
+//
+//            if (Keyboard [Key.Period]){
+//                buttons.Add("plus", true);}
+//            else{
+//                buttons.Add("plus", false);}
 
-            if (Keyboard [Key.Up]){
-                buttons.Add("up", true);}
-            else{
-                buttons.Add("up", false);}
 
 
-            if (Keyboard [Key.Right]){
-                buttons.Add("right", true);}
-            else{
-                buttons.Add("right", false);}
-
-            if (Keyboard [Key.Left]){
-                buttons.Add("left", true);}
-            else{
-                buttons.Add("left", false);}
-
-            if ((Keyboard [Key.LControl] || Keyboard [Key.RControl]) && (Keyboard [Key.S]))
-            {
-                buttons.Add("save", true);}
-            else{
-                buttons.Add("save", false);}
-
-            if (Keyboard [Key.Comma]){
-                buttons.Add("less", true);}
-            else{
-                buttons.Add("less", false);}
-
-            if (Keyboard [Key.Period]){
-                buttons.Add("plus", true);}
-            else{
-                buttons.Add("plus", false);}
+            return buttons;
         }
 
-*/
-        public override Dictionary<string, bool> In()
-        {
-            return null;
-        } 
+
+
 
 
     }

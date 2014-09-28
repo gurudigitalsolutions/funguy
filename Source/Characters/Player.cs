@@ -7,7 +7,8 @@ namespace FunGuy
 
     public class Player
     {
-        #if DEBUG 
+
+#if DEBUG 
         public static int MoveInterval = 100;
 #else 
         public int MoveInterval = 250;

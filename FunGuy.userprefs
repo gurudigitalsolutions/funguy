@@ -1,22 +1,27 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Input/Keyboard.cs">
     <Files>
-      <File FileName="Game.cs" Line="516" Column="21" />
-      <File FileName="Source/Map.cs" Line="121" Column="29" />
-      <File FileName="Source/ThePlayer.cs" Line="36" Column="40" />
-      <File FileName="Source/Textures/Texture.cs" Line="51" Column="14" />
-      <File FileName="Source/Textures/Character.cs" Line="53" Column="26" />
-      <File FileName="Source/Things/DefaultHouse.cs" Line="6" Column="32" />
-      <File FileName="Source/Things/Thing.cs" Line="48" Column="12" />
-      <File FileName="Source/Things/PineTree.cs" Line="36" Column="13" />
+      <File FileName="Game.cs" Line="152" Column="13" />
+      <File FileName="Source/Map.cs" Line="288" Column="10" />
+      <File FileName="Source/Textures/Texture.cs" Line="12" Column="26" />
+      <File FileName="Source/Textures/Character.cs" Line="7" Column="27" />
+      <File FileName="Source/Things/Thing.cs" Line="33" Column="17" />
+      <File FileName="Source/Things/House.cs" Line="262" Column="28" />
+      <File FileName="Source/Things/Tree.cs" Line="22" Column="13" />
+      <File FileName="Source/Characters/Player.cs" Line="10" Column="9" />
+      <File FileName="Source/Input/Keyboard.cs" Line="23" Column="33" />
+      <File FileName="Source/Input/Input.cs" Line="10" Column="11" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="FunGuy" expanded="True">
             <Node name="Source" expanded="True">
-              <Node name="Library" selected="True" />
+              <Node name="Characters" expanded="True" />
+              <Node name="Input" expanded="True">
+                <Node name="Keyboard.cs" selected="True" />
+              </Node>
             </Node>
           </Node>
         </State>
@@ -24,9 +29,7 @@
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/media/share/code/c#/FunGuy/Game.cs" line="599" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
