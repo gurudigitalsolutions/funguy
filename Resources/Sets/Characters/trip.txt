@@ -1,0 +1,12 @@
+#
+# [name] [filename]....
+#
+standdown trip_down
+standup trip_up
+walkleft trip_down trip_down_1 trip_down_2
+walkright trip_down trip_down_1 trip_down_2
+walkup trip_up trip_up_1 trip_up_2
+walkdownleft trip_down trip_down_1 trip_down_2
+walkdownright trip_down trip_down_1 trip_down_2
+walkupleft trip_up trip_up_1 trip_up_2
+walkupright trip_up trip_up_1 trip_up_2

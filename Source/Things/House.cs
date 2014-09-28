@@ -250,16 +250,16 @@ namespace FunGuy
 
             GL.Normal3(-1.0f, 0.0f, 0.0f);
 
-            //
+            // Top left
             GL.TexCoord2(0.0f, 1.0f);
             GL.Vertex3(X, Y + Depth, 4f + Height);
-
+            // Top right
             GL.TexCoord2(1.0f, 1.0f);
             GL.Vertex3(X + Width, Y + Depth, 4f + Height);
-
+            // Bottotm left
             GL.TexCoord2(1.0f, 0.0f);
             GL.Vertex3(X + Width, Y, 4f + Height);
-
+            // Bottom right
             GL.TexCoord2(0.0f, 0.0f);
             GL.Vertex3(X, Y, 4f + Height);
             GL.End();

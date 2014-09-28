@@ -23,32 +23,40 @@ namespace FunGuy
 
         public static int NextUp(int currdir)
         {
-            if(currdir == Up) { return UpTwo; }
-            if(currdir == UpTwo) { return UpThree; }
+            if (currdir == Up) {
+                return UpTwo; }
+            if (currdir == UpTwo) {
+                return UpThree; }
            
             return Up;
         }
 
         public static int NextDown(int currdir)
         {
-            if(currdir == Down) { return DownTwo; }
-            if(currdir == DownTwo) { return DownThree; }
+            if (currdir == Down) {
+                return DownTwo; }
+            if (currdir == DownTwo) {
+                return DownThree; }
 
             return Down;
         }
 
         public static int NextLeft(int currdir)
         {
-            if(currdir == Left) { return LeftTwo; }
-            if(currdir == LeftTwo) { return LeftThree; }
+            if (currdir == Left) {
+                return LeftTwo; }
+            if (currdir == LeftTwo) {
+                return LeftThree; }
 
             return Left;
         }
 
         public static int NextRight(int currdir)
         {
-            if(currdir == Right) { return RightTwo; }
-            if(currdir == RightTwo) { return RightThree; }
+            if (currdir == Right) {
+                return RightTwo; }
+            if (currdir == RightTwo) {
+                return RightThree; }
 
             return Right;
         }

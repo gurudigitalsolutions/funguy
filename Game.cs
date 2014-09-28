@@ -19,6 +19,7 @@ namespace FunGuy
     class Game : GameWindow
     {
         public Map TheMap;
+        public Player[] Characters = new Player[10];
 //        {
 //            get { return OuterMaps [1, 1]; }
 //            set { OuterMaps [1, 1] = value; }
@@ -50,6 +51,8 @@ namespace FunGuy
         public const int GameModeEditor = 1;
         public const int GameModeThings = 2;
         public const int GameModeThingEditor = 3;
+
+
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="FunGuy.Game"/> mode is game.
@@ -146,6 +149,7 @@ namespace FunGuy
                 }
                 cx++;
             }
+
             Player.X = TheMap.StartX;
             Player.Y = TheMap.StartY;
            
@@ -164,6 +168,10 @@ namespace FunGuy
             newtree.Height = 4;
             //TheMap.Things.Add(newtree);
             TheMap.AddThing(newtree);
+            Input.Keyboard keyboard = new Input.Keyboard();
+
+          
+            Console.WriteLine("{0} {1} {2} {3}", Key.A.ToString(), Key.Enter, Key.B, Key.BackSpace);
         }
 
 
@@ -224,6 +232,8 @@ namespace FunGuy
                     WindowState = WindowState.Normal;
                 }
             }
+
+
 
             if (Keyboard [Key.P])
             {

@@ -1,40 +1,42 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace FunGuy
 {
 
-    public class Player
+    public class Character
     {
-        #if DEBUG 
-        public static int MoveInterval = 100;
-#else 
-        public int MoveInterval = 250;
-#endif
+        public int MoveInterval = 100;
 
-        public Player()
+        public Character()
         {
-
+            ;
         }
 
-        public static List<Character> Characters
+        public Character(string charactername)
+        {
+            ;
+        }
+
+        private List<CharSet> _charSets;
+        private bool _IsCharLoaded = false;
+        public int X;
+        public int Y;
+        public int LastMovedTime;
+        public int AnimStep = 0;
+
+        public static List<CharSet> charSets
         {
             get
             {
                 if (!_IsCharLoaded){
-                    _Characters = LoadTileSet();
+                    _charSets = LoadTileSet();
                     _IsCharLoaded = true;}
-                return _Characters;
+                return _charSets;
             }
         }
-        private static List<Character> _Characters;
-        private static bool _IsCharLoaded = false;
-        public static int X;
-        public static int Y;
-        public static int LastMovedTime;
-        public static int AnimStep = 0;
-        public static bool CanMove
+
+        public bool CanMove
         {
             get {
                 if (Environment.TickCount - LastMovedTime > MoveInterval)
@@ -47,9 +49,9 @@ namespace FunGuy
         }
 
 
-        private static List<Character> LoadTileSet()
+        private static List<CharSet> LoadTileSet()
         {
-            List<Character> retValue = new List<Character>();
+            List<CharSet> retValue = new List<CharSet>();
             try
             {
                 StreamReader sr = new StreamReader(string.Format("{0}/Sets/Characters/characters.txt", FunGuy.Game.configPath));
@@ -72,7 +74,7 @@ namespace FunGuy
                         height = 0.0F;
                     }
 
-                    Character character = new Character(textureName, mapValue, texLibID, index, height);
+                    CharSet character = new CharSet(textureName, mapValue, texLibID, index, height);
                     retValue.Add(character);
                 }
                 Console.WriteLine("Loaded Tile Set: {0}", "Characters");
@@ -82,9 +84,10 @@ namespace FunGuy
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Unable to Load Tile Set: {0}", "Characters");
-                return new List<Character>();
+                return new List<CharSet>();
             }
         }
+
     }
 }
 
