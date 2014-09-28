@@ -71,6 +71,16 @@ namespace FunGuy
             Depth = (int)info.GetValue("Depth", typeof(int));
             Height = (int)info.GetValue("Height", typeof(int));
             IsSolid = (bool)info.GetValue("IsSolid", typeof(bool));
+
+            try
+            {
+                TextureSet = (string)info.GetValue("TextureSet", typeof(string));
+            }
+            catch (Exception)
+            {
+                //pfff
+            }
+           
         }
 
         public DefaultHouse(int frontWall, int rearWall, int leftWall, int rightWall, int roof, int floor)
@@ -97,7 +107,7 @@ namespace FunGuy
             info.AddValue("Depth", Depth);
             info.AddValue("Height", Height);
             info.AddValue("IsSolid", IsSolid);
-
+            info.AddValue("TextureSet", TextureSet);
 		}
 
         public override int[] TextureList()

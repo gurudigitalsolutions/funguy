@@ -17,6 +17,8 @@ namespace FunGuy
         public bool IsSolid = true;
         public int Index = 0;
         public string[] TextureSetsAvailable;
+
+        public string TextureSet = "";
         
         private static bool _IsAllThingsLoaded = false;
         private static List<Thing> _AllThings = new List<Thing>();
@@ -42,6 +44,15 @@ namespace FunGuy
             Depth = (int)info.GetValue("Depth", typeof(int));
             Height = (int)info.GetValue("Height", typeof(int));
             IsSolid = (bool)info.GetValue("IsSolid", typeof(bool));
+
+            try
+            {
+                TextureSet = (string)info.GetValue("TextureSet", typeof(string));
+            }
+            catch (Exception)
+            {
+                //pfff
+            }
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext ctxt)
@@ -52,6 +63,7 @@ namespace FunGuy
             info.AddValue("Depth", Depth);
             info.AddValue("Height", Height);
             info.AddValue("IsSolid", IsSolid);
+            info.AddValue("TextureSet", TextureSet);
 		}
 
         public abstract void Render();

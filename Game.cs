@@ -116,7 +116,7 @@ namespace FunGuy
 
             TimeStamp = Environment.TickCount;
 
-            TheMap = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", WorldMapX, WorldMapY, configPath));
+            TheMap = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, WorldMapX, WorldMapY));
             TheMap.WorldX = WorldMapX;
             TheMap.WorldY = WorldMapY;
 
@@ -136,7 +136,7 @@ namespace FunGuy
                     {
                         continue;
                     }
-                    OuterMaps [cx, cy] = Map.Loader(string.Format("{2}/Maps/{0}_{1}.map", ex, ey, configPath));
+                    OuterMaps [cx, cy] = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, ex, ey));
                     OuterMaps [cx, cy].WorldX = ex;
                     OuterMaps [cx, cy].WorldY = ey;
 
@@ -322,7 +322,7 @@ namespace FunGuy
                     }
                 else if (ModeIsThings)
                 {
-                    Thing thing = TheMap.Things[ThingIndex];
+                    Thing thing = TheMap.Things [ThingIndex];
                     if (thing.Y > 0)
                         {
                         int ind = TheMap.Things.IndexOf(thing);
@@ -332,9 +332,12 @@ namespace FunGuy
                 else if (Player.Y == 0
                     && (ModeIsEditor || OuterMaps [1, 2].Coordinates [Player.X, OuterMaps [1, 2].Height - 1] > -1))
                 {
-                    if(OuterMaps[0, 0] != null) { OuterMaps [0, 0].UnloadTextures(); }
-                    if(OuterMaps[1, 0] != null) { OuterMaps [1, 0].UnloadTextures(); }
-                    if(OuterMaps[2, 0] != null) { OuterMaps [2, 0].UnloadTextures(); }
+                    if (OuterMaps [0, 0] != null) {
+                        OuterMaps [0, 0].UnloadTextures(); }
+                    if (OuterMaps [1, 0] != null) {
+                        OuterMaps [1, 0].UnloadTextures(); }
+                    if (OuterMaps [2, 0] != null) {
+                        OuterMaps [2, 0].UnloadTextures(); }
 
                     for (int x = 0; x < 3; x++)
                         {
@@ -348,7 +351,7 @@ namespace FunGuy
                     int cx = WorldMapX - 1;
                     for (int x = 0; x < 3; x++)
                         {
-                        OuterMaps [x, 2] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY + 2));
+                        OuterMaps [x, 2] = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, cx + x, WorldMapY + 2));
                         if (OuterMaps [x, 2] != null)
                             {
                             OuterMaps [x, 2].WorldX = cx + x;
@@ -378,7 +381,7 @@ namespace FunGuy
                     }
                 else if (ModeIsThings)
                     {
-                    Thing thing = TheMap.Things[ThingIndex];
+                    Thing thing = TheMap.Things [ThingIndex];
                     if (thing.Y + thing.Depth < TheMap.Height)
                         {
                         int ind = TheMap.Things.IndexOf(thing);
@@ -399,7 +402,7 @@ namespace FunGuy
                     int cx = WorldMapX - 1;
                     for (int x = 0; x < 3; x++)
                         {
-                        OuterMaps [x, 0] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, cx + x, WorldMapY - 2));
+                        OuterMaps [x, 0] = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, cx + x, WorldMapY - 2));
                         if (OuterMaps [x, 0] != null)
                             {
                             OuterMaps [x, 0].WorldX = cx + x;
@@ -430,7 +433,7 @@ namespace FunGuy
                     }
                 else if (ModeIsThings)
                     {
-                    Thing thing = TheMap.Things[ThingIndex];
+                    Thing thing = TheMap.Things [ThingIndex];
                     if (thing.X > 0)
                         {
                         int ind = TheMap.Things.IndexOf(thing);
@@ -451,7 +454,7 @@ namespace FunGuy
                     int cy = WorldMapY - 1;
                     for (int y = 0; y < 3; y++)
                         {
-                        OuterMaps [0, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX - 2, cy + y));
+                        OuterMaps [0, y] = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, WorldMapX - 2, cy + y));
                         if (OuterMaps [0, y] != null)
                             {
                             OuterMaps [0, y].WorldX = WorldMapX - 2;
@@ -482,7 +485,7 @@ namespace FunGuy
                     }
                 else if (ModeIsThings)
                     {
-                    Thing thing = TheMap.Things[ThingIndex];
+                    Thing thing = TheMap.Things [ThingIndex];
                     if (thing.X + thing.Width < TheMap.Width)
                         {
                         int ind = TheMap.Things.IndexOf(thing);
@@ -503,7 +506,7 @@ namespace FunGuy
                     int cy = WorldMapY - 1;
                     for (int y = 0; y < 3; y++)
                         {
-                        OuterMaps [2, y] = Map.Loader(string.Format("{0}/Maps/{1}_{2}.map", configPath, WorldMapX + 2, cy + y));
+                        OuterMaps [2, y] = Map.Loader(string.Format("{0}/Maps/{1}/{2}.map", configPath, WorldMapX + 2, cy + y));
                         if (OuterMaps [2, y] != null)
                             {
                             OuterMaps [2, y].WorldX = WorldMapX + 2;
@@ -538,7 +541,7 @@ namespace FunGuy
                         next = 1;}
 
                     //TheMap.Coordinates [Player.X, Player.Y] = Texture.DefaultMapTexts [next].Value;
-                    TheMap.Coordinates[Player.X, Player.Y] = TheMap.Textures[next].Value;
+                    TheMap.Coordinates [Player.X, Player.Y] = TheMap.Textures [next].Value;
                 }
                 else if (ModeIsThings)
                     {
@@ -796,7 +799,7 @@ namespace FunGuy
                 GL.Begin(BeginMode.Quads);
                 GL.Normal3(-1.0f, 0.0f, 0.0f);
 
-                if(ModeIsGame)
+                if (ModeIsGame)
                 {
 
                     // left top, right top, right bottom, left bottom
@@ -807,19 +810,19 @@ namespace FunGuy
                     float lx = Player.X;
                     float rx = (float)(Player.X + 1);
 
-                    if(CharDirection == Character.Down || 
-                       CharDirection == Character.DownTwo ||
-                       CharDirection == Character.DownThree ||
-                       CharDirection == Character.Up ||
-                       CharDirection == Character.UpTwo ||
-                       CharDirection == Character.UpThree)
+                    if (CharDirection == Character.Down || 
+                        CharDirection == Character.DownTwo ||
+                        CharDirection == Character.DownThree ||
+                        CharDirection == Character.Up ||
+                        CharDirection == Character.UpTwo ||
+                        CharDirection == Character.UpThree)
                     {
                         ly = ly + 0.5f;
                         ry = ry + 0.5f;
                     }
-                    else if(CharDirection == Character.Left ||
-                            CharDirection == Character.LeftTwo ||
-                            CharDirection == Character.LeftThree)
+                    else if (CharDirection == Character.Left ||
+                        CharDirection == Character.LeftTwo ||
+                        CharDirection == Character.LeftThree)
                     {
                         ly = ly + 0.8f;
                         ry = ry + 0.2f;
@@ -827,9 +830,9 @@ namespace FunGuy
                         lx = lx + 0.3f;
                         rx = rx - 0.3f;
                     }
-                    else if(CharDirection == Character.Right ||
-                            CharDirection == Character.RightTwo ||
-                            CharDirection == Character.RightThree)
+                    else if (CharDirection == Character.Right ||
+                        CharDirection == Character.RightTwo ||
+                        CharDirection == Character.RightThree)
                     {
                         ly = ly + 0.2f;
                         ry = ry + 0.8f;
@@ -852,9 +855,9 @@ namespace FunGuy
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
                     GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3((float)Player.X, (float)Player.Y , 4.05f);
+                    GL.Vertex3((float)Player.X, (float)Player.Y, 4.05f);
                     GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3((float)Player.X + 1, (float)Player.Y , 4.05f);
+                    GL.Vertex3((float)Player.X + 1, (float)Player.Y, 4.05f);
                     GL.TexCoord2(1.0f, 0.0f);
                     GL.Vertex3((float)Player.X + 1, (float)Player.Y + 1f, 4.05f + myChar.Height);
                     GL.TexCoord2(0.0f, 0.0f);

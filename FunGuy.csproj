@@ -88,7 +88,6 @@
     <Compile Include="Source\Map.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Source\Things\Thing.cs" />
-    <Compile Include="Source\Things\DefaultHouse.cs" />
     <Compile Include="Source\FGarbage.cs" />
     <Compile Include="Source\Things\PineTree.cs" />
     <Compile Include="Source\Textures\Texture.cs" />
@@ -97,6 +96,7 @@
     <Compile Include="Source\Textures\TextType.cs" />
     <Compile Include="Source\ThePlayer.cs" />
     <Compile Include="Source\Textures\TextSet.cs" />
+    <Compile Include="Source\Things\DefaultHouse.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -163,31 +163,6 @@
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\textures.txt" />
     <None Include="Bin\Debug\Resources\PNGs\TileSets\default\water1.png" />
 		-->
-    <None Include="Resources\Maps\0_0.map" />
-    <None Include="Resources\Maps\0_1.map" />
-    <None Include="Resources\Maps\0_2.map" />
-    <None Include="Resources\Maps\0_3.map" />
-    <None Include="Resources\Maps\0_4.map" />
-    <None Include="Resources\Maps\1_0.map" />
-    <None Include="Resources\Maps\1_1.map" />
-    <None Include="Resources\Maps\1_2.map" />
-    <None Include="Resources\Maps\1_3.map" />
-    <None Include="Resources\Maps\1_4.map" />
-    <None Include="Resources\Maps\2_0.map" />
-    <None Include="Resources\Maps\2_1.map" />
-    <None Include="Resources\Maps\2_2.map" />
-    <None Include="Resources\Maps\2_3.map" />
-    <None Include="Resources\Maps\2_4.map" />
-    <None Include="Resources\Maps\3_0.map" />
-    <None Include="Resources\Maps\3_1.map" />
-    <None Include="Resources\Maps\3_2.map" />
-    <None Include="Resources\Maps\3_3.map" />
-    <None Include="Resources\Maps\3_4.map" />
-    <None Include="Resources\Maps\4_0.map" />
-    <None Include="Resources\Maps\4_1.map" />
-    <None Include="Resources\Maps\4_2.map" />
-    <None Include="Resources\Maps\4_3.map" />
-    <None Include="Resources\Maps\4_4.map" />
     <None Include="Bin\Debug\FunGuy.vshost.exe.manifest" />
     <None Include="Bin\Debug\OpenTK.xml" />
     <None Include="Bin\Debug\Resources\maps.txt" />
@@ -332,28 +307,6 @@
       <Visible>False</Visible>
     </None>
     <None Include="Resources\maps.txt" />
-    <None Include="Resources\PNGs\CharSets\Tux_Back.png" />
-    <None Include="Resources\PNGs\CharSets\Tux_Down.png" />
-    <None Include="Resources\PNGs\CharSets\Tux_left.png" />
-    <None Include="Resources\PNGs\CharSets\Tux_right.png" />
-    <None Include="Resources\PNGs\CharSets\arrow_down.png" />
-    <None Include="Resources\PNGs\CharSets\arrow_left.png" />
-    <None Include="Resources\PNGs\CharSets\arrow_right.png" />
-    <None Include="Resources\PNGs\CharSets\arrow_up.png" />
-    <None Include="Resources\PNGs\CharSets\characters.txt" />
-    <None Include="Resources\PNGs\CharSets\editor.txt" />
-    <None Include="Resources\PNGs\CharSets\editorsquare.png" />
-    <None Include="Resources\PNGs\CharSets\player.txt" />
-    <None Include="Resources\PNGs\MapSets\default.txt" />
-    <None Include="Resources\PNGs\MapSets\grass1.png" />
-    <None Include="Resources\PNGs\MapSets\grass2.png" />
-    <None Include="Resources\PNGs\MapSets\lava1.png" />
-    <None Include="Resources\PNGs\MapSets\pine1.png" />
-    <None Include="Resources\PNGs\MapSets\rockroad1.png" />
-    <None Include="Resources\PNGs\MapSets\rocks1.png" />
-    <None Include="Resources\PNGs\MapSets\thatch1.png" />
-    <None Include="Resources\PNGs\MapSets\water1.png" />
-    <None Include="Resources\PNGs\MapSets\woodpanel1.png" />
     <None Include="Resources\Sets\Characters\characters.txt" />
     <None Include="Resources\Sets\Characters\editor.txt" />
     <None Include="Resources\Sets\Characters\player.txt" />
@@ -361,16 +314,6 @@
     <None Include="Resources\Sets\Tiles\default.txt" />
     <None Include="Resources\PNGs\Things\pine1.png" />
     <None Include="Resources\PNGs\Things\trees.txt" />
-    <None Include="Resources\PNGs\Tiles\default.txt" />
-    <None Include="Resources\PNGs\Tiles\grass1.png" />
-    <None Include="Resources\PNGs\Tiles\grass2.png" />
-    <None Include="Resources\PNGs\Tiles\lava1.png" />
-    <None Include="Resources\PNGs\Tiles\pine1.png" />
-    <None Include="Resources\PNGs\Tiles\rockroad1.png" />
-    <None Include="Resources\PNGs\Tiles\rocks1.png" />
-    <None Include="Resources\PNGs\Tiles\thatch1.png" />
-    <None Include="Resources\PNGs\Tiles\water1.png" />
-    <None Include="Resources\PNGs\Tiles\woodpanel1.png" />
     <None Include="Resources\PNGs\Characters\trip_down.png" />
     <None Include="Resources\PNGs\Characters\trip_down_1.png" />
     <None Include="Resources\PNGs\Characters\trip_down_2.png" />
@@ -388,10 +331,37 @@
     <None Include="Resources\PNGs\TileSets\water1.png" />
     <None Include="Resources\PNGs\TileSets\woodpanel1.png" />
     <None Include="Resources\PNGs\TileSets\dirt1.png" />
+    <None Include="Resources\PNGs\Things\FunGuy.DefaultHouse\texturesets.txt" />
+    <None Include="Resources\Maps\0\0.map" />
+    <None Include="Resources\Maps\0\1.map" />
+    <None Include="Resources\Maps\0\2.map" />
+    <None Include="Resources\Maps\0\3.map" />
+    <None Include="Resources\Maps\0\4.map" />
+    <None Include="Resources\Maps\1\0.map" />
+    <None Include="Resources\Maps\1\1.map" />
+    <None Include="Resources\Maps\1\2.map" />
+    <None Include="Resources\Maps\1\3.map" />
+    <None Include="Resources\Maps\1\4.map" />
+    <None Include="Resources\Maps\2\0.map" />
+    <None Include="Resources\Maps\2\1.map" />
+    <None Include="Resources\Maps\2\2.map" />
+    <None Include="Resources\Maps\2\3.map" />
+    <None Include="Resources\Maps\2\4.map" />
+    <None Include="Resources\Maps\3\0.map" />
+    <None Include="Resources\Maps\3\1.map" />
+    <None Include="Resources\Maps\3\2.map" />
+    <None Include="Resources\Maps\3\3.map" />
+    <None Include="Resources\Maps\3\4.map" />
+    <None Include="Resources\Maps\4\0.map" />
+    <None Include="Resources\Maps\4\1.map" />
+    <None Include="Resources\Maps\4\2.map" />
+    <None Include="Resources\Maps\4\3.map" />
+    <None Include="Resources\Maps\4\4.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />
     <Folder Include="Source\Library\" />
     <Folder Include="Resources\PNGs\Things\" />
+    <Folder Include="Resources\Maps\" />
   </ItemGroup>
 </Project>
