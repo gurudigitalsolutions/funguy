@@ -98,7 +98,7 @@
     <Compile Include="Source\Input\Keyboard.cs" />
     <Compile Include="Source\Input\Input.cs" />
     <Compile Include="Source\Characters\Player.cs" />
-    <Compile Include="Source\Textures\Character.cs" />
+    <Compile Include="Source\Textures\CharacterTexture.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>

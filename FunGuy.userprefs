@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Input/Keyboard.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Textures/CharacterTexture.cs">
     <Files>
-      <File FileName="Game.cs" Line="152" Column="13" />
+      <File FileName="Game.cs" Line="157" Column="5" />
       <File FileName="Source/Map.cs" Line="288" Column="10" />
       <File FileName="Source/Textures/Texture.cs" Line="12" Column="26" />
-      <File FileName="Source/Textures/Character.cs" Line="7" Column="27" />
+      <File FileName="Source/Textures/CharacterTexture.cs" Line="7" Column="34" />
       <File FileName="Source/Things/Thing.cs" Line="33" Column="17" />
       <File FileName="Source/Things/House.cs" Line="262" Column="28" />
       <File FileName="Source/Things/Tree.cs" Line="22" Column="13" />
       <File FileName="Source/Characters/Player.cs" Line="10" Column="9" />
-      <File FileName="Source/Input/Keyboard.cs" Line="23" Column="33" />
+      <File FileName="Source/Input/Keyboard.cs" Line="59" Column="13" />
       <File FileName="Source/Input/Input.cs" Line="10" Column="11" />
     </Files>
     <Pads>
@@ -19,8 +19,9 @@
           <Node name="FunGuy" expanded="True">
             <Node name="Source" expanded="True">
               <Node name="Characters" expanded="True" />
-              <Node name="Input" expanded="True">
-                <Node name="Keyboard.cs" selected="True" />
+              <Node name="Input" expanded="True" />
+              <Node name="Textures" expanded="True">
+                <Node name="CharacterTexture.cs" selected="True" />
               </Node>
             </Node>
           </Node>

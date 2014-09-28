@@ -19,7 +19,7 @@ namespace FunGuy
 
         }
 
-        public static List<Character> Characters
+        public static List<CharacterTexture> Characters
         {
             get
             {
@@ -29,7 +29,7 @@ namespace FunGuy
                 return _Characters;
             }
         }
-        private static List<Character> _Characters;
+        private static List<CharacterTexture> _Characters;
         private static bool _IsCharLoaded = false;
         public static int X;
         public static int Y;
@@ -48,9 +48,9 @@ namespace FunGuy
         }
 
 
-        private static List<Character> LoadTileSet()
+        private static List<CharacterTexture> LoadTileSet()
         {
-            List<Character> retValue = new List<Character>();
+            List<CharacterTexture> retValue = new List<CharacterTexture>();
             try
             {
                 StreamReader sr = new StreamReader(string.Format("{0}/Sets/Characters/characters.txt", FunGuy.Game.configPath));
@@ -73,7 +73,7 @@ namespace FunGuy
                         height = 0.0F;
                     }
 
-                    Character character = new Character(textureName, mapValue, texLibID, index, height);
+                    CharacterTexture character = new CharacterTexture(textureName, mapValue, texLibID, index, height);
                     retValue.Add(character);
                 }
                 Console.WriteLine("Loaded Tile Set: {0}", "Characters");
@@ -83,7 +83,7 @@ namespace FunGuy
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Unable to Load Tile Set: {0}", "Characters");
-                return new List<Character>();
+                return new List<CharacterTexture>();
             }
         }
     }

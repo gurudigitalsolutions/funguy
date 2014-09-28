@@ -4,7 +4,7 @@ using System.IO;
 
 namespace FunGuy
 {
-    public class Character : FunGuy.Texture
+    public class CharacterTexture : FunGuy.Texture
     {
         public float Height;
         public const int Down = 0;
@@ -62,7 +62,7 @@ namespace FunGuy
         }
 
 
-        public Character(string name, int mapValue, int texLibID, int index, float height)
+        public CharacterTexture(string name, int mapValue, int texLibID, int index, float height)
         {
             Name = name;
             Value = mapValue;
@@ -70,7 +70,7 @@ namespace FunGuy
             Index = index;
             Height = height;
         }
-        public Character(Texture texture, float height)
+        public CharacterTexture(Texture texture, float height)
         {
             Name = texture.Name;
             Value = texture.Value;
@@ -80,9 +80,9 @@ namespace FunGuy
 
 
 
-        public static List<Character> _LoadCharacters()
+        public static List<CharacterTexture> _LoadCharacters()
         {
-            List<Character> retValue = new List<Character>();
+            List<CharacterTexture> retValue = new List<CharacterTexture>();
             string resourcePath = string.Format("{0}/PNGs/Characters", FunGuy.Game.configPath);
             try
             {
@@ -106,7 +106,7 @@ namespace FunGuy
                         height = 0.0F;
                     }
 
-                    Character character = new Character(textureName, mapValue, texLibID, index, height);
+                    CharacterTexture character = new CharacterTexture(textureName, mapValue, texLibID, index, height);
                     retValue.Add(character);
                 }
                 Console.WriteLine("Loaded Tile Set: {0}", "Characters");
@@ -116,7 +116,7 @@ namespace FunGuy
             {
                 Console.WriteLine(ex.Message);
                 Console.WriteLine("Unable to Load Tile Set: {0}", "Characters");
-                return new List<Character>();
+                return new List<CharacterTexture>();
             }
         }
     }

@@ -154,20 +154,20 @@ namespace FunGuy
             Player.Y = TheMap.StartY;
            
 
-            House newhouse = new House("woodpanel");
-            newhouse.X = 30;
-            newhouse.Y = 30;
-            //TheMap.Things.Add(newhouse);
-            TheMap.AddThing(newhouse);
-
-            Tree newtree = new Tree("pinetree");
-            newtree.X = 36;
-            newtree.Y = 36;
-            newtree.Depth = 2;
-            newtree.Width = 2;
-            newtree.Height = 4;
-            //TheMap.Things.Add(newtree);
-            TheMap.AddThing(newtree);
+//            House newhouse = new House("woodpanel");
+//            newhouse.X = 30;
+//            newhouse.Y = 30;
+//            //TheMap.Things.Add(newhouse);
+//            TheMap.AddThing(newhouse);
+//
+//            Tree newtree = new Tree("pinetree");
+//            newtree.X = 36;
+//            newtree.Y = 36;
+//            newtree.Depth = 2;
+//            newtree.Width = 2;
+//            newtree.Height = 4;
+//            //TheMap.Things.Add(newtree);
+//            TheMap.AddThing(newtree);
             Input.Keyboard keyboard = new Input.Keyboard();
 
           
@@ -349,7 +349,7 @@ namespace FunGuy
             if (Keyboard [Key.Down])
                 {
                 // Characters direction
-                CharDirection = Character.NextDown(CharDirection);
+                CharDirection = CharacterTexture.NextDown(CharDirection);
                 //
                 if (Player.Y > 0 && (!ModeIsThings)
                     && (ModeIsEditor || (TheMap.Coordinates [Player.X, Player.Y - 1] > -1) && !TheMap.IsThingAt(Player.X, Player.Y - 1)))
@@ -407,7 +407,7 @@ namespace FunGuy
             #region MOVE UP
             if (Keyboard [Key.Up])
                 {
-                CharDirection = Character.NextUp(CharDirection);
+                CharDirection = CharacterTexture.NextUp(CharDirection);
                 //
                 if (Player.Y + 1 < TheMap.Height
                     && (!ModeIsThings)
@@ -458,7 +458,7 @@ namespace FunGuy
             if (Keyboard [Key.Left])
                 {
                 // Character direction
-                CharDirection = Character.NextLeft(CharDirection);
+                CharDirection = CharacterTexture.NextLeft(CharDirection);
                 //
                 if (Player.X > 0
                     && (!ModeIsThings)
@@ -511,7 +511,7 @@ namespace FunGuy
             if (Keyboard [Key.Right])
                 {
                 // Character direction
-                CharDirection = Character.NextRight(CharDirection);
+                CharDirection = CharacterTexture.NextRight(CharDirection);
                 //
                 if (Player.X + 1 < TheMap.Width
                     && (!ModeIsThings)
@@ -863,7 +863,7 @@ namespace FunGuy
 
             if (!ModeIsThings)
             {
-                Character myChar = Player.Characters.Find(c => c.Value == value && c.Index == index);
+                CharacterTexture myChar = Player.Characters.Find(c => c.Value == value && c.Index == index);
                 //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
                 GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
                 GL.Begin(BeginMode.Quads);
@@ -880,19 +880,19 @@ namespace FunGuy
                     float lx = Player.X;
                     float rx = (float)(Player.X + 1);
 
-                    if (CharDirection == Character.Down || 
-                        CharDirection == Character.DownTwo ||
-                        CharDirection == Character.DownThree ||
-                        CharDirection == Character.Up ||
-                        CharDirection == Character.UpTwo ||
-                        CharDirection == Character.UpThree)
+                    if (CharDirection == CharacterTexture.Down || 
+                        CharDirection == CharacterTexture.DownTwo ||
+                        CharDirection == CharacterTexture.DownThree ||
+                        CharDirection == CharacterTexture.Up ||
+                        CharDirection == CharacterTexture.UpTwo ||
+                        CharDirection == CharacterTexture.UpThree)
                     {
                         ly = ly + 0.5f;
                         ry = ry + 0.5f;
                     }
-                    else if (CharDirection == Character.Left ||
-                        CharDirection == Character.LeftTwo ||
-                        CharDirection == Character.LeftThree)
+                    else if (CharDirection == CharacterTexture.Left ||
+                        CharDirection == CharacterTexture.LeftTwo ||
+                        CharDirection == CharacterTexture.LeftThree)
                     {
                         ly = ly + 0.8f;
                         ry = ry + 0.2f;
@@ -900,9 +900,9 @@ namespace FunGuy
                         lx = lx + 0.3f;
                         rx = rx - 0.3f;
                     }
-                    else if (CharDirection == Character.Right ||
-                        CharDirection == Character.RightTwo ||
-                        CharDirection == Character.RightThree)
+                    else if (CharDirection == CharacterTexture.Right ||
+                        CharDirection == CharacterTexture.RightTwo ||
+                        CharDirection == CharacterTexture.RightThree)
                     {
                         ly = ly + 0.2f;
                         ry = ry + 0.8f;
