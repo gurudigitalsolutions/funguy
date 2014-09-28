@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 namespace FunGuy
 {
@@ -16,7 +17,7 @@ namespace FunGuy
         public int Height = 1;
         public bool IsSolid = true;
         public int Index = 0;
-        public string[] TextureSetsAvailable;
+        //public string[] TextureSetsAvailable;
 
         public string TextureSet = "";
         
@@ -27,9 +28,19 @@ namespace FunGuy
             get{
                 if (!_IsAllThingsLoaded){
                     _AllThings = _LoadDefaultThings();
+                    _IsAllThingsLoaded = true;
                 }
+
                 return _AllThings;
             }
+        }
+
+        private static List<Thing> _LoadDefaultThings()
+        {
+            List<Thing> retList = new List<Thing>();
+            retList.Add(new Tree("pinetree"));
+            retList.Add(new House("woodpanel"));
+            return retList;
         }
 
         public Thing()
@@ -71,12 +82,7 @@ namespace FunGuy
         public abstract void Update();
 
 
-        private static List<Thing> _LoadDefaultThings()
-        {
-            List<Thing> retList = new List<Thing>();
-            retList.Add(new PineTree());
-            return retList;
-        }
+     
 
         public virtual int[] TextureList()
 		{
@@ -90,6 +96,57 @@ namespace FunGuy
 		{
             //
 		}
+
+        public int[] SkinSet(string skinname)
+        {
+            string resourcePath = string.Format("{0}/Sets/Things/{1}.txt", FunGuy.Game.configPath, this.GetType().ToString().Substring(this.GetType().ToString().LastIndexOf(".") + 1));
+            string pngPath = string.Format("{0}/PNGs/Things/{1}/", FunGuy.Game.configPath, this.GetType().ToString().Substring(this.GetType().ToString().LastIndexOf(".") + 1));
+            int[] returnTexIDs = new int[0];
+
+            Console.WriteLine(resourcePath);
+//            return new string[0];
+
+            StreamReader sr;
+
+            try
+            {
+                sr = new StreamReader(resourcePath);
+                string fileContents = sr.ReadToEnd();
+
+                foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if (line.Trim().Substring(0, 1) == "#")
+                    {
+                        continue;
+                    }
+
+                    string[] words = line.Split(new char[]{' '}, StringSplitOptions.RemoveEmptyEntries);
+
+                    if (words [0].ToLower() == skinname.ToLower())
+                    {
+                        returnTexIDs = new int[words.GetLength(0) - 1];
+                        for (int i = 1; i < words.GetLength(0); i++)
+                        {
+                            returnTexIDs [i - 1] = TexLib.CreateTextureFromFile(string.Format("{0}{1}.png", pngPath, words [i]));
+                        }
+
+                    }
+
+                }
+
+
+                Console.WriteLine("Loaded Thing Skin: {0}", skinname);
+
+                return returnTexIDs;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine("Unable to Load Thing Skins: {0}", skinname);
+                return null;
+            }
+
+        }
     }
 }
 

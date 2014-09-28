@@ -6,6 +6,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections.Generic;
 
 
+
 using OpenTK;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
@@ -93,7 +94,14 @@ namespace FunGuy
             info.AddValue("Coordinates", Coordinates);
             info.AddValue("StartX", StartX);
             info.AddValue("StartY", StartY);
-            info.AddValue("Things", Things);
+            try 
+            {
+                info.AddValue("Things", Things);
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Things didn't load correctly: \n{0}", ex.Message);
+            }
             info.AddValue("NextThingID", NextThingID);
 
         }
@@ -104,7 +112,7 @@ namespace FunGuy
         {
             get
             {
-                return string.Format("{0}/{1}_{2}.map", LocalConfigPath, WorldX, WorldY);
+                return string.Format("{0}/{1}/{2}.map", LocalConfigPath, WorldX, WorldY);
             }
         }
 
@@ -137,6 +145,9 @@ namespace FunGuy
 
             retValue.LoadPlayerPosition();
             retValue.LoadTileSet();
+
+
+            //retValue.Things = new List<Thing>();
 
             return retValue;
         }
@@ -307,7 +318,22 @@ namespace FunGuy
 
         public void AddThing(Thing thing)
         {
-            Things.Add(thing);
+            if (Things.Count == 0)
+            {
+                Things.Add(thing);
+            }
+            else
+            {
+                int highestindex = 0;
+                for (int et = 0; et < Things.Count; et++)
+                {
+                    if (Things [et].Index > highestindex) {
+                        highestindex = Things [et].Index; }
+                }
+
+                thing.Index = highestindex + 1;
+                Things.Add(thing);
+            }
         }
     }
 }

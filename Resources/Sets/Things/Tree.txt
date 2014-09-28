@@ -1,0 +1,4 @@
+#
+#	Format like:
+#	[skinname] [frontback] [leftright]
+pinetree pine1 pine1

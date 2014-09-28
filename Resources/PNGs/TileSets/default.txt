@@ -5,13 +5,12 @@
 #
 # negative values are for textures a character cannot navigate
 # positive values are for textures a character can navigate
+4 woodpanel1
+3 dirt1
 2 rockroad1
 1 grass2
 0 grass1
 -1 water1
 -2 rocks1
 -3 lava1
--4 pine1
--5 thatch1
--6 woodpanel1
-3 dirt1
+

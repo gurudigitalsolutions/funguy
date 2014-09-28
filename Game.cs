@@ -7,8 +7,10 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Audio;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Input;
-using FunGuy;
+
 using System.Collections.Generic;
+
+using FunGuy;
 
 
 namespace FunGuy
@@ -147,6 +149,21 @@ namespace FunGuy
             Player.X = TheMap.StartX;
             Player.Y = TheMap.StartY;
            
+
+            House newhouse = new House("woodpanel");
+            newhouse.X = 30;
+            newhouse.Y = 30;
+            //TheMap.Things.Add(newhouse);
+            TheMap.AddThing(newhouse);
+
+            Tree newtree = new Tree("pinetree");
+            newtree.X = 36;
+            newtree.Y = 36;
+            newtree.Depth = 2;
+            newtree.Width = 2;
+            newtree.Height = 4;
+            //TheMap.Things.Add(newtree);
+            TheMap.AddThing(newtree);
         }
 
 
@@ -211,7 +228,10 @@ namespace FunGuy
             if (Keyboard [Key.P])
             {
                 Console.WriteLine("Position: X: {0} Y: {1} ", Player.X, Player.Y);
-
+                for (int et = 0; et < TheMap.Things.Count; et++)
+                {
+                    Console.WriteLine("Thing {0} : Index {1}", et, TheMap.Things [et].Index);
+                }
             }
 
             if (!Player.CanMove)
@@ -260,7 +280,8 @@ namespace FunGuy
 
                 if (Keyboard [Key.S] && (!Keyboard [Key.ControlLeft] && !Keyboard [Key.ControlRight]))
                     {
-                    TheMap.Things [ThingIndex].Height--;
+                    if (TheMap.Things [ThingIndex].Height > 1) {
+                        TheMap.Things [ThingIndex].Height--; }
                     }
                 else if (Keyboard [Key.W])
                     {
@@ -268,7 +289,8 @@ namespace FunGuy
                     }
                 if (Keyboard [Key.D])
                     {
-                    TheMap.Things [ThingIndex].Width--;
+                    if (TheMap.Things [ThingIndex].Width > 1) {
+                        TheMap.Things [ThingIndex].Width--; }
                     }
                 else if (Keyboard [Key.E])
                     {
@@ -276,17 +298,20 @@ namespace FunGuy
                     }
                 if (Keyboard [Key.F])
                     {
-                    TheMap.Things [ThingIndex].Depth--;
+                    if (TheMap.Things [ThingIndex].Depth > 1) {
+                        TheMap.Things [ThingIndex].Depth--; }
                     }
                 else if (Keyboard [Key.R])
                     {
                     TheMap.Things [ThingIndex].Depth++;
                     }
+                #region Paste Thing
                 else if (Keyboard [Key.ControlLeft] && Keyboard [Key.V])
                     {
                     //  Paste a copy of this thing here
                     Console.WriteLine("Pasting copy of this thing.");
-                    int indd = TheMap.Things.Find(x => x.Index == ThingIndex).Index;
+                    //int indd = TheMap.Things.Find(x => x.Index == ThingIndex).Index;
+                    int indd = ThingIndex;
 
                     object otting = System.Activator.CreateInstance(TheMap.Things [indd].GetType());
                     Thing tting = (Thing)otting;
@@ -307,6 +332,7 @@ namespace FunGuy
                         }
                     }
                 }
+            #endregion
             #endregion
 
             #region MOVE DOWN
@@ -538,7 +564,7 @@ namespace FunGuy
                     if (next < 0){
                         next = TheMap.Textures.Count - 1;}
                     else if (TheMap.Textures.Count - 1 < next){
-                        next = 1;}
+                        next = 0;}
 
                     //TheMap.Coordinates [Player.X, Player.Y] = Texture.DefaultMapTexts [next].Value;
                     TheMap.Coordinates [Player.X, Player.Y] = TheMap.Textures [next].Value;
@@ -546,6 +572,8 @@ namespace FunGuy
                 else if (ModeIsThings)
                     {
                     next = ThingIndex;
+               
+   
 
                     if (Keyboard [Key.Period]) {
                         next++;}
@@ -560,6 +588,38 @@ namespace FunGuy
                     ThingIndex = next;
                 }
             }
+            #endregion
+
+            #region CYCLE THING TYPES
+            if (Keyboard [Key.Semicolon] || Keyboard [Key.Quote])
+            {
+
+                int next = Thing.AllThings.FindIndex(x => x.GetType() == TheMap.Things [ThingIndex].GetType());
+                if (ModeIsThings)
+                {
+                    if (Keyboard [Key.Semicolon])
+                    {
+                        next--;
+                    }
+                    else if (Keyboard [Key.Quote])
+                    {
+                        next++;
+                    }
+
+                    if (next < 0) {
+                        next = Thing.AllThings.Count - 1; }
+                    else if (next == Thing.AllThings.Count) {
+                        next = 0; }
+
+                    object obthing = System.Activator.CreateInstance(Thing.AllThings [next].GetType());
+                    Thing newthing = (Thing)obthing;
+
+                    newthing.X = TheMap.Things [ThingIndex].X;
+                    newthing.Y = TheMap.Things [ThingIndex].Y;
+                    TheMap.Things [ThingIndex] = newthing;
+                }
+            }
+
             #endregion
 
             #region SAVE
@@ -589,7 +649,7 @@ namespace FunGuy
             {
                 Thing thing = TheMap.Things [ThingIndex];
                 if (ThingIndex == 18) {
-                    DefaultHouse hhh = (DefaultHouse)thing;
+                    House hhh = (House)thing;
                     Console.WriteLine("front:{0} roof:{1} left:{2} right:{3} back:{4} floor:{5}", hhh.FrontWall, hhh.Roof, hhh.LeftWall, hhh.RightWall, hhh.RearWall, hhh.Floor);
                 }
                 float thingx = (float)thing.X;

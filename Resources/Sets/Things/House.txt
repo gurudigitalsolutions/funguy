@@ -1,0 +1,4 @@
+#
+#	Format like:
+#	[skinname] [frontwall] [rearwall] [leftwall] [rightwall] [floor] [roof]
+woodpanel woodpanel1 woodpanel1 woodpanel1 woodpanel1 woodpanel1 thatch1

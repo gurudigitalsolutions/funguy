@@ -1,26 +1,22 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Source/Things/PineTree.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
     <Files>
-      <File FileName="Game.cs" Line="337" Column="87" />
-      <File FileName="Source/Map.cs" Line="159" Column="28" />
+      <File FileName="Game.cs" Line="516" Column="21" />
+      <File FileName="Source/Map.cs" Line="121" Column="29" />
       <File FileName="Source/ThePlayer.cs" Line="36" Column="40" />
       <File FileName="Source/Textures/Texture.cs" Line="51" Column="14" />
       <File FileName="Source/Textures/Character.cs" Line="53" Column="26" />
-      <File FileName="Source/Things/DefaultHouse.cs" Line="110" Column="53" />
+      <File FileName="Source/Things/DefaultHouse.cs" Line="6" Column="32" />
       <File FileName="Source/Things/Thing.cs" Line="48" Column="12" />
-      <File FileName="Source/Things/PineTree.cs" Line="63" Column="47" />
+      <File FileName="Source/Things/PineTree.cs" Line="36" Column="13" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="FunGuy" expanded="True">
-            <Node name="Resources" expanded="True" />
             <Node name="Source" expanded="True">
-              <Node name="Textures" expanded="True" />
-              <Node name="Things" expanded="True">
-                <Node name="PineTree.cs" selected="True" />
-              </Node>
+              <Node name="Library" selected="True" />
             </Node>
           </Node>
         </State>
@@ -29,7 +25,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
-      <Breakpoint file="/media/share/code/c#/FunGuy/Game.cs" line="596" />
+      <Breakpoint file="/media/share/code/c#/FunGuy/Game.cs" line="599" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
