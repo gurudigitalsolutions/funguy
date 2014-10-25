@@ -1,5 +1,7 @@
 using System;
 
+using OpenTK.Input;
+
 
 namespace FunGuy.Modes
 {
@@ -10,8 +12,8 @@ namespace FunGuy.Modes
         {
         }
 
-        public abstract void Update();
         public abstract void Render();
+        public abstract void Update(OpenTK.Input.KeyboardDevice Keyboard);
 
     }
 }

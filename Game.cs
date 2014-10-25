@@ -46,7 +46,7 @@ namespace FunGuy
 
         public Modes.Explorer ModeExplorer = new FunGuy.Modes.Explorer();
         public Modes.Thing ModeThing = new FunGuy.Modes.Thing();
-        public Modes.ThingEdit ModeThingEdit = new FunGuy.Modes.ThingEdit();
+        //public Modes.ThingEdit ModeThingEdit = new FunGuy.Modes.ThingEdit();
         public Modes.TileEdit ModeTileEdit = new FunGuy.Modes.TileEdit();
 
         public int WorldMapWidth = 5;
@@ -211,11 +211,10 @@ namespace FunGuy
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
             base.OnUpdateFrame(e);
-
-            ModeExplorer.Update();
-            ModeTileEdit.Update();
-            ModeThing.Update();
-            ModeThingEdit.Update();
+            if(ModeIsGame) { ModeExplorer.Update(Keyboard); }
+            else if(ModeIsEditor) { ModeTileEdit.Update(Keyboard); }
+            else if(ModeIsThings) { ModeThing.Update(Keyboard); }
+            //else if(ModeIsThingsEditor) { ModeThingEdit.Update(Keyboard); }
 
             //OnKeyPress();
         }
@@ -672,10 +671,7 @@ namespace FunGuy
             if (ModeIsThings)
             {
                 Thing thing = TheMap.Things [ThingIndex];
-                if (ThingIndex == 18) {
-                    House hhh = (House)thing;
-                    Console.WriteLine("front:{0} roof:{1} left:{2} right:{3} back:{4} floor:{5}", hhh.FrontWall, hhh.Roof, hhh.LeftWall, hhh.RightWall, hhh.RearWall, hhh.Floor);
-                }
+
                 float thingx = (float)thing.X;
                 float thingy = (float)thing.Y;
                 float thingwidth = (float)thing.Width;
@@ -971,6 +967,9 @@ namespace FunGuy
          
         }
 
+
+       
+
     
     }
 
@@ -983,4 +982,7 @@ namespace FunGuy
         public const int Things = 2;
         public const int ThingEditor = 3;
     }
+
+
+
 }

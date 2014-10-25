@@ -103,7 +103,6 @@
     <Compile Include="Source\Modes\Mode.cs" />
     <Compile Include="Source\Modes\TileEdit.cs" />
     <Compile Include="Source\Modes\Thing.cs" />
-    <Compile Include="Source\Modes\ThingEdit.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -371,6 +370,7 @@
     <None Include="Resources\Sets\Characters\trip.txt" />
     <None Include="Resources\Sets\Things\House.txt" />
     <None Include="Resources\Sets\Things\Tree.txt" />
+    <None Include="Source\Modes\ThingEdit.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />
