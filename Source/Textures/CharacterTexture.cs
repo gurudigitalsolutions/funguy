@@ -78,47 +78,6 @@ namespace FunGuy
             Height = height;
         }
 
-
-
-        public static List<CharacterTexture> _LoadCharacters()
-        {
-            List<CharacterTexture> retValue = new List<CharacterTexture>();
-            string resourcePath = string.Format("{0}/PNGs/Characters", FunGuy.Game.configPath);
-            try
-            {
-                StreamReader sr = new StreamReader(resourcePath + "/characters.txt");
-                string fileContents = sr.ReadToEnd();
-                foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
-                {
-                    if (line.Trim().Substring(0, 1) == "#")
-                    {
-                        continue;
-                    }
-                    string[] valueNameIndex = line.Trim().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    string textureName = valueNameIndex [1];
-                    int mapValue = Int32.Parse(valueNameIndex [0]);
-                    int index = Int32.Parse(valueNameIndex [2]);
-                    string resourceID = string.Format("{0}/{1}.png", resourcePath, textureName);
-                    int texLibID = TexLib.CreateTextureFromFile(resourceID);
-                    float height = 1.0F;
-                    if (mapValue < 0)
-                    {
-                        height = 0.0F;
-                    }
-
-                    CharacterTexture character = new CharacterTexture(textureName, mapValue, texLibID, index, height);
-                    retValue.Add(character);
-                }
-                Console.WriteLine("Loaded Tile Set: {0}", "Characters");
-                return retValue;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                Console.WriteLine("Unable to Load Tile Set: {0}", "Characters");
-                return new List<CharacterTexture>();
-            }
-        }
     }
 }
 

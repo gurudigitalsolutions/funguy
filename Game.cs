@@ -158,6 +158,15 @@ namespace FunGuy
             Party[0].Y = TheMap.StartX;
            
             Party[1] = new Player("crystal");
+            Party[1].X = TheMap.StartX - 1;
+            Party[1].Y = TheMap.StartY;
+
+            /*for(int ep = 2; ep < 50; ep++)
+            {
+                Party[ep] = new Player("crystal");
+                Party[ep].X = Party[ep - 1].X - 1;
+                Party[ep].Y = Party[ep - 1].Y;
+            }*/
 //            House newhouse = new House("woodpanel");
 //            newhouse.X = 30;
 //            newhouse.Y = 30;
@@ -430,67 +439,80 @@ namespace FunGuy
 
             if (!ModeIsThings)
             {
-                CharacterTexture myChar = Party[0].Characters.Find(c => c.Value == value && c.Index == index);
-                //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
-                GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
-                GL.Begin(BeginMode.Quads);
-                GL.Normal3(-1.0f, 0.0f, 0.0f);
+
 
                 if (ModeIsGame)
                 {
-
-                    // left top, right top, right bottom, left bottom
-                    // left bottom is 0 0
-                   
-                    float ly = Party[0].Y;
-                    float ry = Party[0].Y;
-                    float lx = Party[0].X;
-                    float rx = (float)(Party[0].X + 1);
-
-                    if (CharDirection == CharacterTexture.Down || 
-                        CharDirection == CharacterTexture.DownTwo ||
-                        CharDirection == CharacterTexture.DownThree ||
-                        CharDirection == CharacterTexture.Up ||
-                        CharDirection == CharacterTexture.UpTwo ||
-                        CharDirection == CharacterTexture.UpThree)
+                    for(int eparty = 0; eparty < this.Party.Length; eparty++)
                     {
-                        ly = ly + 0.5f;
-                        ry = ry + 0.5f;
-                    }
-                    else if (CharDirection == CharacterTexture.Left ||
-                        CharDirection == CharacterTexture.LeftTwo ||
-                        CharDirection == CharacterTexture.LeftThree)
-                    {
-                        ly = ly + 0.8f;
-                        ry = ry + 0.2f;
+                        // left top, right top, right bottom, left bottom
+                        // left bottom is 0 0
 
-                        lx = lx + 0.3f;
-                        rx = rx - 0.3f;
-                    }
-                    else if (CharDirection == CharacterTexture.Right ||
-                        CharDirection == CharacterTexture.RightTwo ||
-                        CharDirection == CharacterTexture.RightThree)
-                    {
-                        ly = ly + 0.2f;
-                        ry = ry + 0.8f;
+                        if(this.Party[eparty] != null)
+                        {
+                            CharacterTexture myChar = Party[eparty].Characters.Find(c => c.Value == value && c.Index == index);
+                            //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
+                            GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
+                            GL.Begin(BeginMode.Quads);
+                            GL.Normal3(-1.0f, 0.0f, 0.0f);
+                            float ly = Party[eparty].Y;
+                            float ry = Party[eparty].Y;
+                            float lx = Party[eparty].X;
+                            float rx = (float)(Party[eparty].X + 1);
 
-                        lx = lx + 0.3f;
-                        rx = rx - 0.3f;
-                    }
+                            if (CharDirection == CharacterTexture.Down || 
+                                CharDirection == CharacterTexture.DownTwo ||
+                                CharDirection == CharacterTexture.DownThree ||
+                                CharDirection == CharacterTexture.Up ||
+                                CharDirection == CharacterTexture.UpTwo ||
+                                CharDirection == CharacterTexture.UpThree)
+                            {
+                                ly = ly + 0.5f;
+                                ry = ry + 0.5f;
+                            }
+                            else if (CharDirection == CharacterTexture.Left ||
+                                CharDirection == CharacterTexture.LeftTwo ||
+                                CharDirection == CharacterTexture.LeftThree)
+                            {
+                                ly = ly + 0.8f;
+                                ry = ry + 0.2f;
 
-                    GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3(lx, ly, 4.05f);
-                    GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3(rx, ry, 4.05f);
-                    GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3(rx, ry, 4.05f + myChar.Height);
-                    GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3(lx, ly, 4.05f + myChar.Height);
+                                lx = lx + 0.3f;
+                                rx = rx - 0.3f;
+                            }
+                            else if (CharDirection == CharacterTexture.Right ||
+                                CharDirection == CharacterTexture.RightTwo ||
+                                CharDirection == CharacterTexture.RightThree)
+                            {
+                                ly = ly + 0.2f;
+                                ry = ry + 0.8f;
+
+                                lx = lx + 0.3f;
+                                rx = rx - 0.3f;
+                            }
+
+                            GL.TexCoord2(0.0f, 1.0f);
+                            GL.Vertex3(lx, ly, 4.05f);
+                            GL.TexCoord2(1.0f, 1.0f);
+                            GL.Vertex3(rx, ry, 4.05f);
+                            GL.TexCoord2(1.0f, 0.0f);
+                            GL.Vertex3(rx, ry, 4.05f + myChar.Height);
+                            GL.TexCoord2(0.0f, 0.0f);
+                            GL.Vertex3(lx, ly, 4.05f + myChar.Height);
+
+                            GL.End();
+                        }
+                    }
                 }
                 else
                 {
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
+                    CharacterTexture myChar = Party[0].Characters.Find(c => c.Value == value && c.Index == index);
+                    //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
+                    GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
+                    GL.Begin(BeginMode.Quads);
+                    GL.Normal3(-1.0f, 0.0f, 0.0f);
                     GL.TexCoord2(0.0f, 1.0f);
                     GL.Vertex3((float)Party[0].X, (float)Party[0].Y, 4.05f);
                     GL.TexCoord2(1.0f, 1.0f);
@@ -499,8 +521,10 @@ namespace FunGuy
                     GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
                     GL.TexCoord2(0.0f, 0.0f);
                     GL.Vertex3((float)Party[0].X, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
+
+                    GL.End();
                 }
-                GL.End();
+
             }
         }
 

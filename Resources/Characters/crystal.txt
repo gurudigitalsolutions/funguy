@@ -1,0 +1,11 @@
+#
+#	Configuration file for Crystal
+#
+
+firstname Crystal
+lastname Beth
+age 24
+class mage
+race troll
+level 1
+graphics trip

@@ -118,18 +118,25 @@ namespace FunGuy
                             break;
                     }
                 }
+
+                sr.Close();
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                //  whoo
             }
         }
 
 
         private  List<CharacterTexture> LoadTileSet()
         {
+            Console.WriteLine("Loading character tileset for {0}", this.FirstName);
             List<CharacterTexture> retValue = new List<CharacterTexture>();
             try
             {
-                StreamReader sr = new StreamReader(string.Format("{0}/Sets/Characters/characters.txt", FunGuy.Game.configPath));
+                StreamReader sr = new StreamReader(string.Format("{0}/Sets/Characters/{1}.txt", FunGuy.Game.configPath, Graphics));
                 string fileContents = sr.ReadToEnd();
                 foreach (string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
                 {

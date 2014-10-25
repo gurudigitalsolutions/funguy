@@ -21,7 +21,31 @@ namespace FunGuy.Modes
 
         public override void Update(OpenTK.Input.KeyboardDevice Keyboard)
         {
+            int orgx = Game.Engine.Party[0].X;
+            int orgy = Game.Engine.Party[0].Y;
+
             KeyPress(Keyboard);
+
+            if(orgx != Game.Engine.Party[0].X || orgy != Game.Engine.Party[0].Y)
+            {
+                for(int epart = Game.Engine.Party.Length - 1; epart > 0; epart--)
+                {
+                    if(epart <  Game.Engine.Party.Length - 1
+                       && Game.Engine.Party[epart + 1] != null
+                       && Game.Engine.Party[epart] != null)
+                    {
+                        Game.Engine.Party[epart + 1].X = Game.Engine.Party[epart].X;
+                        Game.Engine.Party[epart + 1].Y = Game.Engine.Party[epart].Y;
+
+                    }
+
+                }
+
+                Game.Engine.Party[1].X = orgx;
+                Game.Engine.Party[1].Y = orgy;
+
+                //Console.WriteLine("x: {0} y: {1}", orgx, orgy);
+            }
         }
 
         public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)
