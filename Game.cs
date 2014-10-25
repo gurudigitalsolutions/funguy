@@ -27,7 +27,7 @@ namespace FunGuy
 
         public int TimeStamp;
         public int CharIndex = 0;
-        public int CharDirection = 0;
+        //public int CharDirection = 0;
 
 
         public int TileIndex
@@ -161,12 +161,12 @@ namespace FunGuy
             Party[1].X = TheMap.StartX - 1;
             Party[1].Y = TheMap.StartY;
 
-            /*for(int ep = 2; ep < 50; ep++)
+            for(int ep = 2; ep < 5; ep++)
             {
                 Party[ep] = new Player("crystal");
                 Party[ep].X = Party[ep - 1].X - 1;
                 Party[ep].Y = Party[ep - 1].Y;
-            }*/
+            }
 //            House newhouse = new House("woodpanel");
 //            newhouse.X = 30;
 //            newhouse.Y = 30;
@@ -232,7 +232,6 @@ namespace FunGuy
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
             //Matrix4 modelview = Matrix4.LookAt (Vector3.Zero, Vector3.UnitZ, Vector3.UnitY);
-
             Matrix4 modelview;
             if (ModeIsThings)
             {
@@ -398,7 +397,7 @@ namespace FunGuy
             }
 
             // Draws the char
-            ChangeCharacter(CharIndex, CharDirection);
+            ChangeCharacter(CharIndex, Party[0].Direction);
 
             // Load all textures in front of char
             TheMap.RenderThings(0, Party[0].Y);
@@ -443,36 +442,38 @@ namespace FunGuy
 
                 if (ModeIsGame)
                 {
-                    for(int eparty = 0; eparty < this.Party.Length; eparty++)
-                    {
-                        // left top, right top, right bottom, left bottom
-                        // left bottom is 0 0
+                    List<Player> lparty = new List<Player>();
+                    lparty.AddRange(Party);
+                    lparty.RemoveAll(a => a == null);
+                    lparty.Sort((a,b)=> a.Y.CompareTo(b.Y));
+                    lparty.Reverse();
 
-                        if(this.Party[eparty] != null)
-                        {
-                            CharacterTexture myChar = Party[eparty].Characters.Find(c => c.Value == value && c.Index == index);
+                    foreach (Player eplayer in lparty)
+                    {
+
+                            CharacterTexture myChar = eplayer.Characters.Find(c => c.Value == value && c.Index == index);
                             //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
                             GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
                             GL.Begin(BeginMode.Quads);
                             GL.Normal3(-1.0f, 0.0f, 0.0f);
-                            float ly = Party[eparty].Y;
-                            float ry = Party[eparty].Y;
-                            float lx = Party[eparty].X;
-                            float rx = (float)(Party[eparty].X + 1);
+                            float ly = eplayer.Y;
+                            float ry = eplayer.Y;
+                            float lx = eplayer.X;
+                            float rx = (float)(eplayer.X + 1);
 
-                            if (CharDirection == CharacterTexture.Down || 
-                                CharDirection == CharacterTexture.DownTwo ||
-                                CharDirection == CharacterTexture.DownThree ||
-                                CharDirection == CharacterTexture.Up ||
-                                CharDirection == CharacterTexture.UpTwo ||
-                                CharDirection == CharacterTexture.UpThree)
+                            if (eplayer.Direction == CharacterTexture.Down || 
+                                eplayer.Direction == CharacterTexture.DownTwo ||
+                                eplayer.Direction == CharacterTexture.DownThree ||
+                                eplayer.Direction == CharacterTexture.Up ||
+                                eplayer.Direction == CharacterTexture.UpTwo ||
+                                eplayer.Direction == CharacterTexture.UpThree)
                             {
                                 ly = ly + 0.5f;
                                 ry = ry + 0.5f;
                             }
-                            else if (CharDirection == CharacterTexture.Left ||
-                                CharDirection == CharacterTexture.LeftTwo ||
-                                CharDirection == CharacterTexture.LeftThree)
+                            else if (eplayer.Direction == CharacterTexture.Left ||
+                                     eplayer.Direction == CharacterTexture.LeftTwo ||
+                                     eplayer.Direction == CharacterTexture.LeftThree)
                             {
                                 ly = ly + 0.8f;
                                 ry = ry + 0.2f;
@@ -480,9 +481,9 @@ namespace FunGuy
                                 lx = lx + 0.3f;
                                 rx = rx - 0.3f;
                             }
-                            else if (CharDirection == CharacterTexture.Right ||
-                                CharDirection == CharacterTexture.RightTwo ||
-                                CharDirection == CharacterTexture.RightThree)
+                            else if (eplayer.Direction == CharacterTexture.Right ||
+                                     eplayer.Direction == CharacterTexture.RightTwo ||
+                                     eplayer.Direction == CharacterTexture.RightThree)
                             {
                                 ly = ly + 0.2f;
                                 ry = ry + 0.8f;
@@ -501,7 +502,6 @@ namespace FunGuy
                             GL.Vertex3(lx, ly, 4.05f + myChar.Height);
 
                             GL.End();
-                        }
                     }
                 }
                 else

@@ -369,6 +369,9 @@
     <None Include="Resources\Sets\Things\House.txt" />
     <None Include="Resources\Sets\Things\Tree.txt" />
     <None Include="Source\Modes\ThingEdit.cs" />
+    <None Include="Resources\Characters\crystal.txt" />
+    <None Include="Resources\Characters\trip.txt" />
+    <None Include="Resources\Sets\Characters\crystal.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />

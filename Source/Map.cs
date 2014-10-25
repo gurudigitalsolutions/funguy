@@ -135,7 +135,7 @@ namespace FunGuy
             }
 
             Map retValue;
-            FileStream fs = File.Open(mapFile, FileMode.Open);
+            FileStream fs = File.OpenRead(mapFile);
             BinaryFormatter bform = new BinaryFormatter();
             BinaryReader reader = new BinaryReader(fs);
             reader.BaseStream.Position = 0;

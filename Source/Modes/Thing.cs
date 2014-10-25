@@ -110,7 +110,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Down])
             {
                 // Characters direction
-                Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
                 //
            
                 FunGuy.Thing thing = Game.Engine.TheMap.Things [Game.Engine.ThingIndex];
@@ -126,7 +126,7 @@ namespace FunGuy.Modes
             #region MOVE UP
             if (Keyboard [Key.Up])
             {
-                Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
                 //
              
                 FunGuy.Thing thing = Game.Engine.TheMap.Things [Game.Engine.ThingIndex];
@@ -143,7 +143,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Left])
             {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
                 //
                 FunGuy.Thing thing = Game.Engine.TheMap.Things [Game.Engine.ThingIndex];
                 if (thing.X > 0)
@@ -160,7 +160,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Right])
             {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
                 //
 
                 FunGuy.Thing thing = Game.Engine.TheMap.Things [Game.Engine.ThingIndex];

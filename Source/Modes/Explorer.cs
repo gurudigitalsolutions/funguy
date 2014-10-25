@@ -23,6 +23,7 @@ namespace FunGuy.Modes
         {
             int orgx = Game.Engine.Party[0].X;
             int orgy = Game.Engine.Party[0].Y;
+            int orgd = Game.Engine.Party [0].Direction;
 
             KeyPress(Keyboard);
 
@@ -36,6 +37,7 @@ namespace FunGuy.Modes
                     {
                         Game.Engine.Party[epart + 1].X = Game.Engine.Party[epart].X;
                         Game.Engine.Party[epart + 1].Y = Game.Engine.Party[epart].Y;
+                        Game.Engine.Party [epart + 1].Direction = Game.Engine.Party [epart].Direction;
 
                     }
 
@@ -43,6 +45,7 @@ namespace FunGuy.Modes
 
                 Game.Engine.Party[1].X = orgx;
                 Game.Engine.Party[1].Y = orgy;
+                Game.Engine.Party [1].Direction = orgd;
 
                 //Console.WriteLine("x: {0} y: {1}", orgx, orgy);
             }
@@ -90,7 +93,8 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Down])
             {
                 // Characters direction
-                Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
+
+                Game.Engine.Party[0].Direction = CharacterTexture.NextDown(Game.Engine.Party[0].Direction);
                 //
                 if (Game.Engine.Party[0].Y > 0 
                 && ((Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1)))
@@ -138,7 +142,8 @@ namespace FunGuy.Modes
             #region MOVE UP
             if (Keyboard [Key.Up])
             {
-                Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
+
+                Game.Engine.Party[0].Direction = CharacterTexture.NextUp(Game.Engine.Party[0].Direction);
                 //
                 if (Game.Engine.Party[0].Y + 1 < Game.Engine.TheMap.Height
                     && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1))
@@ -179,7 +184,8 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Left])
             {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
+
+                Game.Engine.Party[0].Direction = CharacterTexture.NextLeft(Game.Engine.Party[0].Direction);
                 //
                 if (Game.Engine.Party[0].X > 0
                     && ( Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y))
@@ -222,7 +228,8 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Right])
             {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
+
+                Game.Engine.Party[0].Direction = CharacterTexture.NextRight(Game.Engine.Party[0].Direction);
                 //
                 if (Game.Engine.Party[0].X + 1 < Game.Engine.TheMap.Width
                     && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y))

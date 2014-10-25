@@ -60,7 +60,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Down])
             {
                 // Characters direction
-                Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
                 //
                 if (Game.Engine.Party[0].Y > 0
                     && (Game.Engine.ModeIsEditor))
@@ -109,7 +109,7 @@ namespace FunGuy.Modes
             #region MOVE UP
             if (Keyboard [Key.Up])
             {
-                Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
                 //
                 if (Game.Engine.Party[0].Y + 1 < Game.Engine.TheMap.Height
                     && ((Game.Engine.ModeIsEditor )))
@@ -150,7 +150,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Left])
                 {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
                 //
                 if (Game.Engine.Party[0].X > 0
                     && ((Game.Engine.ModeIsEditor)))
@@ -193,7 +193,7 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Right])
                 {
                 // Character direction
-                Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
+                //Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
                 //
                 if (Game.Engine.Party[0].X + 1 < Game.Engine.TheMap.Width
                     && ((Game.Engine.ModeIsEditor)))

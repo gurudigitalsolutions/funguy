@@ -23,6 +23,8 @@ namespace FunGuy
         public int Level = 0;
         public string Graphics = "";
 
+        public int Direction = 0;
+
         public Dictionary<string, int> Classes = new Dictionary<string, int>
         {
             {"warrior", 0},

@@ -2,14 +2,12 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Game.cs">
     <Files>
-      <File FileName="Game.cs" Line="4" Column="1" />
-      <File FileName="Source/Map.cs" Line="288" Column="10" />
-      <File FileName="Source/Textures/Texture.cs" Line="12" Column="26" />
-      <File FileName="Source/Modes/Mode.cs" Line="13" Column="9" />
-      <File FileName="Source/Modes/Explorer.cs" Line="25" Column="24" />
-      <File FileName="Source/Modes/TileEdit.cs" Line="7" Column="29" />
-      <File FileName="Source/Modes/Thing.cs" Line="15" Column="56" />
-      <File FileName="Source/Modes/ThingEdit.cs" Line="4" Column="18" />
+      <File FileName="Game.cs" Line="456" Column="86" />
+      <File FileName="Source/Map.cs" Line="132" Column="14" />
+      <File FileName="Source/Modes/Explorer.cs" Line="232" Column="109" />
+      <File FileName="Source/Characters/Player.cs" Line="26" Column="34" />
+      <File FileName="Source/Modes/TileEdit.cs" Line="196" Column="19" />
+      <File FileName="Source/Modes/Thing.cs" Line="163" Column="19" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -17,7 +15,6 @@
           <Node name="FunGuy" expanded="True">
             <Node name="Source" expanded="True">
               <Node name="Characters" expanded="True" />
-              <Node name="Input" expanded="True" />
               <Node name="Modes" expanded="True" />
               <Node name="Textures" expanded="True" />
             </Node>
