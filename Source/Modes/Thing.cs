@@ -23,14 +23,14 @@ namespace FunGuy.Modes
         {
             if (Keyboard [Key.P])
             {
-                Console.WriteLine("Position: X: {0} Y: {1} ", Player.X, Player.Y);
+                Console.WriteLine("Position: X: {0} Y: {1} ", Game.Engine.Party[0].X, Game.Engine.Party[0].Y);
                 for (int et = 0; et < Game.Engine.TheMap.Things.Count; et++)
                 {
                     Console.WriteLine("Thing {0} : Index {1}", et, Game.Engine.TheMap.Things [et].Index);
                 }
             }
 
-            if (!Player.CanMove)
+            if (!Game.Engine.Party[0].CanMove)
             {
                 return;
             }

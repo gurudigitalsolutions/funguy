@@ -26,18 +26,25 @@ namespace FunGuy.Modes
 
         public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)
         {
+            if (!Game.Engine.Party[0].CanMove)
+            {
+                return;
+            }
+
             if(Keyboard[Key.Q] || Keyboard[Key.Escape])
             {
                 Game.Engine.Exit();
             }
+            
 
-
-
-
+            if(Keyboard[Key.Number0] || Keyboard[Key.Keypad0])
+            {
+                Game.Engine.GameMode = Game.GameModeThings;
+            }
 
             if (Keyboard [Key.P])
             {
-                Console.WriteLine("Position: X: {0} Y: {1} ", Player.X, Player.Y);
+                Console.WriteLine("Position: X: {0} Y: {1} ", Game.Engine.Party[0].X, Game.Engine.Party[0].Y);
                 for (int et = 0; et < Game.Engine.TheMap.Things.Count; et++)
                 {
                     Console.WriteLine("Thing {0} : Index {1}", et, Game.Engine.TheMap.Things [et].Index);
@@ -46,10 +53,6 @@ namespace FunGuy.Modes
 
            
 
-            if (!Player.CanMove)
-            {
-                return;
-            }
 
             #region GAME MODE TOGGLING
 
@@ -65,12 +68,12 @@ namespace FunGuy.Modes
                 // Characters direction
                 Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
                 //
-                if (Player.Y > 0 
-                && ((Game.Engine.TheMap.Coordinates [Player.X, Player.Y - 1] > -1) && !Game.Engine.TheMap.IsThingAt(Player.X, Player.Y - 1)))
+                if (Game.Engine.Party[0].Y > 0 
+                && ((Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1)))
                 {
-                    Player.Y--;
+                    Game.Engine.Party[0].Y--;
                 }
-                if (Player.Y == 0 && (Game.Engine.OuterMaps [1, 2].Coordinates [Player.X, Game.Engine.OuterMaps [1, 2].Height - 1] > -1))
+                if (Game.Engine.Party[0].Y == 0 && (Game.Engine.OuterMaps [1, 2].Coordinates [Game.Engine.Party[0].X, Game.Engine.OuterMaps [1, 2].Height - 1] > -1))
                 {
                     if (Game.Engine.OuterMaps [0, 0] != null) {
                         Game.Engine.OuterMaps [0, 0].UnloadTextures(); }
@@ -102,7 +105,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [1, 0] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY++;
-                    Player.Y = Game.Engine.TheMap.Height - 1;
+                    Game.Engine.Party[0].Y = Game.Engine.TheMap.Height - 1;
 
                 }
             }
@@ -113,13 +116,13 @@ namespace FunGuy.Modes
             {
                 Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
                 //
-                if (Player.Y + 1 < Game.Engine.TheMap.Height
-                    && (Game.Engine.TheMap.Coordinates [Player.X, Player.Y + 1] > -1) && !Game.Engine.TheMap.IsThingAt(Player.X, Player.Y + 1))
+                if (Game.Engine.Party[0].Y + 1 < Game.Engine.TheMap.Height
+                    && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1))
                 {
-                    Player.Y++;
+                    Game.Engine.Party[0].Y++;
                 }
-                else if (Player.Y + 1 == Game.Engine.TheMap.Height
-                    && (Game.Engine.OuterMaps [1, 0].Coordinates [Player.X, 0] > -1))
+                else if (Game.Engine.Party[0].Y + 1 == Game.Engine.TheMap.Height
+                    && (Game.Engine.OuterMaps [1, 0].Coordinates [Game.Engine.Party[0].X, 0] > -1))
                 {
                     for (int x = 0; x < 3; x++)
                         {
@@ -143,7 +146,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [1, 2] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY--;
-                    Player.Y = 0;
+                    Game.Engine.Party[0].Y = 0;
                 }
             }
             #endregion
@@ -154,14 +157,14 @@ namespace FunGuy.Modes
                 // Character direction
                 Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
                 //
-                if (Player.X > 0
-                    && ( Game.Engine.TheMap.Coordinates [Player.X - 1, Player.Y] > -1) && !Game.Engine.TheMap.IsThingAt(Player.X - 1, Player.Y))
+                if (Game.Engine.Party[0].X > 0
+                    && ( Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y))
                 {
 
-                    Player.X--;
+                    Game.Engine.Party[0].X--;
                 }
-                else if (Player.X == 0
-                    && (Game.Engine.OuterMaps [0, 1].Coordinates [Game.Engine.OuterMaps [0, 1].Width - 1, Player.Y] > -1))
+                else if (Game.Engine.Party[0].X == 0
+                    && (Game.Engine.OuterMaps [0, 1].Coordinates [Game.Engine.OuterMaps [0, 1].Width - 1, Game.Engine.Party[0].Y] > -1))
                 {
                     for (int y = 0; y < 3; y++)
                     {
@@ -185,7 +188,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [2, 1] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX--;
-                    Player.X = Game.Engine.TheMap.Width - 1;
+                    Game.Engine.Party[0].X = Game.Engine.TheMap.Width - 1;
                 }
 
             }
@@ -197,13 +200,13 @@ namespace FunGuy.Modes
                 // Character direction
                 Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
                 //
-                if (Player.X + 1 < Game.Engine.TheMap.Width
-                    && (Game.Engine.TheMap.Coordinates [Player.X + 1, Player.Y] > -1) && !Game.Engine.TheMap.IsThingAt(Player.X + 1, Player.Y))
+                if (Game.Engine.Party[0].X + 1 < Game.Engine.TheMap.Width
+                    && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y))
                 {
-                    Player.X++;
+                    Game.Engine.Party[0].X++;
                 }
-                else if (Player.X + 1 == Game.Engine.TheMap.Width
-                    && (Game.Engine.OuterMaps [2, 1].Coordinates [0, Player.Y] > -1))
+                else if (Game.Engine.Party[0].X + 1 == Game.Engine.TheMap.Width
+                    && (Game.Engine.OuterMaps [2, 1].Coordinates [0, Game.Engine.Party[0].Y] > -1))
                 {
                     for (int y = 0; y < 3; y++)
                     {
@@ -227,7 +230,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [0, 1] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX++;
-                    Player.X = 0;
+                    Game.Engine.Party[0].X = 0;
                 }
             }
             #endregion

@@ -9,17 +9,44 @@ namespace FunGuy
     {
 
 #if DEBUG 
-        public static int MoveInterval = 100;
+        public int MoveInterval = 100;
 #else 
         public int MoveInterval = 250;
 #endif
 
+
+        public string FirstName = "";
+        public string LastName = "";
+        public int Age = 21;
+        public int Class = 0;
+        public int Race = 0;
+        public int Level = 0;
+        public string Graphics = "";
+
+        public Dictionary<string, int> Classes = new Dictionary<string, int>
+        {
+            {"warrior", 0},
+            {"mage", 1},
+            {"monk", 2}
+        };
+
+        public Dictionary<string, int> Races = new Dictionary<string, int>
+        {
+            {"human", 0},
+            {"elf", 1},
+            {"dwarf", 2},
+            {"troll", 3}
+        };
+
         public Player(string charactername)
         {
-
+            CharacterName = charactername;
+            ParseCharacterFile();
         }
 
-        public static List<CharacterTexture> Characters
+        public string CharacterName = string.Empty;
+
+        public  List<CharacterTexture> Characters
         {
             get
             {
@@ -29,13 +56,13 @@ namespace FunGuy
                 return _Characters;
             }
         }
-        private static List<CharacterTexture> _Characters;
-        private static bool _IsCharLoaded = false;
-        public static int X;
-        public static int Y;
-        public static int LastMovedTime;
-        public static int AnimStep = 0;
-        public static bool CanMove
+        private  List<CharacterTexture> _Characters;
+        private  bool _IsCharLoaded = false;
+        public  int X;
+        public  int Y;
+        public  int LastMovedTime;
+        public  int AnimStep = 0;
+        public  bool CanMove
         {
             get {
                 if (Environment.TickCount - LastMovedTime > MoveInterval)
@@ -48,7 +75,56 @@ namespace FunGuy
         }
 
 
-        private static List<CharacterTexture> LoadTileSet()
+        private void ParseCharacterFile()
+        {
+            StreamReader sr;
+            
+            try {
+                sr = new StreamReader(string.Format("{0}/Characters/{1}.txt", FunGuy.Game.configPath, CharacterName));
+                string fileContents = sr.ReadToEnd();
+                foreach(string line in fileContents.Split("\n".ToCharArray(), StringSplitOptions.RemoveEmptyEntries))
+                {
+                    if(line.Trim().Substring(0, 1) == "#")
+                    {
+                        continue;
+                    }
+                    string[] pv = line.Trim().Split(" ".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+                    if(pv.GetLength(0) != 2) { continue;}
+
+                    switch(pv[0].ToLower())
+                    {
+                        case "firstname":
+                            FirstName = pv[1];
+                            break;
+                        case "lastname":
+                            LastName = pv[1];
+                            break;
+                        case "age":
+                            int.TryParse(pv[1], out Age);
+                            break;
+                        case "class":
+                            Class = Classes[pv[1].ToLower()];
+                            break;
+                        case "race":
+                            Race = Races[pv[1].ToLower()];
+                            break;
+                        case "level":
+                            int.TryParse(pv[1], out Level);
+                            break;
+                        case "graphics":
+                            Graphics = pv[1];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+
+        private  List<CharacterTexture> LoadTileSet()
         {
             List<CharacterTexture> retValue = new List<CharacterTexture>();
             try

@@ -1,0 +1,11 @@
+#
+#	Configuration file for Trip
+#
+
+firstname Trip
+lastname Tamine
+age 79
+class warrior
+race human
+level 1
+graphics trip

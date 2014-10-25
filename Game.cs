@@ -19,17 +19,12 @@ namespace FunGuy
     class Game : GameWindow
     {
         public static Game Engine;
+
         public Map TheMap;
-        public Player[] Characters = new Player[10];
-//        {
-//            get { return OuterMaps [1, 1]; }
-//            set { OuterMaps [1, 1] = value; }
-//        }
-
-
-
         public Map[,] OuterMaps = new Map[3, 3];
-//        public Player Player;
+
+        public Player[] Party = new Player[10];
+
         public int TimeStamp;
         public int CharIndex = 0;
         public int CharDirection = 0;
@@ -37,7 +32,7 @@ namespace FunGuy
 
         public int TileIndex
         {
-            get { return TheMap.Coordinates [Player.X, Player.Y];}
+            get { return TheMap.Coordinates [Party[0].X, Party[0].Y];}
         }
 
 
@@ -59,7 +54,6 @@ namespace FunGuy
         public const int GameModeEditor = 1;
         public const int GameModeThings = 2;
         public const int GameModeThingEditor = 3;
-
 
 
 
@@ -159,10 +153,11 @@ namespace FunGuy
                 cx++;
             }
 
-            Player.X = TheMap.StartX;
-            Player.Y = TheMap.StartY;
+            Party[0] = new Player("trip");
+            Party[0].X = TheMap.StartX;
+            Party[0].Y = TheMap.StartX;
            
-
+            Party[1] = new Player("crystal");
 //            House newhouse = new House("woodpanel");
 //            newhouse.X = 30;
 //            newhouse.Y = 30;
@@ -177,7 +172,6 @@ namespace FunGuy
 //            newtree.Height = 4;
 //            //TheMap.Things.Add(newtree);
 //            TheMap.AddThing(newtree);
-            Input.Keyboard keyboard = new Input.Keyboard();
 
           
             Console.WriteLine("{0} {1} {2} {3}", Key.A.ToString(), Key.Enter, Key.B, Key.BackSpace);
@@ -247,8 +241,8 @@ namespace FunGuy
             }
             else
             {
-                modelview = Matrix4.LookAt(new Vector3((float)Player.X + 0.5f, (float)Player.Y - 5.5f, (float)16),  // Camera
-                                               new Vector3((float)Player.X + 0.5f, (float)Player.Y + 0.5f, (float)4),   // Look At
+                modelview = Matrix4.LookAt(new Vector3((float)Party[0].X + 0.5f, (float)Party[0].Y - 5.5f, (float)16),  // Camera
+                                               new Vector3((float)Party[0].X + 0.5f, (float)Party[0].Y + 0.5f, (float)4),   // Look At
                                                Vector3.UnitY);
             }
 
@@ -383,7 +377,7 @@ namespace FunGuy
 
     
             // Load all textures in rear of char
-            TheMap.RenderThings(Player.Y, TheMap.Height);
+            TheMap.RenderThings(Party[0].Y, TheMap.Height);
 
             if (ModeIsGame)
             {
@@ -398,7 +392,7 @@ namespace FunGuy
             ChangeCharacter(CharIndex, CharDirection);
 
             // Load all textures in front of char
-            TheMap.RenderThings(0, Player.Y);
+            TheMap.RenderThings(0, Party[0].Y);
 
             GL.End();
 
@@ -436,7 +430,7 @@ namespace FunGuy
 
             if (!ModeIsThings)
             {
-                CharacterTexture myChar = Player.Characters.Find(c => c.Value == value && c.Index == index);
+                CharacterTexture myChar = Party[0].Characters.Find(c => c.Value == value && c.Index == index);
                 //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
                 GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
                 GL.Begin(BeginMode.Quads);
@@ -448,10 +442,10 @@ namespace FunGuy
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
                    
-                    float ly = Player.Y;
-                    float ry = Player.Y;
-                    float lx = Player.X;
-                    float rx = (float)(Player.X + 1);
+                    float ly = Party[0].Y;
+                    float ry = Party[0].Y;
+                    float lx = Party[0].X;
+                    float rx = (float)(Party[0].X + 1);
 
                     if (CharDirection == CharacterTexture.Down || 
                         CharDirection == CharacterTexture.DownTwo ||
@@ -498,13 +492,13 @@ namespace FunGuy
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
                     GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3((float)Player.X, (float)Player.Y, 4.05f);
+                    GL.Vertex3((float)Party[0].X, (float)Party[0].Y, 4.05f);
                     GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3((float)Player.X + 1, (float)Player.Y, 4.05f);
+                    GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y, 4.05f);
                     GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3((float)Player.X + 1, (float)Player.Y + 1f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
                     GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3((float)Player.X, (float)Player.Y + 1f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Party[0].X, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
                 }
                 GL.End();
             }

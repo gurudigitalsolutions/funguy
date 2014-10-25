@@ -24,7 +24,7 @@ namespace FunGuy.Modes
 
         public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)
         {
-            if (!Player.CanMove)
+            if (!Game.Engine.Party[0].CanMove)
             {
                 return;
             }
@@ -36,7 +36,7 @@ namespace FunGuy.Modes
                
             }
 
-            if (Keyboard [Key.Number0])
+            if (Keyboard [Key.Number0]||Keyboard[Key.Keypad0])
             {
                 //  Toggle thing explorer
                 if (Game.Engine.ModeIsEditor)
@@ -62,12 +62,12 @@ namespace FunGuy.Modes
                 // Characters direction
                 Game.Engine.CharDirection = CharacterTexture.NextDown(Game.Engine.CharDirection);
                 //
-                if (Player.Y > 0
+                if (Game.Engine.Party[0].Y > 0
                     && (Game.Engine.ModeIsEditor))
                 {
-                    Player.Y--;
+                    Game.Engine.Party[0].Y--;
                 }
-                else if (Player.Y == 0
+                else if (Game.Engine.Party[0].Y == 0
                     && (Game.Engine.ModeIsEditor))
                 {
                     if (Game.Engine.OuterMaps [0, 0] != null) {
@@ -100,7 +100,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [1, 0] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY++;
-                    Player.Y = Game.Engine.TheMap.Height - 1;
+                    Game.Engine.Party[0].Y = Game.Engine.TheMap.Height - 1;
 
                 }
             }
@@ -111,12 +111,12 @@ namespace FunGuy.Modes
             {
                 Game.Engine.CharDirection = CharacterTexture.NextUp(Game.Engine.CharDirection);
                 //
-                if (Player.Y + 1 < Game.Engine.TheMap.Height
+                if (Game.Engine.Party[0].Y + 1 < Game.Engine.TheMap.Height
                     && ((Game.Engine.ModeIsEditor )))
                 {
-                    Player.Y++;
+                    Game.Engine.Party[0].Y++;
                 }
-                else if (Player.Y + 1 == Game.Engine.TheMap.Height
+                else if (Game.Engine.Party[0].Y + 1 == Game.Engine.TheMap.Height
                     && (Game.Engine.ModeIsEditor))
                 {
                     for (int x = 0; x < 3; x++)
@@ -141,7 +141,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [1, 2] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY--;
-                    Player.Y = 0;
+                    Game.Engine.Party[0].Y = 0;
                 }
             }
             #endregion
@@ -152,13 +152,13 @@ namespace FunGuy.Modes
                 // Character direction
                 Game.Engine.CharDirection = CharacterTexture.NextLeft(Game.Engine.CharDirection);
                 //
-                if (Player.X > 0
+                if (Game.Engine.Party[0].X > 0
                     && ((Game.Engine.ModeIsEditor)))
                 {
 
-                    Player.X--;
+                    Game.Engine.Party[0].X--;
                 }
-                else if (Player.X == 0
+                else if (Game.Engine.Party[0].X == 0
                     && (Game.Engine.ModeIsEditor))
                 {
                     for (int y = 0; y < 3; y++)
@@ -183,7 +183,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [2, 1] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX--;
-                    Player.X = Game.Engine.TheMap.Width - 1;
+                    Game.Engine.Party[0].X = Game.Engine.TheMap.Width - 1;
                 }
 
             }
@@ -195,12 +195,12 @@ namespace FunGuy.Modes
                 // Character direction
                 Game.Engine.CharDirection = CharacterTexture.NextRight(Game.Engine.CharDirection);
                 //
-                if (Player.X + 1 < Game.Engine.TheMap.Width
+                if (Game.Engine.Party[0].X + 1 < Game.Engine.TheMap.Width
                     && ((Game.Engine.ModeIsEditor)))
                 {
-                    Player.X++;
+                    Game.Engine.Party[0].X++;
                 }
-                else if (Player.X + 1 == Game.Engine.TheMap.Width
+                else if (Game.Engine.Party[0].X + 1 == Game.Engine.TheMap.Width
                     && (Game.Engine.ModeIsEditor))
                 {
                     for (int y = 0; y < 3; y++)
@@ -225,7 +225,7 @@ namespace FunGuy.Modes
                     Game.Engine.OuterMaps [0, 1] = Game.Engine.TheMap;
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX++;
-                    Player.X = 0;
+                    Game.Engine.Party[0].X = 0;
                 }
             }
             #endregion
@@ -248,8 +248,8 @@ namespace FunGuy.Modes
                     else if (Game.Engine.TheMap.Textures.Count - 1 < next){
                         next = 0;}
 
-                    //TheMap.Coordinates [Player.X, Player.Y] = Texture.DefaultMapTexts [next].Value;
-                    Game.Engine.TheMap.Coordinates [Player.X, Player.Y] = Game.Engine.TheMap.Textures [next].Value;
+                    //TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y] = Texture.DefaultMapTexts [next].Value;
+                    Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y] = Game.Engine.TheMap.Textures [next].Value;
                 }
 
             }
