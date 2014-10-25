@@ -18,6 +18,7 @@ namespace FunGuy
 
     class Game : GameWindow
     {
+        public static Game Engine;
         public Map TheMap;
         public Player[] Characters = new Player[10];
 //        {
@@ -949,10 +950,12 @@ namespace FunGuy
             // The 'using' idiom guarantees proper resource cleanup.
             // We request 30 UpdateFrame events per second, and unlimited
             // RenderFrame events (as fast as the computer can handle).
-            using (Game game = new Game())
+
+            using(Game.Engine = new Game())
             {
-                game.Run(30.0);
+                Game.Engine.Run(30.0);
             }
+         
         }
 
     

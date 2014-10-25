@@ -359,6 +359,13 @@
     <None Include="Resources\Maps\4\2.map" />
     <None Include="Resources\Maps\4\3.map" />
     <None Include="Resources\Maps\4\4.map" />
+    <None Include="Resources\Maps\2_2.map" />
+    <None Include="Resources\PNGs\Things\House\thatch1.png" />
+    <None Include="Resources\PNGs\Things\House\woodpanel1.png" />
+    <None Include="Resources\PNGs\Things\Tree\pine1.png" />
+    <None Include="Resources\Sets\Characters\trip.txt" />
+    <None Include="Resources\Sets\Things\House.txt" />
+    <None Include="Resources\Sets\Things\Tree.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />
