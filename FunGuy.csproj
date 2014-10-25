@@ -99,6 +99,11 @@
     <Compile Include="Source\Input\Input.cs" />
     <Compile Include="Source\Characters\Player.cs" />
     <Compile Include="Source\Textures\CharacterTexture.cs" />
+    <Compile Include="Source\Modes\Explorer.cs" />
+    <Compile Include="Source\Modes\Mode.cs" />
+    <Compile Include="Source\Modes\TileEdit.cs" />
+    <Compile Include="Source\Modes\Thing.cs" />
+    <Compile Include="Source\Modes\ThingEdit.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -374,5 +379,6 @@
     <Folder Include="Resources\Maps\" />
     <Folder Include="Source\Input\" />
     <Folder Include="Source\Characters\" />
+    <Folder Include="Source\Modes\" />
   </ItemGroup>
 </Project>

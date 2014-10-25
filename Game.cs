@@ -27,6 +27,7 @@ namespace FunGuy
 //        }
 
 
+
         public Map[,] OuterMaps = new Map[3, 3];
 //        public Player Player;
         public int TimeStamp;
@@ -42,6 +43,12 @@ namespace FunGuy
 
         public int ThingIndex = 0;
         public int GameMode = GameModes.Game;
+
+        public Modes.Explorer ModeExplorer = new FunGuy.Modes.Explorer();
+        public Modes.Thing ModeThing = new FunGuy.Modes.Thing();
+        public Modes.ThingEdit ModeThingEdit = new FunGuy.Modes.ThingEdit();
+        public Modes.TileEdit ModeTileEdit = new FunGuy.Modes.TileEdit();
+
         public int WorldMapWidth = 5;
         public int WorldMapHeight = 5;
         public int WorldMapY = 2;
@@ -52,6 +59,7 @@ namespace FunGuy
         public const int GameModeEditor = 1;
         public const int GameModeThings = 2;
         public const int GameModeThingEditor = 3;
+
 
 
 
@@ -204,7 +212,12 @@ namespace FunGuy
         {
             base.OnUpdateFrame(e);
 
-            OnKeyPress();
+            ModeExplorer.Update();
+            ModeTileEdit.Update();
+            ModeThing.Update();
+            ModeThingEdit.Update();
+
+            //OnKeyPress();
         }
 
 
