@@ -25,6 +25,11 @@ namespace FunGuy.Modes
             int orgy = Game.Engine.Party[0].Y;
             int orgd = Game.Engine.Party [0].Direction;
 
+            bool orgdup = Game.Engine.Party [0].DirectionUp;
+            bool orgddown = Game.Engine.Party [0].DirectionDown;
+            bool orgdleft = Game.Engine.Party [0].DirectionLeft;
+            bool orgdright = Game.Engine.Party [0].DirectionRight;
+
             KeyPress(Keyboard);
 
             if(orgx != Game.Engine.Party[0].X || orgy != Game.Engine.Party[0].Y)
@@ -38,7 +43,10 @@ namespace FunGuy.Modes
                         Game.Engine.Party[epart + 1].X = Game.Engine.Party[epart].X;
                         Game.Engine.Party[epart + 1].Y = Game.Engine.Party[epart].Y;
                         Game.Engine.Party [epart + 1].Direction = Game.Engine.Party [epart].Direction;
-
+                        Game.Engine.Party [epart + 1].DirectionUp = Game.Engine.Party [epart].DirectionUp;
+                        Game.Engine.Party [epart + 1].DirectionDown = Game.Engine.Party [epart].DirectionDown;
+                        Game.Engine.Party [epart + 1].DirectionLeft = Game.Engine.Party [epart].DirectionLeft;
+                        Game.Engine.Party [epart + 1].DirectionRight = Game.Engine.Party [epart].DirectionRight;
                     }
 
                 }
@@ -46,6 +54,11 @@ namespace FunGuy.Modes
                 Game.Engine.Party[1].X = orgx;
                 Game.Engine.Party[1].Y = orgy;
                 Game.Engine.Party [1].Direction = orgd;
+
+                Game.Engine.Party [1].DirectionUp = orgdup;
+                Game.Engine.Party [1].DirectionDown = orgddown;
+                Game.Engine.Party [1].DirectionLeft = orgdleft;
+                Game.Engine.Party [1].DirectionRight = orgdright;
 
                 //Console.WriteLine("x: {0} y: {1}", orgx, orgy);
             }
@@ -95,6 +108,9 @@ namespace FunGuy.Modes
                 // Characters direction
 
                 Game.Engine.Party[0].Direction = CharacterTexture.NextDown(Game.Engine.Party[0].Direction);
+                Game.Engine.Party[0].DirectionDown = true;
+                Game.Engine.Party[0].DirectionUp = false;
+
                 //
                 if (Game.Engine.Party[0].Y > 0 
                 && ((Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y - 1)))
@@ -143,7 +159,10 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Up])
             {
 
+
                 Game.Engine.Party[0].Direction = CharacterTexture.NextUp(Game.Engine.Party[0].Direction);
+                Game.Engine.Party[0].DirectionUp = true;
+                Game.Engine.Party[0].DirectionDown = false;
                 //
                 if (Game.Engine.Party[0].Y + 1 < Game.Engine.TheMap.Height
                     && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X, Game.Engine.Party[0].Y + 1))
@@ -153,6 +172,14 @@ namespace FunGuy.Modes
                 else if (Game.Engine.Party[0].Y + 1 == Game.Engine.TheMap.Height
                     && (Game.Engine.OuterMaps [1, 0].Coordinates [Game.Engine.Party[0].X, 0] > -1))
                 {
+
+                    if(Game.Engine.OuterMaps[0, 2] != null) {
+                        Game.Engine.OuterMaps[0, 2].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[1, 2] != null) {
+                        Game.Engine.OuterMaps[1, 2].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[2, 2] != null) {
+                        Game.Engine.OuterMaps[2, 2].UnloadTextures(); }
+
                     for (int x = 0; x < 3; x++)
                         {
                         for (int y = 1; y > -1; y--)
@@ -186,6 +213,9 @@ namespace FunGuy.Modes
                 // Character direction
 
                 Game.Engine.Party[0].Direction = CharacterTexture.NextLeft(Game.Engine.Party[0].Direction);
+                Game.Engine.Party[0].DirectionLeft = true;
+                Game.Engine.Party[0].DirectionRight = false;
+
                 //
                 if (Game.Engine.Party[0].X > 0
                     && ( Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X - 1, Game.Engine.Party[0].Y))
@@ -196,6 +226,13 @@ namespace FunGuy.Modes
                 else if (Game.Engine.Party[0].X == 0
                     && (Game.Engine.OuterMaps [0, 1].Coordinates [Game.Engine.OuterMaps [0, 1].Width - 1, Game.Engine.Party[0].Y] > -1))
                 {
+                    if(Game.Engine.OuterMaps[2, 0] != null) {
+                        Game.Engine.OuterMaps[2, 0].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[2, 1] != null) {
+                        Game.Engine.OuterMaps[2, 1].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[2, 2] != null) {
+                        Game.Engine.OuterMaps[2, 2].UnloadTextures(); }
+
                     for (int y = 0; y < 3; y++)
                     {
                         for (int x = 1; x > -1; x--)
@@ -230,6 +267,9 @@ namespace FunGuy.Modes
                 // Character direction
 
                 Game.Engine.Party[0].Direction = CharacterTexture.NextRight(Game.Engine.Party[0].Direction);
+                Game.Engine.Party[0].DirectionRight = true;
+                Game.Engine.Party[0].DirectionLeft = false;
+
                 //
                 if (Game.Engine.Party[0].X + 1 < Game.Engine.TheMap.Width
                     && (Game.Engine.TheMap.Coordinates [Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y] > -1) && !Game.Engine.TheMap.IsThingAt(Game.Engine.Party[0].X + 1, Game.Engine.Party[0].Y))
@@ -239,6 +279,14 @@ namespace FunGuy.Modes
                 else if (Game.Engine.Party[0].X + 1 == Game.Engine.TheMap.Width
                     && (Game.Engine.OuterMaps [2, 1].Coordinates [0, Game.Engine.Party[0].Y] > -1))
                 {
+
+                    if(Game.Engine.OuterMaps[0, 0] != null) {
+                        Game.Engine.OuterMaps[0, 0].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[0, 1] != null) {
+                        Game.Engine.OuterMaps[0, 1].UnloadTextures(); }
+                    if(Game.Engine.OuterMaps[0, 2] != null) {
+                        Game.Engine.OuterMaps[0, 2].UnloadTextures(); }
+
                     for (int y = 0; y < 3; y++)
                     {
                         for (int x = 0; x < 2; x++)
@@ -263,6 +311,14 @@ namespace FunGuy.Modes
                     Game.Engine.WorldMapX++;
                     Game.Engine.Party[0].X = 0;
                 }
+            }
+            #endregion
+
+            #region NOT LEFT OR RIGHT
+            if(!Keyboard[Key.Left] && !Keyboard[Key.Right])
+            {
+                Game.Engine.Party[0].DirectionLeft = false;
+                Game.Engine.Party[0].DirectionRight = false;
             }
             #endregion
         }

@@ -25,6 +25,11 @@ namespace FunGuy
 
         public int Direction = 0;
 
+        public bool DirectionUp = false;
+        public bool DirectionDown = true;
+        public bool DirectionLeft = false;
+        public bool DirectionRight = false;
+
         public Dictionary<string, int> Classes = new Dictionary<string, int>
         {
             {"warrior", 0},
