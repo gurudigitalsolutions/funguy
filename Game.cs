@@ -451,57 +451,7 @@ namespace FunGuy
                     foreach (Player eplayer in lparty)
                     {
 
-                            CharacterTexture myChar = eplayer.Characters.Find(c => c.Value == value && c.Index == index);
-                            //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
-                            GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
-                            GL.Begin(BeginMode.Quads);
-                            GL.Normal3(-1.0f, 0.0f, 0.0f);
-                            float ly = eplayer.Y;
-                            float ry = eplayer.Y;
-                            float lx = eplayer.X;
-                            float rx = (float)(eplayer.X + 1);
-
-                            if (eplayer.Direction == CharacterTexture.Down || 
-                                eplayer.Direction == CharacterTexture.DownTwo ||
-                                eplayer.Direction == CharacterTexture.DownThree ||
-                                eplayer.Direction == CharacterTexture.Up ||
-                                eplayer.Direction == CharacterTexture.UpTwo ||
-                                eplayer.Direction == CharacterTexture.UpThree)
-                            {
-                                ly = ly + 0.5f;
-                                ry = ry + 0.5f;
-                            }
-                            else if (eplayer.Direction == CharacterTexture.Left ||
-                                     eplayer.Direction == CharacterTexture.LeftTwo ||
-                                     eplayer.Direction == CharacterTexture.LeftThree)
-                            {
-                                ly = ly + 0.8f;
-                                ry = ry + 0.2f;
-
-                                lx = lx + 0.3f;
-                                rx = rx - 0.3f;
-                            }
-                            else if (eplayer.Direction == CharacterTexture.Right ||
-                                     eplayer.Direction == CharacterTexture.RightTwo ||
-                                     eplayer.Direction == CharacterTexture.RightThree)
-                            {
-                                ly = ly + 0.2f;
-                                ry = ry + 0.8f;
-
-                                lx = lx + 0.3f;
-                                rx = rx - 0.3f;
-                            }
-
-                            GL.TexCoord2(0.0f, 1.0f);
-                            GL.Vertex3(lx, ly, 4.05f);
-                            GL.TexCoord2(1.0f, 1.0f);
-                            GL.Vertex3(rx, ry, 4.05f);
-                            GL.TexCoord2(1.0f, 0.0f);
-                            GL.Vertex3(rx, ry, 4.05f + myChar.Height);
-                            GL.TexCoord2(0.0f, 0.0f);
-                            GL.Vertex3(lx, ly, 4.05f + myChar.Height);
-
-                            GL.End();
+                        eplayer.Render();
                     }
                 }
                 else

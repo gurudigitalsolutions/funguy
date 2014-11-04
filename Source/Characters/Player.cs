@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using OpenTK;
+using OpenTK.Graphics;
+using OpenTK.Graphics.OpenGL;
 
 namespace FunGuy
 {
@@ -175,6 +178,61 @@ namespace FunGuy
                 Console.WriteLine("Unable to Load Tile Set: {0}", "Characters");
                 return new List<CharacterTexture>();
             }
+        }
+
+        public void Render()
+        {
+            CharacterTexture myChar = Characters.Find(c => c.Value == 0 && c.Index == Direction);
+            //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
+            GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
+            GL.Begin(BeginMode.Quads);
+            GL.Normal3(-1.0f, 0.0f, 0.0f);
+            float ly = Y;
+            float ry = Y;
+            float lx = X;
+            float rx = (float)(X + 1);
+
+            if (Direction == CharacterTexture.Down || 
+                Direction == CharacterTexture.DownTwo ||
+                Direction == CharacterTexture.DownThree ||
+                Direction == CharacterTexture.Up ||
+                Direction == CharacterTexture.UpTwo ||
+                Direction == CharacterTexture.UpThree)
+            {
+                ly = ly + 0.5f;
+                ry = ry + 0.5f;
+            }
+            else if (Direction == CharacterTexture.Left ||
+                     Direction == CharacterTexture.LeftTwo ||
+                     Direction == CharacterTexture.LeftThree)
+            {
+                ly = ly + 0.8f;
+                ry = ry + 0.2f;
+
+                lx = lx + 0.3f;
+                rx = rx - 0.3f;
+            }
+            else if (Direction == CharacterTexture.Right ||
+                     Direction == CharacterTexture.RightTwo ||
+                     Direction == CharacterTexture.RightThree)
+            {
+                ly = ly + 0.2f;
+                ry = ry + 0.8f;
+
+                lx = lx + 0.3f;
+                rx = rx - 0.3f;
+            }
+
+            GL.TexCoord2(0.0f, 1.0f);
+            GL.Vertex3(lx, ly, 4.05f);
+            GL.TexCoord2(1.0f, 1.0f);
+            GL.Vertex3(rx, ry, 4.05f);
+            GL.TexCoord2(1.0f, 0.0f);
+            GL.Vertex3(rx, ry, 4.05f + myChar.Height);
+            GL.TexCoord2(0.0f, 0.0f);
+            GL.Vertex3(lx, ly, 4.05f + myChar.Height);
+
+            GL.End();
         }
     }
 }
