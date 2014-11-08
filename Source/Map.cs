@@ -280,7 +280,7 @@ namespace FunGuy
             {
                 GL.DeleteTexture(etex.TexLibID);
             }
-            Console.WriteLine("Unloaded textures");
+
         }
 
 
