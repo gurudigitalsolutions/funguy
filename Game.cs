@@ -26,6 +26,8 @@ namespace FunGuy
         public Player[] Party = new Player[10];
 
         public int TimeStamp;
+        public int LastTimeStamp;
+
         public int CharIndex = 0;
         //public int CharDirection = 0;
         public int EditorGridTex = 0;
@@ -192,7 +194,7 @@ namespace FunGuy
 //            TheMap.AddThing(newtree);
 
           
-            Console.WriteLine("{0} {1} {2} {3}", Key.A.ToString(), Key.Enter, Key.B, Key.BackSpace);
+            LastTimeStamp = Environment.TickCount;
         }
 
 
@@ -228,7 +230,7 @@ namespace FunGuy
             else if(ModeIsThings) { ModeThing.Update(Keyboard); }
             //else if(ModeIsThingsEditor) { ModeThingEdit.Update(Keyboard); }
 
-            //OnKeyPress();
+            LastTimeStamp = Environment.TickCount;
         }
 
         /// Called when it is time to render the next frame. Add your rendering code here.

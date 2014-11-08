@@ -22,6 +22,14 @@ namespace FunGuy
 
         public Fluid()
         {
+            TextureSet = "water";
+            Width = 3;
+            Depth = 3;
+            Height = 1;
+
+            int[] texids = this.SkinSet(TextureSet);
+            PondFloor = texids [0];
+            PondSurface = texids [1];
         }
 
         public Fluid(SerializationInfo info, StreamingContext ctxt)

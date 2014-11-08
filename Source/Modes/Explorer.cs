@@ -63,9 +63,18 @@ namespace FunGuy.Modes
                 //Console.WriteLine("x: {0} y: {1}", orgx, orgy);
             }
 
-            foreach (FunGuy.Thing ething in Game.Engine.TheMap.Things)
+            //
+            //  Things only need to be updated ever-so-often, or shit gets
+            //  seriously slow.  So lets do some of those calculations.
+            //
+
+            //  Update 20 times a second...
+            if (Environment.TickCount - Game.Engine.LastTimeStamp > 50)
             {
-                ething.Update();
+                foreach (FunGuy.Thing ething in Game.Engine.TheMap.Things)
+                {
+                    ething.Update();
+                }
             }
         }
 
@@ -82,10 +91,7 @@ namespace FunGuy.Modes
             }
             
 
-            if(Keyboard[Key.Number0] || Keyboard[Key.Keypad0])
-            {
-                Game.Engine.GameMode = Game.GameModeThings;
-            }
+
 
             if (Keyboard [Key.P])
             {
@@ -104,6 +110,23 @@ namespace FunGuy.Modes
             if (Keyboard [Key.Space])
             {
                 Game.Engine.GameMode = Game.GameModeEditor;
+            }
+
+            if(Keyboard[Key.Number0] || Keyboard[Key.Keypad0])
+            {
+                Game.Engine.GameMode = Game.GameModeThings;
+
+                if(Game.Engine.TheMap.Things == null || Game.Engine.TheMap.Things.Count == 0)
+                {
+                    FunGuy.Tree newtree = new Tree("pinetree");
+                    newtree.Width = 1;
+                    newtree.Depth = 1;
+                    newtree.Height = 3;
+                    newtree.X = Game.Engine.Party[0].X;
+                    newtree.Y = Game.Engine.Party[0].Y;
+                    Game.Engine.TheMap.AddThing(newtree);
+                    Game.Engine.ThingIndex = 0;
+                }
             }
             #endregion
 
