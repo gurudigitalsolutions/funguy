@@ -138,18 +138,20 @@ namespace FunGuy
             {
                 for (int ey = Depth - 1; ey > -1; ey--)
                 {
-                    GL.TexCoord2(0.0f, 1.0f);
-                    GL.Vertex3(X + ex + 0.5f, Y + ey + AnimYOff + 0.5f, AnimZOff + 1f);
+                    if (ey < Depth - 1)
+                    {
+                        GL.TexCoord2(0.0f, 1.0f);
+                        GL.Vertex3(X + ex + 0.5f, Y + ey + AnimYOff + 0.5f, AnimZOff + 1f);
 
-                    GL.TexCoord2(1.0f, 1.0f);
-                    GL.Vertex3(X + ex + 1, Y + ey + AnimYOff + 0.5f, AnimZOff + 0.5f);
+                        GL.TexCoord2(1.0f, 1.0f);
+                        GL.Vertex3(X + ex + 1, Y + ey + AnimYOff + 0.5f, AnimZOff + 0.5f);
 
-                    GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3(X + ex + 0.5f, Y + ey + AnimYOff + 0.5f, AnimZOff);
+                        GL.TexCoord2(1.0f, 0.0f);
+                        GL.Vertex3(X + ex + 0.5f, Y + ey + AnimYOff + 0.5f, AnimZOff);
 
-                    GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3(X + ex, Y + ey + AnimYOff + 0.5f, AnimZOff + 0.5f);
-
+                        GL.TexCoord2(0.0f, 0.0f);
+                        GL.Vertex3(X + ex, Y + ey + AnimYOff + 0.5f, AnimZOff + 0.5f);
+                    }
 
                     ///////
 
@@ -176,6 +178,7 @@ namespace FunGuy
 
         public override void Update()
         {
+            /*
             if (LastUpdate == 0) {
                 LastUpdate = Game.Engine.LastTimeStamp; }
 
@@ -183,7 +186,7 @@ namespace FunGuy
             if (AnimStep >= 50) {
                 AnimStep = 0; }
 
-            AnimYOff = AnimStep / 100f;
+            AnimYOff = AnimStep / 100f;*/
         }
     }
 }
