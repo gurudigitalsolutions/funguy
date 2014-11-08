@@ -23,12 +23,15 @@ namespace FunGuy.Modes
         {
             int orgx = Game.Engine.Party[0].X;
             int orgy = Game.Engine.Party[0].Y;
+            int orgwmx = Game.Engine.Party [0].MapX;
+            int orgwmy = Game.Engine.Party [0].MapY;
             int orgd = Game.Engine.Party [0].Direction;
 
             bool orgdup = Game.Engine.Party [0].DirectionUp;
             bool orgddown = Game.Engine.Party [0].DirectionDown;
             bool orgdleft = Game.Engine.Party [0].DirectionLeft;
             bool orgdright = Game.Engine.Party [0].DirectionRight;
+
 
             KeyPress(Keyboard);
 
@@ -42,6 +45,8 @@ namespace FunGuy.Modes
                     {
                         Game.Engine.Party[epart + 1].X = Game.Engine.Party[epart].X;
                         Game.Engine.Party[epart + 1].Y = Game.Engine.Party[epart].Y;
+                        Game.Engine.Party [epart + 1].MapX = Game.Engine.Party [epart].MapX;
+                        Game.Engine.Party [epart + 1].MapY = Game.Engine.Party [epart].MapY;
                         Game.Engine.Party [epart + 1].Direction = Game.Engine.Party [epart].Direction;
                         Game.Engine.Party [epart + 1].DirectionUp = Game.Engine.Party [epart].DirectionUp;
                         Game.Engine.Party [epart + 1].DirectionDown = Game.Engine.Party [epart].DirectionDown;
@@ -53,6 +58,8 @@ namespace FunGuy.Modes
 
                 Game.Engine.Party[1].X = orgx;
                 Game.Engine.Party[1].Y = orgy;
+                Game.Engine.Party [1].MapX = orgwmx;
+                Game.Engine.Party [1].MapY = orgwmy;
                 Game.Engine.Party [1].Direction = orgd;
 
                 Game.Engine.Party [1].DirectionUp = orgdup;
@@ -178,7 +185,7 @@ namespace FunGuy.Modes
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY++;
                     Game.Engine.Party[0].Y = Game.Engine.TheMap.Height - 1;
-
+                    Game.Engine.Party[0].MapY = Game.Engine.WorldMapY;
                 }
             }
             #endregion
@@ -231,6 +238,7 @@ namespace FunGuy.Modes
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapY--;
                     Game.Engine.Party[0].Y = 0;
+                    Game.Engine.Party[0].MapY = Game.Engine.WorldMapY;
                 }
             }
             #endregion
@@ -284,6 +292,7 @@ namespace FunGuy.Modes
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX--;
                     Game.Engine.Party[0].X = Game.Engine.TheMap.Width - 1;
+                    Game.Engine.Party[0].MapX = Game.Engine.WorldMapX;
                 }
 
             }
@@ -338,6 +347,7 @@ namespace FunGuy.Modes
                     Game.Engine.TheMap = Game.Engine.OuterMaps [1, 1];
                     Game.Engine.WorldMapX++;
                     Game.Engine.Party[0].X = 0;
+                    Game.Engine.Party[0].MapX = Game.Engine.WorldMapX;
                 }
             }
             #endregion

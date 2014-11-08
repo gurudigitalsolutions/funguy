@@ -52,6 +52,8 @@ namespace FunGuy
         {
             CharacterName = charactername;
             ParseCharacterFile();
+            MapX = Game.Engine.WorldMapX;
+            MapY = Game.Engine.WorldMapY;
         }
 
         public string CharacterName = string.Empty;
@@ -70,6 +72,8 @@ namespace FunGuy
         private  bool _IsCharLoaded = false;
         public  int X;
         public  int Y;
+        public int MapX;
+        public int MapY;
         public  int LastMovedTime;
         public  int AnimStep = 0;
         public  bool CanMove
@@ -191,6 +195,36 @@ namespace FunGuy
             float ry = Y;
             float lx = X;
             float rx = (float)(X + 1);
+
+            if (MapX != Game.Engine.Party [0].MapX)
+            {
+                Console.WriteLine("MX {0} P0MX {1}", MapX, Game.Engine.Party [0].MapX);
+                if (MapX < Game.Engine.Party [0].MapX)
+                {
+                    lx = lx - Game.Engine.TheMap.Width;
+                    rx = rx - Game.Engine.TheMap.Width;
+                }
+                else
+                {
+                    lx = lx + Game.Engine.TheMap.Width;
+                    rx = rx + Game.Engine.TheMap.Width;
+                }
+            }
+
+            if (MapY != Game.Engine.Party [0].MapY)
+            {
+                Console.WriteLine("MY {0} P0MY {1}", MapY, Game.Engine.Party [0].MapY);
+                if (MapY < Game.Engine.Party [0].MapY)
+                {
+                    ly = ly + Game.Engine.TheMap.Height - 1;
+                    ry = ry + Game.Engine.TheMap.Height - 1;
+                }
+                else
+                {
+                    ly = ly - Game.Engine.TheMap.Height;
+                    ry = ry - Game.Engine.TheMap.Height;
+                }
+            }
 
             if (Direction == CharacterTexture.Down || 
                 Direction == CharacterTexture.DownTwo ||
