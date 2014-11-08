@@ -62,6 +62,11 @@ namespace FunGuy.Modes
 
                 //Console.WriteLine("x: {0} y: {1}", orgx, orgy);
             }
+
+            foreach (FunGuy.Thing ething in Game.Engine.TheMap.Things)
+            {
+                ething.Update();
+            }
         }
 
         public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)

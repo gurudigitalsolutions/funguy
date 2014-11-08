@@ -1,0 +1,4 @@
+#
+#	Format like:
+#	[skinname] [floor] [surface]
+water water2 water1

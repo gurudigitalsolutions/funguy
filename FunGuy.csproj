@@ -101,6 +101,7 @@
     <Compile Include="Source\Modes\TileEdit.cs" />
     <Compile Include="Source\Modes\Thing.cs" />
     <Compile Include="Source\Textures\CharacterTexture.cs" />
+    <Compile Include="Source\Things\Fluid.cs" />
   </ItemGroup>
   <!--
   <ItemGroup>
@@ -372,6 +373,10 @@
     <None Include="Resources\Characters\crystal.txt" />
     <None Include="Resources\Characters\trip.txt" />
     <None Include="Resources\Sets\Characters\crystal.txt" />
+    <None Include="Resources\PNGs\Misc\editsquare.png" />
+    <None Include="Resources\PNGs\Things\Fluid\water1.png" />
+    <None Include="Resources\PNGs\Things\Fluid\water2.png" />
+    <None Include="Resources\Sets\Things\Fluid.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Source\Textures\" />

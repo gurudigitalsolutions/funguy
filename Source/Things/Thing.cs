@@ -40,6 +40,7 @@ namespace FunGuy
             List<Thing> retList = new List<Thing>();
             retList.Add(new Tree("pinetree"));
             retList.Add(new House("woodpanel"));
+            retList.Add(new Fluid("water"));
             return retList;
         }
 

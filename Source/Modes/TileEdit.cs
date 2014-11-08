@@ -54,7 +54,14 @@ namespace FunGuy.Modes
             }
             #endregion
 
-
+            if (Keyboard [Key.P])
+            {
+                Console.WriteLine("Position: X: {0} Y: {1} ", Game.Engine.Party[0].X, Game.Engine.Party[0].Y);
+                for (int et = 0; et < Game.Engine.TheMap.Things.Count; et++)
+                {
+                    Console.WriteLine("Thing {0} : Index {1}", et, Game.Engine.TheMap.Things [et].Index);
+                }
+            }
 
             #region MOVE DOWN
             if (Keyboard [Key.Down])

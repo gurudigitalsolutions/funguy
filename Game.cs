@@ -28,7 +28,7 @@ namespace FunGuy
         public int TimeStamp;
         public int CharIndex = 0;
         //public int CharDirection = 0;
-
+        public int EditorGridTex = 0;
 
         public int TileIndex
         {
@@ -111,11 +111,13 @@ namespace FunGuy
             //Environment.Exit(0);
             GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
             GL.Enable(EnableCap.DepthTest);
+            GL.Enable(EnableCap.Blend);
 
             TexLib.InitTexturing();
 
+            EditorGridTex = TexLib.CreateTextureFromFile(string.Format("{0}/PNGs/Misc/editsquare.png", configPath));
             MapEdgeTexture = TexLib.CreateRGBATexture(32, 32, new byte[]{92, 255, 0, 0,
-                                                                        92, 255, 0, 0,
+                                                                        92, 255, 0, 255,
                                                                         92, 255, 0, 255,
                 92, 255, 0, 255}
             );
@@ -167,6 +169,13 @@ namespace FunGuy
                 Party[ep].X = Party[ep - 1].X - 1;
                 Party[ep].Y = Party[ep - 1].Y;
             }
+
+//            Fluid newwater = new Fluid("water");
+//            newwater.X = 40;
+//            newwater.Y = 29;
+//            newwater.Width = 5;
+//            newwater.Depth = 3;
+//            TheMap.AddThing(newwater);
 //            House newhouse = new House("woodpanel");
 //            newhouse.X = 30;
 //            newhouse.Y = 30;
@@ -327,6 +336,7 @@ namespace FunGuy
             {
                 for (int y = 0; y < TheMap.Height; y++)
                 {
+
                     GL.BindTexture(TextureTarget.Texture2D, TheMap.Textures.Find(v => v.Value == TheMap.Coordinates [x, y]).TexLibID);
 
                     GL.Begin(BeginMode.Quads);
@@ -458,9 +468,9 @@ namespace FunGuy
                 {
                     // left top, right top, right bottom, left bottom
                     // left bottom is 0 0
-                    CharacterTexture myChar = Party[0].Characters.Find(c => c.Value == value && c.Index == index);
+                    //CharacterTexture myChar = Party[0].Characters.Find(c => c.Value == value && c.Index == index);
                     //Console.WriteLine("MyChar: {0}", myChar.TexLibID);
-                    GL.BindTexture(TextureTarget.Texture2D, myChar.TexLibID);
+                    GL.BindTexture(TextureTarget.Texture2D, EditorGridTex);
                     GL.Begin(BeginMode.Quads);
                     GL.Normal3(-1.0f, 0.0f, 0.0f);
                     GL.TexCoord2(0.0f, 1.0f);
@@ -468,9 +478,9 @@ namespace FunGuy
                     GL.TexCoord2(1.0f, 1.0f);
                     GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y, 4.05f);
                     GL.TexCoord2(1.0f, 0.0f);
-                    GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Party[0].X + 1, (float)Party[0].Y + 1f, 4.05f);
                     GL.TexCoord2(0.0f, 0.0f);
-                    GL.Vertex3((float)Party[0].X, (float)Party[0].Y + 1f, 4.05f + myChar.Height);
+                    GL.Vertex3((float)Party[0].X, (float)Party[0].Y + 1f, 4.05f);
 
                     GL.End();
                 }
