@@ -198,7 +198,7 @@ namespace FunGuy
 
             if (MapX != Game.Engine.Party [0].MapX)
             {
-                Console.WriteLine("MX {0} P0MX {1}", MapX, Game.Engine.Party [0].MapX);
+
                 if (MapX < Game.Engine.Party [0].MapX)
                 {
                     lx = lx - Game.Engine.TheMap.Width;
@@ -213,7 +213,7 @@ namespace FunGuy
 
             if (MapY != Game.Engine.Party [0].MapY)
             {
-                Console.WriteLine("MY {0} P0MY {1}", MapY, Game.Engine.Party [0].MapY);
+
                 if (MapY < Game.Engine.Party [0].MapY)
                 {
                     ly = ly + Game.Engine.TheMap.Height - 1;

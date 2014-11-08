@@ -457,7 +457,26 @@ namespace FunGuy
                     List<Player> lparty = new List<Player>();
                     lparty.AddRange(Party);
                     lparty.RemoveAll(a => a == null);
-                    lparty.Sort((a,b)=> a.Y.CompareTo(b.Y));
+
+                    lparty.RemoveAll(a => a.MapY == WorldMapY);
+                    if (lparty.Count > 0)
+                    {
+
+                        lparty.Sort((a,b) => a.Y.CompareTo(b.Y));
+                        lparty.Reverse();
+
+                        foreach (Player eplayer in lparty)
+                        {
+
+                            eplayer.Render();
+                        }
+                    }
+
+                    lparty = new List<Player>();
+                    lparty.AddRange(Party);
+                    lparty.RemoveAll(a => a == null);
+                    lparty.RemoveAll(a => a.MapY != WorldMapY);
+                    lparty.Sort((a,b) => a.Y.CompareTo(b.Y));
                     lparty.Reverse();
 
                     foreach (Player eplayer in lparty)
