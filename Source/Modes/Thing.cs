@@ -19,7 +19,11 @@ namespace FunGuy.Modes
         {
             KeyPress(Keyboard);
         }
-        public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)
+
+
+
+
+		public void KeyPress(OpenTK.Input.KeyboardDevice Keyboard)
         {
             if (Keyboard [Key.P])
             {
@@ -171,21 +175,23 @@ namespace FunGuy.Modes
                 }
             }
 
-            #endregion
+			#endregion
 
-            #region CYCLE ITEMS
+			#region CYCLE ITEMS
 
-            int tIndex = 0;
+			// current thing index
+			int tIndex = Game.Engine.ThingIndex;
+
             if (Keyboard [Key.Period])
             {
                 tIndex = Game.Engine.ThingIndex + 1;
-                if ( tIndex > Game.Engine.TheMap.Things.Count -1) { tIndex = 0;}
+                if ( tIndex > Game.Engine.TheMap.Things.Count - 1 ) { tIndex = 0;}
                 Console.WriteLine("ThingIndex: {0}", tIndex);
             }
             else if (Keyboard [Key.Comma])
             {
                 tIndex = Game.Engine.ThingIndex - 1;
-                if ( tIndex < 0 ) { tIndex = Game.Engine.TheMap.Things.Count -1 ;}
+				if ( tIndex < 0 ) { tIndex = Game.Engine.TheMap.Things.Count -1 ;}
                 Console.WriteLine("ThingIndex: {0}", tIndex);
             }
             Game.Engine.ThingIndex = tIndex;
